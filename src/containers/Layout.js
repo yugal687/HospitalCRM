@@ -28,7 +28,7 @@ function Layout() {
       <div className="flex flex-col flex-1 w-full">
         <Header />
         
-        <CTA  />
+        <CTA  pathName={2} />
         <Main>
           <Suspense fallback={<ThemedSuspense />}>
             <Switch>
