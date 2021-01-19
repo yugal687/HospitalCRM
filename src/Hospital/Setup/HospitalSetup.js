@@ -24,6 +24,17 @@ import { Form, Button, Input, Select } from "antd"
 
 const { Option } = Select;
 
+const validateMessages = {
+    required: '${label} is required!',
+    types: {
+      email: '${label} is not a valid email!',
+      number: '${label} is not a valid number!',
+    },
+    number: {
+      range: '${label} must be between ${min} and ${max}',
+    },
+  };
+
 class HospitalSetup extends React.Component {
 
     constructor(props) {
@@ -66,8 +77,9 @@ class HospitalSetup extends React.Component {
                             </div>
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
-                                <Form>
-
+                                <Form
+                                validateMessages={validateMessages}
+                                >
                                     <Label>
                                         <span>Hospital Name</span>
                                         <Form.Item
@@ -76,7 +88,7 @@ class HospitalSetup extends React.Component {
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
-                                            <div>{this.state.HospitalName}</div>
+                                            
                                         </Form.Item>
                                     </Label>
                                     <Label>
@@ -92,11 +104,12 @@ class HospitalSetup extends React.Component {
                                     <Label>
                                         <span> Email:</span>
                                         <Form.Item
+                                            type= 'email'
                                             value={this.state.Email} 
                                             onChange = {(e)=> this.setState({Email : e.target.value})}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
-                                            <Input />
+                                            <Input  />
                                         </Form.Item>
                                     </Label>
                                     <Label>
