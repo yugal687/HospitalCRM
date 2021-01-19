@@ -41,7 +41,7 @@ class Region extends React.Component {
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
-            this.setState({regions : resp.data.regions});
+            this.state.regions = rep.data.regions
         });
     }
 
@@ -60,7 +60,7 @@ class Region extends React.Component {
     }
 
     render() {
-        console.log(this.state.regions);
+
         return (
             <div>
 
@@ -109,7 +109,7 @@ class Region extends React.Component {
                                 <TableBody>
                                     {
                                         this.state.regions.map(region => {
-                                            return <TableRow key={region.id}>
+                                            <TableRow key={region.id}>
                                                 <TableCell>
                                                     <div className="flex items-center text-sm">
                                                         <div>
@@ -129,61 +129,13 @@ class Region extends React.Component {
                                                 </TableCell>
                                             </TableRow>
                                         })
-
                                     }
-                                    {/*                                     
-                                    <TableRow >
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">sdsdsd</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center space-x-4">
-                                                <Button layout="link" size="icon" aria-label="Edit">
-                                                    <EditIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                                <Button layout="link" size="icon" aria-label="Delete">
-                                                    <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow >
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">sdsdsd</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center space-x-4">
-                                                <Button layout="link" size="icon" aria-label="Edit">
-                                                    <EditIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                                <Button layout="link" size="icon" aria-label="Delete">
-                                                    <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow> */}
-
-
                                 </TableBody>
                             </Table>
                             <TableFooter>
 
                             </TableFooter>
                         </TableContainer>
-
-                        <div>
-
-
-
-                        </div>
                     </div>
                 </div>
 
