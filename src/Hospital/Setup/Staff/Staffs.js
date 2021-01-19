@@ -125,27 +125,27 @@ class Staffs extends React.Component {
                                     </Label>
 
                                     <Label>
+                                    <Form.Item >
                                         <span> Select Region:</span>
                                     <Select defaultValue="lucy" style={{ width: 230 }}
                                     value={this.state.Region}  
                                     onChange = {(e)=> this.setState({Region : e.target.value})}>
 
                                             <Option value={this.state.Region}>Jack</Option>
-                                            
-
                                     </Select>
+                                    </Form.Item>
                                     </Label>
 
                                     <Label>
+                                    <Form.Item >
                                         <span> Role:</span>
                                     <Select defaultValue="lucy" style={{ width: 230 }}
                                     value={this.state.Role}  
                                     onChange = {(e)=> this.setState({Role : e.target.value})}>
 
-                                            <Option value={this.state.Role}>Jack</Option>
-                                            
-
+                                            <Option value={this.state.Role}>Jack</Option>        
                                     </Select>
+                                    </Form.Item>
                                     </Label>
 
                                     <Form.Item >
@@ -164,11 +164,12 @@ class Staffs extends React.Component {
                         <Table>
                             <TableHeader>
                                 <tr>
-                                    <TableCell>Hospital Name</TableCell>
+                                    <TableCell>Name</TableCell>
                                     <TableCell>Address</TableCell>
                                     <TableCell>Email</TableCell>
                                     <TableCell>Contact</TableCell>
                                     <TableCell>Region</TableCell>
+                                    <TableCell>Role</TableCell>
                                     <TableCell>Actions</TableCell>
                                     
                                 </tr>
@@ -208,6 +209,13 @@ class Staffs extends React.Component {
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="font-semibold">{this.state.Region}</p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">{this.state.Role}</p>
                                                 </div>
                                             </div>
                                         </TableCell>

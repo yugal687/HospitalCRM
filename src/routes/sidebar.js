@@ -48,6 +48,10 @@ const routes = [
         name: 'Category',
       },
       {
+        path: '/app/machine/sub-category',
+        name: 'SubCategory',
+      },
+      {
         path: '/app/machine/machinesetup',
         name: 'MachineSetup',
       },

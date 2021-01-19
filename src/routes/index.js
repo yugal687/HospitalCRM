@@ -10,6 +10,7 @@ const Region = lazy(() => import('../Hospital/Setup/Region'))
 const HospitalSetup = lazy(() => import('../Hospital/Setup/HospitalSetup'))
 const MachineSetup = lazy(() => import('../Hospital/Setup/Machine/MachineSetup'))
 const Category = lazy(() => import('../Hospital/Setup/Machine/Category'))
+const SubCategory = lazy(() => import('../Hospital/Setup/Machine/SubCategory'))
 const HospitalRep = lazy(() => import('../Hospital/Setup/Staff/HospitalRep'))
 const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
@@ -37,6 +38,10 @@ const routes = [
   {
     path: '/machine/category', // the url
     component: Category, // view rendered
+  },
+  {
+    path: '/machine/sub-category', // the url
+    component: SubCategory, // view rendered
   },
   {
     path: '/machine/machinesetup', // the url
