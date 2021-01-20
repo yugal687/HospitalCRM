@@ -141,7 +141,7 @@ class HospitalSetup extends React.Component {
                                         <span> Select Region:</span>
                                     <Select  style={{ width: 230 }}
                                     value={this.state.region}  
-                                    onChange = {(e)=> this.setState({region: e.target.value})}>
+                                    onChange = {(e)=> this.setState({region: e})}>
                                      { this.state.regions.map((region) => {
 
                                      return <Option key={region.id} value={region.id}>{region.region_name}</Option>
@@ -229,7 +229,6 @@ class HospitalSetup extends React.Component {
                             </TableBody>
                         </Table>
                         <TableFooter>
-                            
                         </TableFooter>
                     </TableContainer>
                     </div>
