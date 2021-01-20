@@ -16,10 +16,14 @@ import {
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
 
+import { Input, HelperText, Label, Select, Textarea } from '@windmill/react-ui'
+
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
 // make a copy of the data, for the second table
 const response2 = response.concat([])
+
+
 
 export default function HospitalSetup () {
 
@@ -81,6 +85,13 @@ export default function HospitalSetup () {
                         </div>
                         {/* Form */}
                         <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
+
+                        <Label>
+                        <span>Invalid input</span>
+                        <Input className="mt-1" valid={false} placeholder="Jane Doe" />
+                        <HelperText valid={false}>Your password is too short.</HelperText>
+                        </Label>
+
                             <p class="font-bold text-sm uppercase mb-2 text-blue-darker">Item description:</p>
                             <span class="text-grey-darker">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

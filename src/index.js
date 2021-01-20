@@ -7,6 +7,8 @@ import ThemedSuspense from './components/ThemedSuspense'
 import { Windmill } from '@windmill/react-ui'
 import * as serviceWorker from './serviceWorker'
 
+import 'antd/dist/antd.css';
+
 // if (process.env.NODE_ENV !== 'production') {
 //   const axe = require('react-axe')
 //   axe(React, ReactDOM, 1000)
