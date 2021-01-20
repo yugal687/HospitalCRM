@@ -15,6 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
+import axios from "axios"
 
 
 
@@ -44,14 +45,26 @@ class HospitalSetup extends React.Component {
             Email: '',
             Address: '',
             ContactNo: '',
-            Region: '',
+            region: '',
+            regions: [],
          };
 
        
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
+    componentDidMount() {
+        this.getRegion();
+    }
     
+    getRegion(){
+        axios.get('http://127.0.0.1:8000/api/region', 
+        ).then((resp) => {
+            this.setState({regions: resp.data.regions })
+        });
+        
+    }
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.HospitalName + this.state.Address + this.state.Email + this.state.ContactNo +
@@ -126,12 +139,13 @@ class HospitalSetup extends React.Component {
                                     <Label>
                                     <Form.Item>
                                         <span> Select Region:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.Region}  
-                                    onChange = {(e)=> this.setState({Region : e.target.value})}>
+                                    <Select  style={{ width: 230 }}
+                                    value={this.state.region}  
+                                    onChange = {(e)=> this.setState({region: e.target.value})}>
+                                     { this.state.regions.map((region) => {
 
-                                            <Option value={this.state.Region}>Jack</Option>
-                                            
+                                     return <Option key={region.id} value={region.id}>{region.region_name}</Option>
+                                    }) }
 
                                     </Select>
                                     </Form.Item>

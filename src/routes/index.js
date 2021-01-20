@@ -5,6 +5,7 @@ import { lazy } from 'react'
 
 
 
+
 // use lazy for better code splitting, a.k.a. load faster
 const Region = lazy(() => import('../Hospital/Setup/Region'))
 const HospitalSetup = lazy(() => import('../Hospital/Setup/HospitalSetup'))
@@ -14,6 +15,8 @@ const SubCategory = lazy(() => import('../Hospital/Setup/Machine/SubCategory'))
 const HospitalRep = lazy(() => import('../Hospital/Setup/Staff/HospitalRep'))
 const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
+const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
+const BranchManagerPortal = lazy(() => import('../Hospital/branchManager/BranchManagerPortal'))
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
@@ -67,6 +70,15 @@ const routes = [
     path: '/hospitalandmachine', // the url
     component: HospitalAndMachines, // view rendered
   },
+  {
+    path: '/serviceHead/service-head-portal', // the url
+    component: ServiceHeadPortal, // view rendered
+  },
+  {
+    path: '/branchManager/branch-manager-portal',
+    component: BranchManagerPortal,
+  },
+  
   {
     path: '/dashboard', // the url
     component: Dashboard, // view rendered
