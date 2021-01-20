@@ -22,7 +22,7 @@ import SectionTitle from '../../components/Typography/SectionTitle'
 
 import { Form, Button, Input } from "antd"
 
-
+//Antreact
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
@@ -41,7 +41,7 @@ class Region extends React.Component {
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
-            this.setState({regions : resp.data.regions});
+            this.state.regions = resp.data.regions;
         });
     }
 
@@ -60,7 +60,7 @@ class Region extends React.Component {
     }
 
     render() {
-        console.log(this.state.regions);
+
         return (
             <div>
 
@@ -109,25 +109,25 @@ class Region extends React.Component {
                                 <TableBody>
                                     {
                                         this.state.regions.map(region => {
-                                            return <TableRow key={region.id}>
-                                                <TableCell>
-                                                    <div className="flex items-center text-sm">
-                                                        <div>
-                                                            <p className="font-semibold">{region.region_name}</p>
-                                                        </div>
-                                                    </div>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <div className="flex items-center space-x-4">
-                                                        <Button layout="link" size="icon" aria-label="Edit">
-                                                            <EditIcon className="w-5 h-5" aria-hidden="true" />
-                                                        </Button>
-                                                        <Button layout="link" size="icon" aria-label="Delete">
-                                                            <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                                                        </Button>
-                                                    </div>
-                                                </TableCell>
-                                            </TableRow>
+                                            // return <TableRow key={region.id}>
+                                            //     <TableCell>
+                                            //         <div className="flex items-center text-sm">
+                                            //             <div>
+                                            //                 <p className="font-semibold">{region.region_name}</p>
+                                            //             </div>
+                                            //         </div>
+                                            //     </TableCell>
+                                            //     <TableCell>
+                                            //         <div className="flex items-center space-x-4">
+                                            //             <Button layout="link" size="icon" aria-label="Edit">
+                                            //                 <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                            //             </Button>
+                                            //             <Button layout="link" size="icon" aria-label="Delete">
+                                            //                 <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                            //             </Button>
+                                            //         </div>
+                                            //     </TableCell>
+                                            // </TableRow>
                                         })
 
                                     }
@@ -179,11 +179,17 @@ class Region extends React.Component {
                             </TableFooter>
                         </TableContainer>
 
-                        <div>
+                                        <div>
+                                            {
+                                                
+                                                this.state.regions.map(region =>{
+                                          return  <li>{region.id}</li>
+                                        })
+
+                                        }
 
 
-
-                        </div>
+                                        </div>
                     </div>
                 </div>
 

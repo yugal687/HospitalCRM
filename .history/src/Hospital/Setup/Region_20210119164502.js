@@ -22,7 +22,7 @@ import SectionTitle from '../../components/Typography/SectionTitle'
 
 import { Form, Button, Input } from "antd"
 
-
+//Antreact
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
@@ -38,10 +38,10 @@ class Region extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount() {
+    componentWillMount() {
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
-            this.setState({regions : resp.data.regions});
+            this.state.regions = resp.data.regions;
         });
     }
 
@@ -60,7 +60,9 @@ class Region extends React.Component {
     }
 
     render() {
-        console.log(this.state.regions);
+        let regions = this.state.regions;
+            console.log(regions);
+      
         return (
             <div>
 
@@ -180,7 +182,7 @@ class Region extends React.Component {
                         </TableContainer>
 
                         <div>
-
+                          
 
 
                         </div>

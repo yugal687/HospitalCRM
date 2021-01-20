@@ -22,7 +22,7 @@ import SectionTitle from '../../components/Typography/SectionTitle'
 
 import { Form, Button, Input } from "antd"
 
-
+//Antreact
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
@@ -41,7 +41,7 @@ class Region extends React.Component {
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
-            this.setState({regions : resp.data.regions});
+            this.state.regions = resp.data.regions;
         });
     }
 
@@ -60,7 +60,7 @@ class Region extends React.Component {
     }
 
     render() {
-        console.log(this.state.regions);
+
         return (
             <div>
 
@@ -107,9 +107,9 @@ class Region extends React.Component {
                                     </tr>
                                 </TableHeader>
                                 <TableBody>
-                                    {
+                                    { 
                                         this.state.regions.map(region => {
-                                            return <TableRow key={region.id}>
+                                            <TableRow key={region.id}>
                                                 <TableCell>
                                                     <div className="flex items-center text-sm">
                                                         <div>
@@ -129,9 +129,9 @@ class Region extends React.Component {
                                                 </TableCell>
                                             </TableRow>
                                         })
-
+                                    } 
                                     }
-                                    {/*                                     
+{/*                                     
                                     <TableRow >
                                         <TableCell>
                                             <div className="flex items-center text-sm">
@@ -178,12 +178,6 @@ class Region extends React.Component {
 
                             </TableFooter>
                         </TableContainer>
-
-                        <div>
-
-
-
-                        </div>
                     </div>
                 </div>
 
