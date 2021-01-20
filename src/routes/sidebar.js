@@ -65,6 +65,21 @@ const routes = [
     name: 'HospitalAndMachine', // name that appear in Sidebar
   },
   {
+    path: '/app/problemreporting', // the url
+    icon: 'HomeIcon', // the component being exported from icons/index.js
+    name: 'ProblemReporting', // name that appear in Sidebar
+  },
+  {
+    path: '/app/reportedproblem', // the url
+    icon: 'HomeIcon', // the component being exported from icons/index.js
+    name: 'ReportedProblem', // name that appear in Sidebar
+  },
+  {
+    path: '/app/solvedproblem', // the url
+    icon: 'HomeIcon', // the component being exported from icons/index.js
+    name: 'SolvedProblem', // name that appear in Sidebar
+  },
+  {
     path: '/app/dashboard', // the url
     icon: 'HomeIcon', // the component being exported from icons/index.js
     name: 'Dashboard', // name that appear in Sidebar

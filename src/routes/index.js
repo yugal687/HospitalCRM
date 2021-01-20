@@ -14,6 +14,9 @@ const SubCategory = lazy(() => import('../Hospital/Setup/Machine/SubCategory'))
 const HospitalRep = lazy(() => import('../Hospital/Setup/Staff/HospitalRep'))
 const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
+const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
+const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
+const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
@@ -66,6 +69,18 @@ const routes = [
   {
     path: '/hospitalandmachine', // the url
     component: HospitalAndMachines, // view rendered
+  },
+  {
+    path: '/problemreporting', // the url
+    component: ProblemReporting, // view rendered
+  },
+  {
+    path: '/reportedproblem', // the url
+    component: ReportedProblem, // view rendered
+  },
+  {
+    path: '/solvedproblem', // the url
+    component: SolvedProblem, // view rendered
   },
   {
     path: '/dashboard', // the url
