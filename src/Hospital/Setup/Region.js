@@ -54,6 +54,7 @@ class Region extends React.Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
         alert('A name was submitted: ' + this.state.name);
         axios.post('http://127.0.0.1:8000/api/region', {
             region_name: this.state.name
@@ -61,7 +62,6 @@ class Region extends React.Component {
             alert(resp.data.message);
             this.getAllRegions();
         });
-        event.preventDefault();
     }
 
     render() {
