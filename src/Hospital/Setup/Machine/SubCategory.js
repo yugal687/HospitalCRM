@@ -35,16 +35,14 @@ const validateMessages = {
     },
   };
 
-class MachineSetup extends React.Component {
+class SubCategory extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { 
             category: '',
-            subCategory: '',
-            machineName: '',
-            modelNumber: '',
-            machineType: '',
+            subCategoryName: '',
+            
          };
 
        
@@ -54,8 +52,7 @@ class MachineSetup extends React.Component {
     
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.category + this.state.subCategory + this.state.machineName + this.state.modelNumber +
-        this.state.machineType
+        alert('A name was submitted: ' + this.state.category + this.state.subCategoryName 
         );
 
         event.preventDefault();
@@ -73,17 +70,16 @@ class MachineSetup extends React.Component {
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
                             <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
-                                <p>Machine Setup</p>
+                                <p>Machine Category Setup</p>
                             </div>
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
                                 validateMessages={validateMessages}
-                                >
-
-                                   <Label>
-                                    <Form.Item>
-                                        <span>Machine Category:</span>
+                                >                        
+                                    <Label>
+                                    <Form.Item >
+                                        <span> Category:</span>
                                     <Select defaultValue="lucy" style={{ width: 230 }}
                                     value={this.state.category}  
                                     onChange = {(e)=> this.setState({category : e.target.value})}>
@@ -95,52 +91,18 @@ class MachineSetup extends React.Component {
                                     </Form.Item>
                                     </Label>
 
-
                                     <Label>
-                                    <Form.Item>
-                                        <span> Sub-Category:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.subCategory}  
-                                    onChange = {(e)=> this.setState({subCategory : e.target.value})}>
-
-                                            <Option value={this.state.subCategory}>Jack</Option>
-                                            
-
-                                    </Select>
-                                    </Form.Item>
-                                    </Label>
-                                    <Label>
-                                        <span>Machine Name</span>
+                                        <span>Sub-Category Name:</span>
                                         <Form.Item
-                                            value={this.state.machineName} 
-                                            onChange = {(e)=> this.setState({machineName : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
+                                            value={this.state.subCategoryName} 
+                                            onChange = {(e)=> this.setState({subCategoryName : e.target.value})}
+                                            rules={[{ required: true,  }]}
                                         >
                                             <Input />
                                             
                                         </Form.Item>
                                     </Label>
-                                    <Label>
-                                        <span> Machine's Model Number</span>
-                                        <Form.Item
-                                            value={this.state.modelNumber} 
-                                            onChange = {(e)=> this.setState({modelNumber : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
-                                        >
-                                            <Input />
-                                        </Form.Item>
-                                    </Label>
-                                    <Label>
-                                        <span>Machine Type</span>
-                                        <Form.Item
-                                            
-                                            value={this.state.machineType} 
-                                            onChange = {(e)=> this.setState({machineType : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
-                                        >
-                                            <Input  />
-                                        </Form.Item>
-                                    </Label>
+
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
                                             Submit
@@ -158,16 +120,13 @@ class MachineSetup extends React.Component {
                             <TableHeader>
                                 <tr>
                                     <TableCell>Category</TableCell>
-                                    <TableCell>Sub-category</TableCell>
-                                    <TableCell>Machine Name</TableCell>
-                                    <TableCell>Model Number</TableCell>
-                                    <TableCell>Machine Type</TableCell>
+                                    <TableCell>Sub-Category</TableCell>
                                     <TableCell>Actions</TableCell>
+                                    
                                     
                                 </tr>
                             </TableHeader>
-                            <TableBody>
-                                
+                            <TableBody>               
                                     <TableRow>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
@@ -179,28 +138,7 @@ class MachineSetup extends React.Component {
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.subCategory}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.machineName}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.modelNumber}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.machineType}</p>
+                                                    <p className="font-semibold">{this.state.subCategoryName}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -289,4 +227,4 @@ class MachineSetup extends React.Component {
     }
 }
 
-export default MachineSetup
+export default SubCategory

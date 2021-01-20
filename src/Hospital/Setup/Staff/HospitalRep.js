@@ -76,7 +76,7 @@ function closeDeleteModal(){
                     <div className="w-full border-1 shadow-md">
                         {/* Title */}
                         <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
-                            <p>Add region</p>
+                            <p>Add Region</p>
                         </div>
                         {/* Form */}
                         <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">

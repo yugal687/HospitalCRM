@@ -1,4 +1,5 @@
 import React from 'react'
+import routes from "../routes/sidebar"
 
 function CTA() {
   return (
