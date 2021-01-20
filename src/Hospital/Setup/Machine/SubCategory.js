@@ -35,13 +35,13 @@ const validateMessages = {
     },
   };
 
-class Category extends React.Component {
+class SubCategory extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { 
             category: '',
-            subCategory: '',
+            subCategoryName: '',
             
          };
 
@@ -52,7 +52,7 @@ class Category extends React.Component {
     
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.category + this.state.subCategory 
+        alert('A name was submitted: ' + this.state.category + this.state.subCategoryName 
         );
 
         event.preventDefault();
@@ -76,31 +76,31 @@ class Category extends React.Component {
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
                                 validateMessages={validateMessages}
-                                >
+                                >                        
                                     <Label>
-                                        <span>Category:</span>
+                                    <Form.Item >
+                                        <span> Category:</span>
+                                    <Select defaultValue="lucy" style={{ width: 230 }}
+                                    value={this.state.category}  
+                                    onChange = {(e)=> this.setState({category : e.target.value})}>
+
+                                            <Option value={this.state.category}>Jack</Option>
+                                            
+
+                                    </Select>
+                                    </Form.Item>
+                                    </Label>
+
+                                    <Label>
+                                        <span>Sub-Category Name:</span>
                                         <Form.Item
-                                            value={this.state.category} 
-                                            onChange = {(e)=> this.setState({category : e.target.value})}
+                                            value={this.state.subCategoryName} 
+                                            onChange = {(e)=> this.setState({subCategoryName : e.target.value})}
                                             rules={[{ required: true,  }]}
                                         >
                                             <Input />
                                             
                                         </Form.Item>
-                                    </Label>
-                                    
-                                    <Label>
-                                    <Form.Item >
-                                        <span> Sub-Category:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.subCategory}  
-                                    onChange = {(e)=> this.setState({subCategory : e.target.value})}>
-
-                                            <Option value={this.state.subCategory}>Jack</Option>
-                                            
-
-                                    </Select>
-                                    </Form.Item>
                                     </Label>
 
                                     <Form.Item >
@@ -138,7 +138,7 @@ class Category extends React.Component {
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.subCategory}</p>
+                                                    <p className="font-semibold">{this.state.subCategoryName}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -227,4 +227,4 @@ class Category extends React.Component {
     }
 }
 
-export default Category
+export default SubCategory

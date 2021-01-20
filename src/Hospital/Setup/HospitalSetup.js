@@ -124,6 +124,7 @@ class HospitalSetup extends React.Component {
                                     </Label>
 
                                     <Label>
+                                    <Form.Item>
                                         <span> Select Region:</span>
                                     <Select defaultValue="lucy" style={{ width: 230 }}
                                     value={this.state.Region}  
@@ -133,6 +134,7 @@ class HospitalSetup extends React.Component {
                                             
 
                                     </Select>
+                                    </Form.Item>
                                     </Label>
 
                                     <Form.Item >
