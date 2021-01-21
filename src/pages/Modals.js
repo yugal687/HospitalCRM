@@ -75,7 +75,7 @@ function Modals() {
         </ModalFooter>
       </Modal> */}
 
-        <Modal style={{height: "500px"}} isOpen={isModalOpen} onClose={closeModal}>
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ModalHeader className="text-center text-3xl">Staff Task Assignment</ModalHeader>
         <div className="grid grid-cols-2">
           <div className="col-span-1">
