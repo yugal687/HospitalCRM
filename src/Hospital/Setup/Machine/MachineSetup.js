@@ -47,6 +47,7 @@ class MachineSetup extends React.Component {
             modelName: '',
             machineType: '',
             machines: [],
+            
          };
 
        
@@ -62,7 +63,9 @@ class MachineSetup extends React.Component {
     getAllMachines() {
         axios.get('http://127.0.0.1:8000/api/machine'
         ).then(resp => {
-            this.setState({machines : resp.data.machines});
+            this.setState({ 
+                machines : resp.data.machines
+            });
         });
     }
     getOnlyMachine() {
@@ -86,6 +89,7 @@ class MachineSetup extends React.Component {
         }).then((resp) => {
             alert(resp.data.message);
             this.getAllMachines();
+           
         });
 
         event.preventDefault();

@@ -51,7 +51,16 @@ class Category extends React.Component {
 
     componentDidMount() {
         this.getAllMachines();
+        // this.getMachines();
      }
+
+     // to render machines data on table
+    //  getMachines(){
+    //     axios.get('http://127.0.0.1:8000/api/machine'
+    //     ).then(resp => {
+    //         this.setState({machines : resp.data.machines});
+    //     });
+    //  }
 
     getAllMachines() {
         axios.get('http://127.0.0.1:8000/api/category-only'
