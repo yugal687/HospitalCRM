@@ -15,6 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../../icons'
+import axios from "axios"
 
 
 
@@ -41,19 +42,34 @@ class Category extends React.Component {
         super(props);
         this.state = { 
             category: '',
-            subCategory: '',
-            
+            machines: [],
          };
 
        
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    
+    componentDidMount() {
+        this.getAllMachines();
+     }
+
+    getAllMachines() {
+        axios.get('http://127.0.0.1:8000/api/category-only'
+        ).then(resp => {
+            this.setState({machines : resp.data.machines});
+        });
+    }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.category + this.state.subCategory 
+        alert('A name was submitted: ' + this.state.category 
         );
+        axios.post('http://127.0.0.1:8000/api/machine', {
+          category_name: this.state.category,
+            
+        }).then((resp) => {
+            alert(resp.data.message);
+            this.getAllMachines();
+        });
 
         event.preventDefault();
     }
@@ -89,19 +105,7 @@ class Category extends React.Component {
                                         </Form.Item>
                                     </Label>
                                     
-                                    <Label>
-                                    <Form.Item >
-                                        <span> Sub-Category:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.subCategory}  
-                                    onChange = {(e)=> this.setState({subCategory : e.target.value})}>
-
-                                            <Option value={this.state.subCategory}>Jack</Option>
-                                            
-
-                                    </Select>
-                                    </Form.Item>
-                                    </Label>
+                                    
 
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
@@ -120,25 +124,21 @@ class Category extends React.Component {
                             <TableHeader>
                                 <tr>
                                     <TableCell>Category</TableCell>
-                                    <TableCell>Sub-Category</TableCell>
+                                    
                                     <TableCell>Actions</TableCell>
                                     
                                     
                                 </tr>
                             </TableHeader>
-                            <TableBody>               
-                                    <TableRow>
+                            <TableBody>    
+
+                                {
+                                    this.state.machines.map( (machine) => {
+                                        return    <TableRow key={machine.id}>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.category}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.subCategory}</p>
+                                                    <p className="font-semibold">{machine.category_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -153,7 +153,7 @@ class Category extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                
+                                    })}
                             </TableBody>
                         </Table>
                         <TableFooter>

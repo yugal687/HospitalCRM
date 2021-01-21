@@ -15,6 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
+import axios from "axios"
 
 
 
@@ -42,17 +43,39 @@ class HospitalAndMachines extends React.Component {
         this.state = { 
             hospital: '',
             machine: '',  
+            machines: [],
+            hospitals: [],
          };
 
        
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    
+    componentDidMount() {
+        this.getAllMachines();
+        this.getHospitalSetup();
+     }
+
+    getAllMachines() {
+        axios.get('http://127.0.0.1:8000/api/machine'
+        ).then(resp => {
+            this.setState({machines : resp.data.machines});
+        });
+    }
+
+    getHospitalSetup() {
+        axios.get('http://127.0.0.1:8000/api/hospital', 
+        ).then((resp) => {
+            this.setState({
+                hospitals: resp.data.hospitals
+             })
+        });
+    }
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.hospital + this.state.machine 
         );
+        
 
         event.preventDefault();
     }
@@ -84,7 +107,10 @@ class HospitalAndMachines extends React.Component {
                                     value={this.state.hospital}  
                                     onChange = {(e)=> this.setState({hospital : e.target.value})}>
 
-                                            <Option value={this.state.hospital}>Jack</Option>
+                                        { this.state.hospitals.map((hospital) => {
+
+                                        return  <Option key={hospital.id}  value={hospital.id}>{hospital.hospital_name}</Option>
+                                        })}
                                             
 
                                     </Select>
@@ -97,9 +123,12 @@ class HospitalAndMachines extends React.Component {
                                         <span> Machine:</span>
                                     <Select defaultValue="lucy" style={{ width: 230 }}
                                     value={this.state.machine}  
-                                    onChange = {(e)=> this.setState({machine : e.target.value})}>
+                                    onChange = {(e)=> this.setState({machine : e})}>
 
-                                            <Option value={this.state.machine}>Jack</Option>
+                                            { this.state.machines.map((machine) => {
+
+                                            return  <Option key={machine.id} value={machine.id}>{machine.machine_name}</Option>
+                                            })}
                                             
 
                                     </Select>

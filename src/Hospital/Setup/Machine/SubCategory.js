@@ -15,6 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../../icons'
+import axios from "axios"
 
 
 
@@ -42,6 +43,7 @@ class SubCategory extends React.Component {
         this.state = { 
             category: '',
             subCategoryName: '',
+            machines: [],
             
          };
 
@@ -49,11 +51,31 @@ class SubCategory extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.getAllMachines();
+     }
+
+    getAllMachines() {
+        axios.get('http://127.0.0.1:8000/api/category-only'
+        ).then(resp => {
+            this.setState({machines : resp.data.machines});
+           
+        });
+    }
     
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.category + this.state.subCategoryName 
         );
+        axios.post('http://127.0.0.1:8000/api/machine', {
+          category_name: this.state.subCategoryName,
+          category_id: 1,
+          parent_id: this.state.id
+            
+        }).then((resp) => {
+            alert(resp.data.message);
+            this.getAllMachines();
+        });
 
         event.preventDefault();
     }
@@ -82,9 +104,12 @@ class SubCategory extends React.Component {
                                         <span> Category:</span>
                                     <Select defaultValue="lucy" style={{ width: 230 }}
                                     value={this.state.category}  
-                                    onChange = {(e)=> this.setState({category : e.target.value})}>
+                                    onChange = {(e)=> this.setState({category : e})}>
 
-                                            <Option value={this.state.category}>Jack</Option>
+                                        { this.state.machines.map((machine) => {
+
+                                        return  <Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
+                                        })}
                                             
 
                                     </Select>
@@ -126,19 +151,25 @@ class SubCategory extends React.Component {
                                     
                                 </tr>
                             </TableHeader>
-                            <TableBody>               
-                                    <TableRow>
+                            <TableBody>     
+
+                                   {
+                                    this.state.machines.map( (machine) => {
+                                        return  <TableRow key={machine.id}>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.category}</p>
+                                                    <p className="font-semibold">{machine.category_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.subCategoryName}</p>
+                                                {
+                                    this.state.machines.map( (machine) => {
+                                        return <p key={machine.children.id} className="font-semibold">{machine.children.category_name}</p>
+                                    })}
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -153,7 +184,7 @@ class SubCategory extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                
+                                    })}
                             </TableBody>
                         </Table>
                         <TableFooter>

@@ -48,8 +48,6 @@ const routes = [
         name: 'ServiceHeadPortal',
       },
       
-      
-      
     ],
   },
 

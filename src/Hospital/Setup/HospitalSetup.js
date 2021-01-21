@@ -87,6 +87,7 @@ class HospitalSetup extends React.Component {
         }).then((resp) => {
             alert(resp.data.message);
             this.getHospitalSetup();
+            
         });
         event.preventDefault();
         
@@ -229,7 +230,7 @@ class HospitalSetup extends React.Component {
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{hospital.region_id}</p>
+                                                    <p className="font-semibold">{hospital.region.region_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
