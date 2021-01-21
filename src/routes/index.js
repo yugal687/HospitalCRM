@@ -5,7 +5,6 @@ import { lazy } from 'react'
 
 
 
-
 // use lazy for better code splitting, a.k.a. load faster
 const Region = lazy(() => import('../Hospital/Setup/Region'))
 const HospitalSetup = lazy(() => import('../Hospital/Setup/HospitalSetup'))
@@ -17,6 +16,11 @@ const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
 const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
 const BranchManagerPortal = lazy(() => import('../Hospital/branchManager/BranchManagerPortal'))
+const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
+const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
+const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
+const IssuesReported = lazy(() => import('../Hospital/OnFieldStaffPortal/IssuesReported'))
+const ReviewProblem = lazy(() => import('../Hospital/OnFieldStaffPortal/ReviewProblem'))
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
@@ -78,7 +82,27 @@ const routes = [
     path: '/branchManager/branch-manager-portal',
     component: BranchManagerPortal,
   },
-  
+
+  {
+    path: '/hospitalRepresentativePortal/problem-reporting', // the url
+    component: ProblemReporting, // view rendered
+  },
+  {
+    path: '/hospitalRepresentativePortal/reported-problem', // the url
+    component: ReportedProblem, // view rendered
+  },
+  {
+    path: '/hospitalRepresentativePortal/solved-problem', // the url
+    component: SolvedProblem, // view rendered
+  },
+  {
+    path: '/onFieldStaff/issues-reported', // the url
+    component: IssuesReported, // view rendered
+  },
+  {
+    path: '/onFieldStaff/review-problem', // the url
+    component: ReviewProblem, // view rendered
+  },
   {
     path: '/dashboard', // the url
     component: Dashboard, // view rendered

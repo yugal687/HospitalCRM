@@ -15,158 +15,112 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-import axios from "axios"
-
-
-import { Form, Button, Input, Select } from "antd"
 
 
 
+import { Form, Button, Input, Select, DatePicker, TimePicker } from "antd"
+import moment from 'moment';
 const { Option } = Select;
 
 const validateMessages = {
     required: '${label} is required!',
     types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
+        email: '${label} is not a valid email!',
+        number: '${label} is not a valid number!',
     },
     number: {
-      range: '${label} must be between ${min} and ${max}',
+        range: '${label} must be between ${min} and ${max}',
     },
-  };
+};
 
-class HospitalSetup extends React.Component {
+class ProblemReporting extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
-            HospitalName: '',
-            Email: '',
-            Address: '',
-            ContactNo: '',
-            region: '',
-            regions: [],
-            hospitals: [],
-         };
+        this.state = {
+            machine_id: '',
+            problem: '',
+            issue_occured_date: '',
+            issue_occured_time: '',
+        };
 
-       
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
-    componentDidMount() {
-        this.getRegion();
-        this.getHospitalSetup();
-    }
-    
-    getRegion(){
-        axios.get('http://127.0.0.1:8000/api/region', 
-        ).then((resp) => {
-            this.setState({regions: resp.data.regions })
-        });
-        
-    }
-    getHospitalSetup() {
-        axios.get('http://127.0.0.1:8000/api/hospital', 
-        ).then((resp) => {
-            this.setState({
-                hospitals: resp.data.hospitals
-             })
-        });
-    }
-
     handleSubmit(event) {
-        alert('A name was submitted: '
-        );
-        axios.post('http://127.0.0.1:8000/api/hospital', {
-            hospital_name: this.state.HospitalName,
-            address: this.state.Address,
-            contact_number: this.state.ContactNo,
-            region_id: this.state.region
-        }).then((resp) => {
-            alert(resp.data.message);
-            this.getHospitalSetup();
-        });
+        alert('A name was submitted: ' + this.state.machine_id + this.state.problem + this.state.issue_occured_date + this.state.issue_occured_time);
+
         event.preventDefault();
-        
     }
-
-
     render() {
-
         return (
             <div>
 
-                <div className="grid grid-cols-1 gap-6 mt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
                     {/* Form Section */}
-                    <div className="">
+                    <div className="sm:col-span-1">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
                             <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
-                                <p>Hospital Setup</p>
+                                <p>Problem Reporting</p>
                             </div>
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
-                                validateMessages={validateMessages}
+                                    validateMessages={validateMessages}
                                 >
+
+                                    {/* Select Equipment */}
                                     <Label>
-                                        <span>Hospital Name</span>
-                                        <Form.Item
-                                            value={this.state.HospitalName} 
-                                            onChange = {(e)=> this.setState({HospitalName : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
-                                        >
-                                            <Input />
-                                            
-                                        </Form.Item>
-                                    </Label>
-                                    <Label>
-                                        <span> Address</span>
-                                        <Form.Item
-                                            value={this.state.Address} 
-                                            onChange = {(e)=> this.setState({Address : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
-                                        >
-                                            <Input />
-                                        </Form.Item>
-                                    </Label>
-                                    <Label>
-                                        <span> Email:</span>
-                                        <Form.Item
-                                            type= 'email'
-                                            value={this.state.Email} 
-                                            onChange = {(e)=> this.setState({Email : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
-                                        >
-                                            <Input  />
-                                        </Form.Item>
-                                    </Label>
-                                    <Label>
-                                        <span> Contact:</span>
-                                        <Form.Item
-                                            value={this.state.ContactNo} 
-                                            onChange = {(e)=> this.setState({ContactNo : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
-                                        >
-                                            <Input />
+                                        <span> Select Equipment:</span>
+                                        <Form.Item >
+                                            <Select
+                                                placeholder="Select an equipment with problem"
+                                                value={this.state.machine_id}
+                                                onChange={(e) => this.setState({ machine_id: e.target.value })}>
+
+                                                <Option value={this.state.machine_id}>Machine 1</Option>
+                                            </Select>
                                         </Form.Item>
                                     </Label>
 
                                     <Label>
-                                    <Form.Item>
-                                        <span> Select Region:</span>
-                                    <Select  style={{ width: 230 }}
-                                    value={this.state.region}  
-                                    onChange = {(e)=> this.setState({region: e})}>
-                                     { this.state.regions.map((region) => {
+                                        <span>Problem:</span>
+                                        <Form.Item
+                                            value={this.state.problem}
+                                            onChange={(e) => this.setState({ problem: e.target.value })}
+                                            rules={[{ required: true, }]}
+                                        >
+                                            <Input.TextArea rows={4}/>
 
-                                     return <Option key={region.id} value={region.id}>{region.region_name}</Option>
-                                    }) }
-
-                                    </Select>
-                                    </Form.Item>
+                                        </Form.Item>
                                     </Label>
+
+
+                                    <Label>
+                                        <span> Problem Occured Date:</span>
+                                        <Form.Item
+                                            value={this.state.issue_occured_date}
+                                            onChange={(e) => this.setState({ issue_occured_date: e.target.value })}
+                                            rules={[{ required: true, }]}
+                                        >
+                                            <DatePicker />
+                                        </Form.Item>
+                                    </Label>
+
+                                    <Label>
+                                        <span> Problem Occured Time:</span>
+                                        <Form.Item
+                                            value={this.state.issue_occured_time}
+                                            onChange={(e) => this.setState({ issue_occured_time: e.target.value })}
+                                            rules={[{ required: true, }]}
+                                        >
+                                            <TimePicker defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                                        </Form.Item>
+                                    </Label>                                    
+
 
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
@@ -178,57 +132,48 @@ class HospitalSetup extends React.Component {
                         </div>
                     </div>
                     {/* Table Section */}
-                    <div className="">
+                    <div className="sm:col-span-2">
                         {/* Tables */}
                         <TableContainer className="mb-8">
-                        <Table>
-                            <TableHeader>
-                                <tr>
-                                    <TableCell>Hospital Name</TableCell>
-                                    <TableCell>Address</TableCell>
-                                    <TableCell>Email</TableCell>
-                                    <TableCell>Contact</TableCell>
-                                    <TableCell>Region</TableCell>
-                                    <TableCell>Actions</TableCell>
-                                    
-                                </tr>
-                            </TableHeader>
-                            <TableBody>
-                                {
-                                    this.state.hospitals.map( (hospital) => {
-                                        return  <TableRow key={hospital.id}>
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableCell>Equipment</TableCell>
+                                        <TableCell>Problem</TableCell>
+                                        <TableCell>Occured Date</TableCell>
+                                        <TableCell>Occured Time</TableCell>
+                                        <TableCell>Actions</TableCell>
+
+                                    </tr>
+                                </TableHeader>
+                                <TableBody>
+
+                                    <TableRow>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{hospital.hospital_name}</p>
+                                                    <p className="font-semibold">{this.state.machine_id}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{hospital.address}</p>
+                                                    <p className="font-semibold">{this.state.problem}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">abcxyz@gmail.com</p>
+                                                    <p className="font-semibold">{this.state.issue_occured_date}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{hospital.contact_number}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{hospital.region_id}</p>
+                                                    <p className="font-semibold">{this.state.issue_occured_time}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -243,13 +188,13 @@ class HospitalSetup extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                  })
-                                }
-                            </TableBody>
-                        </Table>
-                        <TableFooter>
-                        </TableFooter>
-                    </TableContainer>
+
+                                </TableBody>
+                            </Table>
+                            <TableFooter>
+
+                            </TableFooter>
+                        </TableContainer>
                     </div>
                 </div>
 
@@ -317,4 +262,4 @@ class HospitalSetup extends React.Component {
     }
 }
 
-export default HospitalSetup
+export default ProblemReporting

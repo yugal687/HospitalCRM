@@ -96,6 +96,42 @@ const routes = [
     icon: 'HomeIcon', // the component being exported from icons/index.js
     name: 'HospitalAndMachine', // name that appear in Sidebar
   },
+  // Hospital Representative Portal
+  {
+    icon: 'PagesIcon',
+    name: 'HospitalRepresentativePortal',
+    routes: [
+      // submenu
+      {
+        path: '/app/hospitalRepresentativePortal/problem-reporting',
+        name: 'ProblemReporting',
+      },
+      {
+        path: '/app/hospitalRepresentativePortal/reported-problem',
+        name: 'ReportedProblem',
+      },
+      {
+        path: '/app/hospitalRepresentativePortal/solved-problem',
+        name: 'SolvedProblem',
+      },
+    ],
+  },
+  // On Field Staff Portal
+  {
+    icon: 'PagesIcon',
+    name: 'OnFieldStaffPortal',
+    routes: [
+      // submenu
+      {
+        path: '/app/onFieldStaff/issues-reported',
+        name: 'IssuesReported',
+      },
+      {
+        path: '/app/onFieldStaff/review-problem',
+        name: 'ReviewProblem',
+      },
+    ],
+  },
   {
     path: '/app/dashboard', // the url
     icon: 'HomeIcon', // the component being exported from icons/index.js
