@@ -15,6 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
+import axios from "axios"
 
 
 import { Form, Button, Input, Select } from "antd"
@@ -43,21 +44,51 @@ class HospitalSetup extends React.Component {
             Email: '',
             Address: '',
             ContactNo: '',
-            Region: '',
+            region: '',
+            regions: [],
+            hospitals: [],
          };
 
        
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
+    componentDidMount() {
+        this.getRegion();
+        this.getHospitalSetup();
+    }
     
+    getRegion(){
+        axios.get('http://127.0.0.1:8000/api/region', 
+        ).then((resp) => {
+            this.setState({regions: resp.data.regions })
+        });
+        
+    }
+    getHospitalSetup() {
+        axios.get('http://127.0.0.1:8000/api/hospital', 
+        ).then((resp) => {
+            this.setState({
+                hospitals: resp.data.hospitals
+             })
+        });
+    }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.HospitalName + this.state.Address + this.state.Email + this.state.ContactNo +
-        this.state.Region
+        alert('A name was submitted: '
         );
-
+        axios.post('http://127.0.0.1:8000/api/hospital', {
+            hospital_name: this.state.HospitalName,
+            address: this.state.Address,
+            contact_number: this.state.ContactNo,
+            region_id: this.state.region
+        }).then((resp) => {
+            alert(resp.data.message);
+            this.getHospitalSetup();
+        });
         event.preventDefault();
+        
     }
 
 
@@ -125,12 +156,13 @@ class HospitalSetup extends React.Component {
                                     <Label>
                                     <Form.Item>
                                         <span> Select Region:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.Region}  
-                                    onChange = {(e)=> this.setState({Region : e.target.value})}>
+                                    <Select  style={{ width: 230 }}
+                                    value={this.state.region}  
+                                    onChange = {(e)=> this.setState({region: e})}>
+                                     { this.state.regions.map((region) => {
 
-                                            <Option value={this.state.Region}>Jack</Option>
-                                            
+                                     return <Option key={region.id} value={region.id}>{region.region_name}</Option>
+                                    }) }
 
                                     </Select>
                                     </Form.Item>
@@ -162,40 +194,41 @@ class HospitalSetup extends React.Component {
                                 </tr>
                             </TableHeader>
                             <TableBody>
-                                
-                                    <TableRow>
+                                {
+                                    this.state.hospitals.map( (hospital) => {
+                                        return  <TableRow key={hospital.id}>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.HospitalName}</p>
+                                                    <p className="font-semibold">{hospital.hospital_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.Address}</p>
+                                                    <p className="font-semibold">{hospital.address}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.Email}</p>
+                                                    <p className="font-semibold">abcxyz@gmail.com</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.ContactNo}</p>
+                                                    <p className="font-semibold">{hospital.contact_number}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.Region}</p>
+                                                    <p className="font-semibold">{hospital.region_id}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -210,11 +243,11 @@ class HospitalSetup extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                
+                                  })
+                                }
                             </TableBody>
                         </Table>
                         <TableFooter>
-                            
                         </TableFooter>
                     </TableContainer>
                     </div>

@@ -14,6 +14,8 @@ const SubCategory = lazy(() => import('../Hospital/Setup/Machine/SubCategory'))
 const HospitalRep = lazy(() => import('../Hospital/Setup/Staff/HospitalRep'))
 const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
+const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
+const BranchManagerPortal = lazy(() => import('../Hospital/branchManager/BranchManagerPortal'))
 const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
 const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
 const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
@@ -70,6 +72,15 @@ const routes = [
     path: '/hospitalandmachine', // the url
     component: HospitalAndMachines, // view rendered
   },
+  {
+    path: '/serviceHead/service-head-portal', // the url
+    component: ServiceHeadPortal, // view rendered
+  },
+  {
+    path: '/branchManager/branch-manager-portal',
+    component: BranchManagerPortal,
+  },
+
   {
     path: '/problemreporting', // the url
     component: ProblemReporting, // view rendered

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import {
     Table,
     TableHeader,
@@ -27,27 +28,46 @@ import { Form, Button, Input } from "antd"
 const response2 = response.concat([])
 
 class Region extends React.Component {
-
     constructor(props) {
         super(props);
-        this.state = { name: '' };
+        this.state = {
+            name: '',
+            regions: []
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        
+    }
+    componentDidMount() {
+       this.getAllRegions();
+        
+    }
+
+    getAllRegions() {
+        axios.get('http://127.0.0.1:8000/api/region'
+        ).then(resp => {
+            this.setState({regions : resp.data.regions});
+        });
     }
 
     handleChange(event) {
         this.setState({ name: event.target.value });
     }
+    
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.name);
+        axios.post('http://127.0.0.1:8000/api/region', {
+            region_name: this.state.name
+        }).then((resp) => {
+            alert(resp.data.message);
+        this.getAllRegions();
+        });
         event.preventDefault();
     }
 
-
     render() {
-
         return (
             <div>
 
@@ -66,7 +86,7 @@ class Region extends React.Component {
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
-                                            value={this.state.name} onChange={this.handleChange}
+                                            value={this.state.name} onChange={(e)=> this.setState({name: e.target.value})}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
@@ -86,20 +106,44 @@ class Region extends React.Component {
                     <div className="sm:col-span-2">
                         {/* Tables */}
                         <TableContainer className="mb-8">
-                        <Table>
-                            <TableHeader>
-                                <tr>
-                                    <TableCell>Region Name</TableCell>
-                                    <TableCell>Actions</TableCell>
-                                </tr>
-                            </TableHeader>
-                            <TableBody>
-                                
-                                    <TableRow>
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableCell>Region Name</TableCell>
+                                        <TableCell>Actions</TableCell>
+                                    </tr>
+                                </TableHeader>
+                                <TableBody>
+                                    {
+                                        this.state.regions.map(region => {
+                                            return <TableRow key={region.id}>
+                                                <TableCell>
+                                                    <div className="flex items-center text-sm">
+                                                        <div>
+                                                            <p className="font-semibold">{region.region_name}</p>
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <div className="flex items-center space-x-4">
+                                                        <Button layout="link" size="icon" aria-label="Edit">
+                                                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                        </Button>
+                                                        <Button layout="link" size="icon" aria-label="Delete">
+                                                            <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                        </Button>
+                                                    </div>
+                                                </TableCell>
+                                            </TableRow>
+                                        })
+
+                                    }
+                                    {/*                                     
+                                    <TableRow >
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.name}</p>
+                                                    <p className="font-semibold">sdsdsd</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -114,13 +158,39 @@ class Region extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                
-                            </TableBody>
-                        </Table>
-                        <TableFooter>
-                            
-                        </TableFooter>
-                    </TableContainer>
+                                    <TableRow >
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">sdsdsd</p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center space-x-4">
+                                                <Button layout="link" size="icon" aria-label="Edit">
+                                                    <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                                <Button layout="link" size="icon" aria-label="Delete">
+                                                    <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow> */}
+
+
+                                </TableBody>
+                            </Table>
+                            <TableFooter>
+
+                            </TableFooter>
+                        </TableContainer>
+
+                        <div>
+
+
+
+                        </div>
                     </div>
                 </div>
 

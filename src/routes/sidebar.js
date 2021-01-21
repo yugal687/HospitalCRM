@@ -37,6 +37,38 @@ const routes = [
     ],
   },
 
+//service Head
+  {
+    icon: 'PagesIcon',
+    name: 'serviceHead',
+    routes: [
+      // submenu
+      {
+        path: '/app/serviceHead/service-head-portal',
+        name: 'ServiceHeadPortal',
+      },
+      
+      
+      
+    ],
+  },
+
+  //Branch manager Portal
+  {
+    icon: 'PagesIcon',
+    name: 'branchManager',
+    routes: [
+      // submenu
+      {
+        path: '/app/branchManager/branch-manager-portal',
+        name: 'BranchManagerPortal',
+      },
+      
+      
+      
+    ],
+  },
+
   //for machine dropdown
   {
     icon: 'PagesIcon',
