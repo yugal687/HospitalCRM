@@ -42,18 +42,10 @@ const buttonstyle = {
     border: "#135200"
 }
 
-const genExtra = () => (
-    <>
-        <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">Available</span>
-        <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">On Field</span>
-    </>
-);
-
-const openNotificationWithIcon = type => {
+const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
-        message: 'Success',
-        description:
-            'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+        message: message,
+        description: description
     });
 };
 
@@ -64,20 +56,95 @@ class ServiceHeadPortal extends React.Component {
         super(props);
         this.state = {
             issues: [],
+            testIssues: [
+                {
+                    'id': 1, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+                    'machine_type': 'MRI Machine',
+                    'problem': 'This is problem 1', 'fault_occured': Date.now()
+                },
+                {
+                    'id': 2, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+                    'machine_type': 'CT Machine',
+                    'problem': 'This is problem 2', 'fault_occured': Date.now()
+                },
+                {
+                    'id': 3, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+                    'machine_type': 'LAB Machine',
+                    'problem': 'This is problem 3', 'fault_occured': Date.now()
+                },
+                {
+                    'id': 4, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+                    'machine_type': 'REM Machine',
+                    'problem': 'This is problem 4', 'fault_occured': Date.now()
+                },
+            ],
             isOpen: false,
             modalVisible: false,
             expandIconPosition: 'left',
+            issueId: 0,
+            staff: [],
+            testStaff: [
+                { 'name': 'Staff1', 'id': 1, 'on_progress': true },
+                { 'name': 'Staff2', 'id': 2, 'on_progress': true },
+                { 'name': 'Staff3', 'id': 3, 'on_progress': false },
+                { 'name': 'Staff4', 'id': 4, 'on_progress': false },
+                { 'name': 'Staff5', 'id': 5, 'on_progress': false },
+
+            ],
+
+            selectedHospitalProblem: { 'hospitalName': '', 'machine_type': '', 'problem': '', 'problem_id': 0 },
         };
 
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     };
 
-    setModalVisible(modalVisible) {
+    setModalVisible(modalVisible, issueId) {
         this.setState({ modalVisible });
+        this.setState({ issueId: issueId });
+        //call axios request to fetch the staffs 
+        //getDetalOfStaff()
+        alert(this.state.modalVisible);
+        if (!this.state.modalVisible) {
+            this.setSelectedHospitalProbelm(issueId);
+        }
     }
 
-    openModal = () => this.setState({ isOpen: true });
+    setSelectedHospitalProbelm = (issueId) => {
+        let selectedProblem = this.state.testIssues.filter(issue => { return issue.id == issueId });
+        console.log(selectedProblem);
+        this.setState(prevState => ({
+            ...prevState, selectedHospitalProblem: {
+                ...prevState.selectedHospitalProblem,
+                hospitalName: selectedProblem[0].hospitalName,
+                machine_type: selectedProblem[0].machine_type,
+                problem: selectedProblem[0].problem,
+                issue_id: selectedProblem[0].id,
+            },
+        }));
+    }
+
+    getDetailOfStaff = () => {
+
+    }
+
+    assignTask = (message, staffId) => {
+        // axios.post('http://127.0.0.1:8000/api/issue-assign', {
+        //     'user_id': staffId,
+        //     'issue_id': this.state.selectedHospitalProblem.problem_id,
+        //     //k k chahinxa thapa la...  maile thapaina sayad tyo 2 ta date binding garne hola hai
+        // }).then(resp => {
+
+        // }).catch();
+
+        openNotificationWithIcon(message, 'Success', 'Sucessfullt assigned Task to Ground Staff');
+    }
+
+    openModal = (issueId) => {
+        //        alert(issueId);
+        this.setState({ isOpen: true });
+    }
+
 
     closeModal = () => this.setState({ isOpen: false });
 
@@ -92,9 +159,12 @@ class ServiceHeadPortal extends React.Component {
         })
     };
 
-
-
     render() {
+        const genExtraTest = (on_progress) => {
+            return on_progress ? <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">Available</span>
+                : <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">On Field</span>
+        };
+
         const { expandIconPosition } = this.state;
         return (
             <div>
@@ -131,65 +201,68 @@ class ServiceHeadPortal extends React.Component {
                                 </TableHeader>
 
                                 <TableBody>
-                                    <TableRow>
-                                        <TableCell >
-                                            <div style={{ width: "20px" }} className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">hospital name</p>
+                                    {this.state.testIssues.map(issues => {
+                                        return <TableRow key={issues.id}>
+                                            <TableCell >
+                                                <div style={{ width: "20px" }} className="flex items-center text-sm">
+                                                    <div>
+                                                        <p className="font-semibold">{issues.hospitalName}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">Arun shiwakoti</p>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center text-sm">
+                                                    <div>
+                                                        <p className="font-semibold">{issues.hr}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">MRI machine </p>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center text-sm">
+                                                    <div>
+                                                        <p className="font-semibold">{issues.machine_type} </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">nut fuskiyoo, oil leak vairakhya cha </p>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center text-sm">
+                                                    <div>
+                                                        <p className="font-semibold">{issues.problem} </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">2021/01/12 | 1:00pm</p>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center text-sm">
+                                                    <div>
+                                                        <p className="font-semibold">{issues.fault_occured}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">
-                                                        <Button type="primary" onClick={() => this.setModalVisible(true)}>
-                                                            Assign To
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center text-sm">
+                                                    <div>
+                                                        <p className="font-semibold">
+                                                            <Button type="primary" onClick={() => this.setModalVisible(true, issues.id)}>
+                                                                Assign To
                                                         </Button>
-                                                    </p>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center space-x-4">
-                                                <Button layout="link" size="icon" aria-label="Edit">
-                                                    <EditIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                                <Button layout="link" size="icon" aria-label="Delete">
-                                                    <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex items-center space-x-4">
+                                                    <Button layout="link" size="icon" aria-label="Edit">
+                                                        <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                    </Button>
+                                                    <Button layout="link" size="icon" aria-label="Delete">
+                                                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                    </Button>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    })
 
+                                    }
                                 </TableBody>
                             </Table>
                             <TableFooter>
@@ -207,6 +280,7 @@ class ServiceHeadPortal extends React.Component {
                         >
                             {/* Problem Title */}
                             <p className="text-lg font-bold">
+                                {this.state.selectedHospitalProblem.problem}
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco lab
                             </p>
                             {/* Staffs Lists */}
@@ -215,141 +289,59 @@ class ServiceHeadPortal extends React.Component {
                                 expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
                                 expandIconPosition={expandIconPosition}
                             >
-                                <Panel header="Staff 1" key="1" style={mystyle} extra={genExtra()}>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Hospital Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Machine Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Modal Number: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                    </div>
-                                    <Form>
-                                        <div className="grid grid-cols-4">
-                                            
+                                {
+                                    this.state.testStaff.map(staffs => {
+                                        return <Panel header={staffs.name} key={staffs.id} style={mystyle} extra={genExtraTest(staffs.on_progress)}>
+                                            <div className="grid grid-cols-4">
                                                 <div className="col-span-1">
-                                                    <p className="text-base font-medium">Date: &nbsp;
-                                                        <span className="font-semibold">
-                                                            <Space direction="vertical" size={12}>
-                                                                <Form.Item>
-                                                                    <DatePicker />
-                                                                </Form.Item>
-                                                            </Space>
-                                                        </span>
-                                                    </p>
+                                                    <p className="text-base font-medium">Hospital Name: <span className="font-semibold">
+                                                        {this.state.selectedHospitalProblem.hospitalName}</span></p>
                                                 </div>
-                                                <div className="col-span-2">
-                                                    <p className="text-base font-medium">Estimated Time: &nbsp;
+                                                <div className="col-span-1">
+                                                    <p className="text-base font-medium">Machine Name: <span className="font-semibold">
+                                                        {this.state.selectedHospitalProblem.machine_type}</span></p>
+                                                </div>
+                                                <div className="col-span-1">
+                                                    <p className="text-base font-medium">Problem:<span className="font-semibold">
+                                                        {this.state.selectedHospitalProblem.problem}
+                                                    </span></p>
+                                                </div>
+                                            </div>
+                                            <Form>
+                                                <div className="grid grid-cols-4">
+
+                                                    <div className="col-span-1">
+                                                        <p className="text-base font-medium">Date: &nbsp;
                                                     <span className="font-semibold">
-                                                            <Space direction="vertical" size={12}>
-                                                                <Form.Item>
-                                                                    <RangePicker />
-                                                                </Form.Item>
-                                                            </Space>
-                                                        </span></p>
+                                                                <Space direction="vertical" size={12}>
+                                                                    <Form.Item>
+                                                                        <DatePicker />
+                                                                    </Form.Item>
+                                                                </Space>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-span-2">
+                                                        <p className="text-base font-medium">Estimated Time: &nbsp;
+                                                <span className="font-semibold">
+                                                                <Space direction="vertical" size={12}>
+                                                                    <Form.Item>
+                                                                        <RangePicker />
+                                                                    </Form.Item>
+                                                                </Space>
+                                                            </span></p>
+                                                    </div>
+                                                    <div className="col-span-1">
+                                                        <Form.Item>
+                                                            <Button type="primary" size="large" style={buttonstyle} onClick={() => this.assignTask('success', staffs.id)}>Assign</Button>
+                                                        </Form.Item>
+                                                    </div>
+
                                                 </div>
-                                                <div className="col-span-1">
-                                                    <Form.Item>
-                                                        <Button type="primary" size="large" style={buttonstyle} onClick={() => openNotificationWithIcon('success')}>Assign</Button>
-                                                    </Form.Item>
-                                                </div>
-                                            
-                                        </div>
-                                    </Form>
-                                </Panel>
-                                <Panel header="Staff 2" key="2" style={mystyle} extra={genExtra()}>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Hospital Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Machine Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Modal Number: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                    </div>
-                                    <Form>
-                                        <div className="grid grid-cols-4">
-                                            
-                                                <div className="col-span-1">
-                                                    <p className="text-base font-medium">Date: &nbsp;
-                                                        <span className="font-semibold">
-                                                            <Space direction="vertical" size={12}>
-                                                                <Form.Item>
-                                                                    <DatePicker />
-                                                                </Form.Item>
-                                                            </Space>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div className="col-span-2">
-                                                    <p className="text-base font-medium">Estimated Time: &nbsp;
-                                                    <span className="font-semibold">
-                                                            <Space direction="vertical" size={12}>
-                                                                <Form.Item>
-                                                                    <RangePicker />
-                                                                </Form.Item>
-                                                            </Space>
-                                                        </span></p>
-                                                </div>
-                                                <div className="col-span-1">
-                                                    <Form.Item>
-                                                        <Button type="primary" size="large" style={buttonstyle} onClick={() => openNotificationWithIcon('success')}>Assign</Button>
-                                                    </Form.Item>
-                                                </div>
-                                            
-                                        </div>
-                                    </Form>
-                                </Panel>
-                                <Panel header="Staff 3" key="3" style={mystyle} extra={genExtra()}>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Hospital Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Machine Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Modal Number: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                    </div>
-                                    <Form>
-                                        <div className="grid grid-cols-4">
-                                            
-                                                <div className="col-span-1">
-                                                    <p className="text-base font-medium">Date: &nbsp;
-                                                        <span className="font-semibold">
-                                                            <Space direction="vertical" size={12}>
-                                                                <Form.Item>
-                                                                    <DatePicker />
-                                                                </Form.Item>
-                                                            </Space>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div className="col-span-2">
-                                                    <p className="text-base font-medium">Estimated Time: &nbsp;
-                                                    <span className="font-semibold">
-                                                            <Space direction="vertical" size={12}>
-                                                                <Form.Item>
-                                                                    <RangePicker />
-                                                                </Form.Item>
-                                                            </Space>
-                                                        </span></p>
-                                                </div>
-                                                <div className="col-span-1">
-                                                    <Form.Item>
-                                                        <Button type="primary" size="large" style={buttonstyle} onClick={() => openNotificationWithIcon('success')}>Assign</Button>
-                                                    </Form.Item>
-                                                </div>
-                                            
-                                        </div>
-                                    </Form>
-                                </Panel>
+                                            </Form>
+                                        </Panel>
+                                    })
+                                }
                             </Collapse>
                         </Modal>
 
