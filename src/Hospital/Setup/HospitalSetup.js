@@ -47,6 +47,7 @@ class HospitalSetup extends React.Component {
             ContactNo: '',
             region: '',
             regions: [],
+            hospitals: [],
          };
 
        
@@ -56,6 +57,7 @@ class HospitalSetup extends React.Component {
 
     componentDidMount() {
         this.getRegion();
+        this.getHospitalSetup();
     }
     
     getRegion(){
@@ -65,13 +67,29 @@ class HospitalSetup extends React.Component {
         });
         
     }
+    getHospitalSetup() {
+        axios.get('http://127.0.0.1:8000/api/hospital', 
+        ).then((resp) => {
+            this.setState({
+                hospitals: resp.data.hospitals
+             })
+        });
+    }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.HospitalName + this.state.Address + this.state.Email + this.state.ContactNo +
-        this.state.Region
+        alert('A name was submitted: '
         );
-
+        axios.post('http://127.0.0.1:8000/api/hospital', {
+            hospital_name: this.state.HospitalName,
+            address: this.state.Address,
+            contact_number: this.state.ContactNo,
+            region_id: this.state.region
+        }).then((resp) => {
+            alert(resp.data.message);
+            this.getHospitalSetup();
+        });
         event.preventDefault();
+        
     }
 
 
@@ -177,40 +195,41 @@ class HospitalSetup extends React.Component {
                                 </tr>
                             </TableHeader>
                             <TableBody>
-                                
-                                    <TableRow>
+                                {
+                                    this.state.hospitals.map( (hospital) => {
+                                        return  <TableRow key={hospital.id}>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.HospitalName}</p>
+                                                    <p className="font-semibold">{hospital.hospital_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.Address}</p>
+                                                    <p className="font-semibold">{hospital.address}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.Email}</p>
+                                                    <p className="font-semibold">abcxyz@gmail.com</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.ContactNo}</p>
+                                                    <p className="font-semibold">{hospital.contact_number}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.Region}</p>
+                                                    <p className="font-semibold">{hospital.region_id}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -225,7 +244,8 @@ class HospitalSetup extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                
+                                  })
+                                }
                             </TableBody>
                         </Table>
                         <TableFooter>
