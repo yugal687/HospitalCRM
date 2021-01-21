@@ -19,6 +19,8 @@ const BranchManagerPortal = lazy(() => import('../Hospital/branchManager/BranchM
 const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
 const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
 const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
+const IssuesReported = lazy(() => import('../Hospital/OnFieldStaffPortal/IssuesReported'))
+const ReviewProblem = lazy(() => import('../Hospital/OnFieldStaffPortal/ReviewProblem'))
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
@@ -82,16 +84,24 @@ const routes = [
   },
 
   {
-    path: '/problemreporting', // the url
+    path: '/hospitalRepresentativePortal/problem-reporting', // the url
     component: ProblemReporting, // view rendered
   },
   {
-    path: '/reportedproblem', // the url
+    path: '/hospitalRepresentativePortal/reported-problem', // the url
     component: ReportedProblem, // view rendered
   },
   {
-    path: '/solvedproblem', // the url
+    path: '/hospitalRepresentativePortal/solved-problem', // the url
     component: SolvedProblem, // view rendered
+  },
+  {
+    path: '/onFieldStaff/issues-reported', // the url
+    component: IssuesReported, // view rendered
+  },
+  {
+    path: '/onFieldStaff/review-problem', // the url
+    component: ReviewProblem, // view rendered
   },
   {
     path: '/dashboard', // the url
