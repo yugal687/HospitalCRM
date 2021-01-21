@@ -28,28 +28,28 @@ const { Option } = Select;
 const validateMessages = {
     required: '${label} is required!',
     types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
+        email: '${label} is not a valid email!',
+        number: '${label} is not a valid number!',
     },
     number: {
-      range: '${label} must be between ${min} and ${max}',
+        range: '${label} must be between ${min} and ${max}',
     },
-  };
+};
 
 class HospitalSetup extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             HospitalName: '',
             Email: '',
             Address: '',
             ContactNo: '',
             region: '',
             regions: [],
-         };
+        };
 
-       
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -57,18 +57,18 @@ class HospitalSetup extends React.Component {
     componentDidMount() {
         this.getRegion();
     }
-    
-    getRegion(){
-        axios.get('http://127.0.0.1:8000/api/region', 
+
+    getRegion() {
+        axios.get('http://127.0.0.1:8000/api/region',
         ).then((resp) => {
-            this.setState({regions: resp.data.regions })
+            this.setState({ regions: resp.data.regions })
         });
-        
+
     }
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.HospitalName + this.state.Address + this.state.Email + this.state.ContactNo +
-        this.state.Region
+            this.state.Region
         );
 
         event.preventDefault();
@@ -91,24 +91,24 @@ class HospitalSetup extends React.Component {
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
-                                validateMessages={validateMessages}
+                                    validateMessages={validateMessages}
                                 >
                                     <Label>
                                         <span>Hospital Name</span>
                                         <Form.Item
-                                            value={this.state.HospitalName} 
-                                            onChange = {(e)=> this.setState({HospitalName : e.target.value})}
+                                            value={this.state.HospitalName}
+                                            onChange={(e) => this.setState({ HospitalName: e.target.value })}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
-                                            
+
                                         </Form.Item>
                                     </Label>
                                     <Label>
                                         <span> Address</span>
                                         <Form.Item
-                                            value={this.state.Address} 
-                                            onChange = {(e)=> this.setState({Address : e.target.value})}
+                                            value={this.state.Address}
+                                            onChange={(e) => this.setState({ Address: e.target.value })}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
@@ -117,19 +117,19 @@ class HospitalSetup extends React.Component {
                                     <Label>
                                         <span> Email:</span>
                                         <Form.Item
-                                            type= 'email'
-                                            value={this.state.Email} 
-                                            onChange = {(e)=> this.setState({Email : e.target.value})}
+                                            type='email'
+                                            value={this.state.Email}
+                                            onChange={(e) => this.setState({ Email: e.target.value })}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
-                                            <Input  />
+                                            <Input />
                                         </Form.Item>
                                     </Label>
                                     <Label>
                                         <span> Contact:</span>
                                         <Form.Item
-                                            value={this.state.ContactNo} 
-                                            onChange = {(e)=> this.setState({ContactNo : e.target.value})}
+                                            value={this.state.ContactNo}
+                                            onChange={(e) => this.setState({ ContactNo: e.target.value })}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
@@ -137,18 +137,18 @@ class HospitalSetup extends React.Component {
                                     </Label>
 
                                     <Label>
-                                    <Form.Item>
-                                        <span> Select Region:</span>
-                                    <Select  style={{ width: 230 }}
-                                    value={this.state.region}  
-                                    onChange = {(e)=> this.setState({region: e.target.value})}>
-                                     { this.state.regions.map((region) => {
+                                        <Form.Item>
+                                            <span> Select Region:</span>
+                                            <Select style={{ width: 230 }}
+                                                value={this.state.region}
+                                                onChange={(e) => this.setState({ region: e })}>
+                                                {
+                                                    this.state.regions.map((region) => {
+                                                        return <Option key={region.id} value={region.id}>{region.region_name}</Option>
+                                                    })}
 
-                                     return <Option key={region.id} value={region.id}>{region.region_name}</Option>
-                                    }) }
-
-                                    </Select>
-                                    </Form.Item>
+                                            </Select>
+                                        </Form.Item>
                                     </Label>
 
                                     <Form.Item >
@@ -164,20 +164,20 @@ class HospitalSetup extends React.Component {
                     <div className="">
                         {/* Tables */}
                         <TableContainer className="mb-8">
-                        <Table>
-                            <TableHeader>
-                                <tr>
-                                    <TableCell>Hospital Name</TableCell>
-                                    <TableCell>Address</TableCell>
-                                    <TableCell>Email</TableCell>
-                                    <TableCell>Contact</TableCell>
-                                    <TableCell>Region</TableCell>
-                                    <TableCell>Actions</TableCell>
-                                    
-                                </tr>
-                            </TableHeader>
-                            <TableBody>
-                                
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableCell>Hospital Name</TableCell>
+                                        <TableCell>Address</TableCell>
+                                        <TableCell>Email</TableCell>
+                                        <TableCell>Contact</TableCell>
+                                        <TableCell>Region</TableCell>
+                                        <TableCell>Actions</TableCell>
+
+                                    </tr>
+                                </TableHeader>
+                                <TableBody>
+
                                     <TableRow>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
@@ -225,13 +225,13 @@ class HospitalSetup extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                
-                            </TableBody>
-                        </Table>
-                        <TableFooter>
-                            
-                        </TableFooter>
-                    </TableContainer>
+
+                                </TableBody>
+                            </Table>
+                            <TableFooter>
+
+                            </TableFooter>
+                        </TableContainer>
                     </div>
                 </div>
 

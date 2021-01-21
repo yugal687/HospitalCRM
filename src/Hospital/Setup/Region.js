@@ -52,7 +52,7 @@ class Region extends React.Component {
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.name);
         axios.post('http://127.0.0.1:8000/api/region', {
-            region_name: this.state.name
+            region_name: this.state.name,
         }).then(resp => {
             alert(resp.data.message);
         });
