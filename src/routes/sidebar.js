@@ -47,6 +47,10 @@ const routes = [
         path: '/app/serviceHead/service-head-portal',
         name: 'ServiceHeadPortal',
       },
+      {
+        path: '/app/serviceHead/assigned-issues',
+        name: 'AssignedIssues',
+      },
       
       
       
@@ -129,6 +133,10 @@ const routes = [
       {
         path: '/app/onFieldStaff/review-problem',
         name: 'ReviewProblem',
+      },
+      {
+        path: '/app/onFieldStaff/completed-issues',
+        name: 'CompletedIssues',
       },
     ],
   },
