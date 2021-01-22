@@ -15,58 +15,14 @@ import {
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
 
-import { Modal, Button, Collapse, notification, DatePicker, Space } from 'antd';
-import { CaretRightOutlined, SettingOutlined } from '@ant-design/icons';
-const { Panel } = Collapse;
-const { RangePicker } = DatePicker;
+import { Button } from 'antd';
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-const mystyle = {
-    background: "#f9f9f9",
-    borderRadius: "4px",
-    marginBottom: "20px",
-    border: "0px",
-    overflow: "hidden"
-};
-
-const buttonstyle = {
-    color: "#ffffff",
-    backgroundColor: "#135200",
-    border: "#135200"
-}
-
-const genExtra = () => (
-    <>
-    <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">Available</span>
-    <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">On Field</span>
-    </>
-  );
-
-  const openNotificationWithIcon = type => {
-    notification[type]({
-      message: 'Success',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-    });
-  };
 
 class IssuesReported extends React.Component {
 
-    state = {
-        modalVisible: false,
-        expandIconPosition: 'left',
-    };
-
-    setModalVisible(modalVisible) {
-        this.setState({ modalVisible });
-    }
 
     render() {
-        const { expandIconPosition } = this.state;
+        
 
         return (
             <div>
@@ -140,7 +96,7 @@ class IssuesReported extends React.Component {
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p>
-                                                        <Button type="primary" onClick={() => this.setModalVisible(true)}>
+                                                        <Button type="primary">
                                                             Review
                                                         </Button>
                                                     </p>
@@ -158,127 +114,6 @@ class IssuesReported extends React.Component {
 
                             </TableFooter>
                         </TableContainer>
-
-                        <Modal
-                            title="Assign Problem"
-                            centered
-                            visible={this.state.modalVisible}
-                            onOk={() => this.setModalVisible(false)}
-                            onCancel={() => this.setModalVisible(false)}
-                            width={1000}
-                        >
-                            {/* Problem Title */}
-                            <p className="text-lg font-bold">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco lab
-                            </p>
-                            {/* Staffs Lists */}
-                            <Collapse
-                                bordered={false}
-                                expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-                                expandIconPosition={expandIconPosition}
-                            >
-                                <Panel header="Staff 1" key="1" style={mystyle} extra={genExtra()}>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Hospital Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Machine Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Modal Number: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                        <p className="text-base font-medium">Date: &nbsp;
-                                            <span className="font-semibold">
-                                                <DatePicker/>
-                                            </span></p>
-                                        </div>
-                                        <div className="col-span-2">
-                                        <p className="text-base font-medium">Estimated Time: &nbsp;
-                                            <span className="font-semibold">
-                                                <Space direction="vertical" size={12}>
-                                                    <RangePicker />
-                                                </Space>
-                                            </span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <Button type="primary" style={buttonstyle} onClick={() => openNotificationWithIcon('success')}>Assign</Button>
-                                        </div>
-                                    </div>
-                                    
-                                </Panel>
-                                <Panel header="Staff 2" key="2" style={mystyle} extra={genExtra()}>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Hospital Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Machine Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Modal Number: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                        <p className="text-base font-medium">Date: &nbsp;
-                                            <span className="font-semibold">
-                                                <DatePicker/>
-                                            </span></p>
-                                        </div>
-                                        <div className="col-span-2">
-                                        <p className="text-base font-medium">Estimated Time: &nbsp;
-                                            <span className="font-semibold">
-                                                <Space direction="vertical" size={12}>
-                                                    <RangePicker />
-                                                </Space>
-                                            </span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <Button type="primary" style={buttonstyle} onClick={() => openNotificationWithIcon('success')}>Assign</Button>
-                                        </div>
-                                    </div>
-                                  
-                                    
-                                </Panel>
-                                <Panel header="Staff 3" key="3" style={mystyle} extra={genExtra()}>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Hospital Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Machine Name: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <p className="text-base font-medium">Modal Number: <span className="font-semibold">---------------</span></p>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-4">
-                                        <div className="col-span-1">
-                                        <p className="text-base font-medium">Date: &nbsp;
-                                            <span className="font-semibold">
-                                                <DatePicker/>
-                                            </span></p>
-                                        </div>
-                                        <div className="col-span-2">
-                                        <p className="text-base font-medium">Estimated Time: &nbsp;
-                                            <span className="font-semibold">
-                                                <Space direction="vertical" size={12}>
-                                                    <RangePicker />
-                                                </Space>
-                                            </span></p>
-                                        </div>
-                                        <div className="col-span-1">
-                                            <Button type="primary" style={buttonstyle} onClick={() => openNotificationWithIcon('success')}>Assign</Button>
-                                        </div>
-                                    </div>
-                                    
-                                </Panel>
-                            </Collapse>
-                        </Modal>
                     </div>
                 </div>
 
