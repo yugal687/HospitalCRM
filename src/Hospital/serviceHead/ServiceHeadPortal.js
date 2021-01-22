@@ -83,6 +83,7 @@ class ServiceHeadPortal extends React.Component {
             expandIconPosition: 'left',
             issueId: 0,
             staff: [],
+            estimatedTime: '',
             testStaff: [
                 { 'name': 'Staff1', 'id': 1, 'on_progress': true },
                 { 'name': 'Staff2', 'id': 2, 'on_progress': true },
@@ -91,6 +92,7 @@ class ServiceHeadPortal extends React.Component {
                 { 'name': 'Staff5', 'id': 5, 'on_progress': false },
 
             ],
+
 
             selectedHospitalProblem: { 'hospitalName': '', 'machine_type': '', 'problem': '', 'problem_id': 0 },
         };
@@ -129,9 +131,13 @@ class ServiceHeadPortal extends React.Component {
     }
 
     assignTask = (message, staffId) => {
+        //console.log(estimatedTime);
+
         // axios.post('http://127.0.0.1:8000/api/issue-assign', {
         //     'user_id': staffId,
         //     'issue_id': this.state.selectedHospitalProblem.problem_id,
+        //   milni name lekha hererw       'start_date':this.state.estimatedTime[0],
+        //          'end_date':this.state.estimatedTime[1],
         //     //k k chahinxa thapa la...  maile thapaina sayad tyo 2 ta date binding garne hola hai
         // }).then(resp => {
 
@@ -326,7 +332,8 @@ class ServiceHeadPortal extends React.Component {
                                                 <span className="font-semibold">
                                                                 <Space direction="vertical" size={12}>
                                                                     <Form.Item>
-                                                                        <RangePicker />
+                                                                        <RangePicker
+                                                                            onChange={(value, dateString) => this.setState({ estimatedTime: dateString })} />
                                                                     </Form.Item>
                                                                 </Space>
                                                             </span></p>

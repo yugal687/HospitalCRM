@@ -93,7 +93,7 @@ class ProblemReporting extends React.Component {
                                             onChange={(e) => this.setState({ problem: e.target.value })}
                                             rules={[{ required: true, }]}
                                         >
-                                            <Input.TextArea rows={4}/>
+                                            <Input.TextArea rows={4} />
 
                                         </Form.Item>
                                     </Label>
@@ -102,24 +102,24 @@ class ProblemReporting extends React.Component {
                                     <Label>
                                         <span> Problem Occured Date:</span>
                                         <Form.Item
-                                            value={this.state.issue_occured_date}
-                                            onChange={(e) => this.setState({ issue_occured_date: e.target.value })}
                                             rules={[{ required: true, }]}
                                         >
-                                            <DatePicker />
+                                            <DatePicker
+                                                onChange={(date, dateString) => this.setState({ issue_occured_date: dateString })} />
                                         </Form.Item>
                                     </Label>
 
                                     <Label>
                                         <span> Problem Occured Time:</span>
                                         <Form.Item
-                                            value={this.state.issue_occured_time}
-                                            onChange={(e) => this.setState({ issue_occured_time: e.target.value })}
                                             rules={[{ required: true, }]}
                                         >
-                                            <TimePicker defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                                            <TimePicker
+                                                defaultOpenValue={moment('00:00:00', 'HH:mm:ss')}
+                                                onChange={(time, timeString) => this.setState({ issue_occured_time: timeString })}
+                                            />
                                         </Form.Item>
-                                    </Label>                                    
+                                    </Label>
 
 
                                     <Form.Item >
