@@ -39,6 +39,10 @@ class Region extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
+       this.getAllRegions();
+    }
+
+    getAllRegions(){
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
             this.setState({regions : resp.data.regions});
@@ -55,6 +59,8 @@ class Region extends React.Component {
             region_name: this.state.name,
         }).then(resp => {
             alert(resp.data.message);
+            this.getAllRegions();
+
         });
         event.preventDefault();
     }

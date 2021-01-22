@@ -72,7 +72,7 @@ class ProblemReporting extends React.Component {
         axios.get('http://127.0.0.1:8000/api/issue'
         ).then(resp => {
             this.setState({ 
-                issues : resp.data.issued
+                issues : resp.data.notIssued
             });
         });
     }

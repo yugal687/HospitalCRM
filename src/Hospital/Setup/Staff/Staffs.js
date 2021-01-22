@@ -47,9 +47,12 @@ class Staffs extends React.Component {
             ContactNo: '',
             Region: '',
             Role: '',
+            selectedHospital: '',
             regions: [],
             users: [],
             roles: [],
+            hospitals: [],
+            showHospital: false ,
          };
 
        
@@ -60,12 +63,21 @@ class Staffs extends React.Component {
         this.getRegion();
         this.getStaffs();
         this.getRole();
+        this.getHospital();
     }
 
     getRole() {
         axios.get('http://127.0.0.1:8000/api/role', 
         ).then((resp) => {
             this.setState({roles: resp.data.roles })
+        });
+    }
+
+
+    getHospital() {
+        axios.get('http://127.0.0.1:8000/api/hospital', 
+        ).then((resp) => {
+            this.setState({hospitals: resp.data.hospitals })
         });
     }
 
@@ -98,7 +110,7 @@ class Staffs extends React.Component {
             contact_number: this.state.ContactNo,
             region_id: this.state.Region,
             role_id: this.state.Role,
-
+            hospital_id: this.state.selectedHospital
         }).then((resp) => {
             alert(resp.data.message);
             this.getStaffs();
@@ -189,13 +201,40 @@ class Staffs extends React.Component {
                                         <span> Role:</span>
                                     <Select defaultValue="lucy" style={{ width: 230 }}
                                     value={this.state.Role}  
-                                    onChange = {(e)=> this.setState({Role : e})}>
+                                    onChange = {(e)=>{ 
+                                        this.setState({Role : e});
+                                        if(e == 3){
+                                          return  this.setState({ showHospital: true});
+                                        }
+                                        return  this.setState({ showHospital: false});
+                                        }}>
+
                                         { this.state.roles.map((role) => {
                                          return   <Option key={role.id} value={role.id}>{role.role_name}</Option>    
                                         })}    
                                     </Select>
                                     </Form.Item>
                                     </Label>
+
+                                    <Label>
+                                    {
+                                     this.state.showHospital ?       
+                                    <Form.Item >
+                                        <span>Hospital Name:</span>
+                                    <Select defaultValue="lucy" style={{ width: 230 }}
+                                    value={this.state.selectedHospital}  
+                                    onChange = {(e)=> this.setState({selectedHospital : e})}>
+                                        { this.state.hospitals.map((hospital) => {
+                                         return   <Option key={hospital.id} value={hospital.id}>{hospital.hospital_name}</Option>    
+                                        })}    
+                                    </Select>
+
+                                    </Form.Item>
+                                    : ''
+                                }
+                                    
+                                    </Label>
+                                    
 
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
@@ -219,6 +258,7 @@ class Staffs extends React.Component {
                                     <TableCell>Contact</TableCell>
                                     <TableCell>Region</TableCell>
                                     <TableCell>Role</TableCell>
+                                    <TableCell>Hopital Name</TableCell>
                                     <TableCell>Actions</TableCell>
                                     
                                 </tr>
@@ -258,14 +298,21 @@ class Staffs extends React.Component {
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{user.region.region_name}</p>
+                                                    <p className="font-semibold">{ ! user.region ? '': user.region.region_name }</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.Role}</p>
+                                                    <p className="font-semibold">{! user.role ? '': user.role.role_name }</p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">{! user.hospital ? '': user.hospital.hospital_name }</p>
                                                 </div>
                                             </div>
                                         </TableCell>
