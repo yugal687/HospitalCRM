@@ -40,7 +40,7 @@ class MachineSetup extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             category: '',
             subCategory: '',
             machineName: '',
@@ -50,7 +50,7 @@ class MachineSetup extends React.Component {
             
          };
 
-       
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -134,12 +134,12 @@ class MachineSetup extends React.Component {
                                     <Label>
                                         <span>Machine Name</span>
                                         <Form.Item
-                                            value={this.state.machineName} 
+                                            value={this.state.machineName}
                                             onChange = {(e)=> this.setState({machineName : e.target.value})}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
-                                            
+
                                         </Form.Item>
                                     </Label>
                                     <Label>
@@ -155,8 +155,8 @@ class MachineSetup extends React.Component {
                                     <Label>
                                         <span>Machine Type</span>
                                         <Form.Item
-                                            
-                                            value={this.state.machineType} 
+
+                                            value={this.state.machineType}
                                             onChange = {(e)=> this.setState({machineType : e.target.value})}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
@@ -184,7 +184,7 @@ class MachineSetup extends React.Component {
                                     <TableCell>Model Name</TableCell>
                                     <TableCell>Machine Type</TableCell>
                                     <TableCell>Actions</TableCell>
-                                    
+
                                 </tr>
                             </TableHeader>
                             <TableBody>
@@ -230,7 +230,7 @@ class MachineSetup extends React.Component {
                             </TableBody>
                         </Table>
                         <TableFooter>
-                            
+
                         </TableFooter>
                     </TableContainer>
                     </div>

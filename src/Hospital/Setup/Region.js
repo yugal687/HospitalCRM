@@ -37,14 +37,8 @@ class Region extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        
     }
     componentDidMount() {
-       this.getAllRegions();
-        
-    }
-
-    getAllRegions() {
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
             this.setState({regions : resp.data.regions});
@@ -54,20 +48,19 @@ class Region extends React.Component {
     handleChange(event) {
         this.setState({ name: event.target.value });
     }
-    
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.name);
         axios.post('http://127.0.0.1:8000/api/region', {
-            region_name: this.state.name
-        }).then((resp) => {
+            region_name: this.state.name,
+        }).then(resp => {
             alert(resp.data.message);
-        this.getAllRegions();
         });
         event.preventDefault();
     }
 
     render() {
+        console.log(this.state.regions);
         return (
             <div>
 
@@ -86,7 +79,7 @@ class Region extends React.Component {
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
-                                            value={this.state.name} onChange={(e)=> this.setState({name: e.target.value})}
+                                            value={this.state.name} onChange={this.handleChange}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
