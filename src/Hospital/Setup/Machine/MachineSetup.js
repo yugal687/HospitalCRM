@@ -78,21 +78,16 @@ class MachineSetup extends React.Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.category + this.state.subCategory + this.state.machineName + this.state.modelName +
-        this.state.machineType
-        );
-        axios.post('http://127.0.0.1:8000/api/machine', {
+        axios.post('http://127.0.0.1:8000/api/machine/create', {
           parent_id: this.state.id,
           machine_name: this.state.machineName,
           model_name: this.state.modelName,
-
         }).then((resp) => {
             alert(resp.data.message);
             this.getAllMachines();
            
         });
 
-        event.preventDefault();
     }
 
 
