@@ -15,7 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-
+import axios from "axios"
 
 
 import { Form, Button, Input, Select, DatePicker, TimePicker } from "antd"
@@ -42,16 +42,55 @@ class ProblemReporting extends React.Component {
             problem: '',
             issue_occured_date: '',
             issue_occured_time: '',
+            machines: [],
+            issues: [],
         };
 
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    handleChange(){
+
+    }
+
+    componentDidMount(){
+        this.getAllMachines();
+        this.getAllIssues();
+    }
+
+    getAllMachines() {
+        axios.get('http://127.0.0.1:8000/api/machine'
+        ).then(resp => {
+            this.setState({ 
+                machines : resp.data.machines
+            });
+        });
+    }
+
+    getAllIssues() {
+        axios.get('http://127.0.0.1:8000/api/issue'
+        ).then(resp => {
+            this.setState({ 
+                issues : resp.data.issued
+            });
+        });
+    }
+
 
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.machine_id + this.state.problem + this.state.issue_occured_date + this.state.issue_occured_time);
 
+        axios.post('http://127.0.0.1:8000/api/issue', {
+          machine_id: this.state.machine_id,
+          problem: this.state.problem,
+          occurred_date: this.state.issue_occured_date,
+          occurred_time: this.state.issue_occured_time,
+        }).then((resp) => {
+            alert(resp.data.message);
+            this.getAllIssues();
+            this.getAllMachines();
+        });
         event.preventDefault();
     }
     render() {
@@ -79,9 +118,12 @@ class ProblemReporting extends React.Component {
                                             <Select
                                                 placeholder="Select an equipment with problem"
                                                 value={this.state.machine_id}
-                                                onChange={(e) => this.setState({ machine_id: e.target.value })}>
+                                                onChange={(e) => this.setState({ machine_id: e})}>
 
-                                                <Option value={this.state.machine_id}>Machine 1</Option>
+                                                    { this.state.machines.map((machine) => {
+
+                                                    return<Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
+                                                    })}
                                             </Select>
                                         </Form.Item>
                                     </Label>
@@ -101,23 +143,19 @@ class ProblemReporting extends React.Component {
 
                                     <Label>
                                         <span> Problem Occured Date:</span>
-                                        <Form.Item
-                                            value={this.state.issue_occured_date}
-                                            onChange={(e) => this.setState({ issue_occured_date: e.target.value })}
+                                        <Form.Item   
                                             rules={[{ required: true, }]}
                                         >
-                                            <DatePicker />
+                                            <DatePicker onChange={(date, dateString) => this.setState({ issue_occured_date: dateString })} />
                                         </Form.Item>
                                     </Label>
 
                                     <Label>
                                         <span> Problem Occured Time:</span>
                                         <Form.Item
-                                            value={this.state.issue_occured_time}
-                                            onChange={(e) => this.setState({ issue_occured_time: e.target.value })}
                                             rules={[{ required: true, }]}
                                         >
-                                            <TimePicker defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                                            <TimePicker onChange={(time, timeString) => this.setState({ issue_occured_time: timeString})} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                                         </Form.Item>
                                     </Label>                                    
 
@@ -148,32 +186,34 @@ class ProblemReporting extends React.Component {
                                 </TableHeader>
                                 <TableBody>
 
-                                    <TableRow>
+                                {
+                                    this.state.issues.map( (issue) => {
+                                        return <TableRow key={issue.id}>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.machine_id}</p>
+                                                    <p className="font-semibold">{issue.machine_id}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.problem}</p>
+                                                    <p className="font-semibold">{issue.problem}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.issue_occured_date}</p>
+                                                    <p className="font-semibold">{issue.occurred_date}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{this.state.issue_occured_time}</p>
+                                                    <p className="font-semibold">{issue.occurred_time}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -188,6 +228,7 @@ class ProblemReporting extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
+                                    })}
 
                                 </TableBody>
                             </Table>
