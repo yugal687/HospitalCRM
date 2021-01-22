@@ -14,50 +14,51 @@ import {
     ModalFooter,
     Label, HelperText,
 } from '@windmill/react-ui'
-import { EditIcon, TrashIcon } from '../../icons'
+import { EditIcon, TrashIcon } from '../../../icons'
 import axios from "axios"
 
 
-import { Form, Button, Input, Select, DatePicker, TimePicker } from "antd"
-import moment from 'moment';
+
+import { Form, Button, Input, Select } from "antd"
+
+
+
 const { Option } = Select;
 
 const validateMessages = {
     required: '${label} is required!',
     types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
+      email: '${label} is not a valid email!',
+      number: '${label} is not a valid number!',
     },
     number: {
-        range: '${label} must be between ${min} and ${max}',
+      range: '${label} must be between ${min} and ${max}',
     },
-};
+  };
 
-class ProblemReporting extends React.Component {
+class MachineSetup extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            machine_id: '',
-            problem: '',
-            issue_occured_date: '',
-            issue_occured_time: '',
+            category: '',
+            subCategory: '',
+            machineName: '',
+            modelName: '',
+            machineType: '',
             machines: [],
-            issues: [],
-        };
+            
+         };
 
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(){
-
-    }
-
-    componentDidMount(){
+    
+    componentDidMount() {
         this.getAllMachines();
-        this.getAllIssues();
-    }
+        this.getOnlyMachine();
+     }
 
     getAllMachines() {
         axios.get('http://127.0.0.1:8000/api/machine'
@@ -67,99 +68,96 @@ class ProblemReporting extends React.Component {
             });
         });
     }
-
-    getAllIssues() {
-        axios.get('http://127.0.0.1:8000/api/issue'
+    getOnlyMachine() {
+        axios.get('http://127.0.0.1:8000/api/category-only'
         ).then(resp => {
-            this.setState({ 
-                issues : resp.data.issued
+            this.setState({
+                machines : resp.data.machines
             });
         });
     }
 
-
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.machine_id + this.state.problem + this.state.issue_occured_date + this.state.issue_occured_time);
-
-        axios.post('http://127.0.0.1:8000/api/issue', {
-          machine_id: this.state.machine_id,
-          problem: this.state.problem,
-          occurred_date: this.state.issue_occured_date,
-          occurred_time: this.state.issue_occured_time,
+        axios.post('http://127.0.0.1:8000/api/machine', {
+          parent_id: this.state.id,
+          machine_name: this.state.machineName,
+          model_name: this.state.modelName,
         }).then((resp) => {
             alert(resp.data.message);
-            this.getAllIssues();
             this.getAllMachines();
+           
         });
-        event.preventDefault();
+
     }
+
+
     render() {
+
         return (
             <div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
+                <div className="grid grid-cols-1 gap-6 mt-2">
                     {/* Form Section */}
-                    <div className="sm:col-span-1">
+                    <div className="">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
                             <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
-                                <p>Problem Reporting</p>
+                                <p>Machine Setup</p>
                             </div>
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
-                                    validateMessages={validateMessages}
+                                validateMessages={validateMessages}
                                 >
 
-                                    {/* Select Equipment */}
-                                    <Label>
-                                        <span> Select Equipment:</span>
-                                        <Form.Item >
-                                            <Select
-                                                placeholder="Select an equipment with problem"
-                                                value={this.state.machine_id}
-                                                onChange={(e) => this.setState({ machine_id: e})}>
+                                   <Label>
+                                    <Form.Item>
+                                        <span>Machine Category:</span>
+                                    <Select defaultValue="lucy" style={{ width: 230 }}
+                                    value={this.state.category}  
+                                    onChange = {(e)=> this.setState({category : e})}>
 
-                                                    { this.state.machines.map((machine) => {
+                                        { this.state.machines.map((machine) => {
 
-                                                    return<Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
-                                                    })}
-                                            </Select>
-                                        </Form.Item>
+                                        return<Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
+
+                                        })}
+                                            
+                                    </Select>
+                                    </Form.Item>
                                     </Label>
-
                                     <Label>
-                                        <span>Problem:</span>
+                                        <span>Machine Name</span>
                                         <Form.Item
-                                            value={this.state.problem}
-                                            onChange={(e) => this.setState({ problem: e.target.value })}
-                                            rules={[{ required: true, }]}
+                                            value={this.state.machineName}
+                                            onChange = {(e)=> this.setState({machineName : e.target.value})}
+                                            rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
-                                            <Input.TextArea rows={4} />
+                                            <Input />
 
                                         </Form.Item>
                                     </Label>
-
-
                                     <Label>
-                                        <span> Problem Occured Date:</span>
-                                        <Form.Item   
-                                            rules={[{ required: true, }]}
-                                        >
-                                            <DatePicker onChange={(date, dateString) => this.setState({ issue_occured_date: dateString })} />
-                                        </Form.Item>
-                                    </Label>
-
-                                    <Label>
-                                        <span> Problem Occured Time:</span>
+                                        <span> Machine's Model Number</span>
                                         <Form.Item
-                                            rules={[{ required: true, }]}
+                                            value={this.state.modelName} 
+                                            onChange = {(e)=> this.setState({modelName : e.target.value})}
+                                            rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
-                                            <TimePicker onChange={(time, timeString) => this.setState({ issue_occured_time: timeString})} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
+                                            <Input />
                                         </Form.Item>
                                     </Label>
+                                    <Label>
+                                        <span>Machine Type</span>
+                                        <Form.Item
 
-
+                                            value={this.state.machineType}
+                                            onChange = {(e)=> this.setState({machineType : e.target.value})}
+                                            rules={[{ required: true, message: 'Please input your username!' }]}
+                                        >
+                                            <Input  />
+                                        </Form.Item>
+                                    </Label>
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
                                             Submit
@@ -170,50 +168,44 @@ class ProblemReporting extends React.Component {
                         </div>
                     </div>
                     {/* Table Section */}
-                    <div className="sm:col-span-2">
+                    <div className="">
                         {/* Tables */}
                         <TableContainer className="mb-8">
-                            <Table>
-                                <TableHeader>
-                                    <tr>
-                                        <TableCell>Equipment</TableCell>
-                                        <TableCell>Problem</TableCell>
-                                        <TableCell>Occured Date</TableCell>
-                                        <TableCell>Occured Time</TableCell>
-                                        <TableCell>Actions</TableCell>
+                        <Table>
+                            <TableHeader>
+                                <tr>
+                                    
+                                    <TableCell>Machine Name</TableCell>
+                                    <TableCell>Model Name</TableCell>
+                                    <TableCell>Machine Type</TableCell>
+                                    <TableCell>Actions</TableCell>
 
-                                    </tr>
-                                </TableHeader>
-                                <TableBody>
-
-                                {
-                                    this.state.issues.map( (issue) => {
-                                        return <TableRow key={issue.id}>
+                                </tr>
+                            </TableHeader>
+                            <TableBody>
+                                
+                            {
+                                    this.state.machines.map( (machine) => {
+                                        return <TableRow key={machine.id}>
+                                        
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{issue.machine_id}</p>
+                                                    <p className="font-semibold">{machine.machine_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{issue.problem}</p>
+                                                    <p className="font-semibold">{machine.model_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{issue.occurred_date}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{issue.occurred_time}</p>
+                                                    <p className="font-semibold">{this.state.machineType}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -229,13 +221,13 @@ class ProblemReporting extends React.Component {
                                         </TableCell>
                                     </TableRow>
                                     })}
+                                
+                            </TableBody>
+                        </Table>
+                        <TableFooter>
 
-                                </TableBody>
-                            </Table>
-                            <TableFooter>
-
-                            </TableFooter>
-                        </TableContainer>
+                        </TableFooter>
+                    </TableContainer>
                     </div>
                 </div>
 
@@ -303,4 +295,4 @@ class ProblemReporting extends React.Component {
     }
 }
 
-export default ProblemReporting
+export default MachineSetup
