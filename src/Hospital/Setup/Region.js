@@ -20,12 +20,32 @@ import { EditIcon, TrashIcon } from '../../icons'
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
 
-import { Form, Button, Input } from "antd"
+import { Form, Button, Input, notification } from "antd"
 
-
+const openNotificationWithIcon = (type, message, description) => {
+    notification[type]({
+        message: message,
+        description: description
+    });
+};
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
+
+const validateMessages = {
+    required: '${label} is required',
+    types: {
+      email: '${label} is not a valid email!',
+      number: '${label} is not a valid number!',
+    },
+    number: {
+      range: '${label} must be between ${min} and ${max}',
+    },
+  };
+
+  const onFinish = (values) => {
+    console.log(values);
+  };
 
 class Region extends React.Component {
     constructor(props) {
@@ -53,14 +73,23 @@ class Region extends React.Component {
         this.setState({ name: event.target.value });
     }
 
+   
+
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.name);
+        
         axios.post('http://127.0.0.1:8000/api/region', {
             region_name: this.state.name,
         }).then(resp => {
-            alert(resp.data.message);
-            this.getAllRegions();
-
+            if(resp.data.error){
+                openNotificationWithIcon('error', 'Error', resp.data.error.region_name);
+               
+               console.log(resp.data.error); 
+            }else {
+                openNotificationWithIcon('success', 'Success', resp.data.message);
+                this.getAllRegions();
+                
+                
+        }
         });
         event.preventDefault();
     }
@@ -80,20 +109,27 @@ class Region extends React.Component {
                             </div>
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
-                                <Form>
+                                <Form 
+                                onFinish={onFinish}
+                                validateMessages={validateMessages}>
 
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
+                                            label="Region Name"
                                             value={this.state.name} onChange={this.handleChange}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
+                                            rules={[
+                                                {
+                                                  required: true,
+                                                },
+                                              ]}
                                         >
                                             <Input />
                                         </Form.Item>
                                     </Label>
 
                                     <Form.Item  >
-                                        <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
+                                        <Button onClick={this.handleSubmit}  type="primary" htmlType="submit">
                                             Submit
                                             </Button>
                                     </Form.Item>

@@ -56,34 +56,35 @@ class ServiceHeadPortal extends React.Component {
         super(props);
         this.state = {
             issues: [],
-            testIssues: [
-                {
-                    'id': 1, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-                    'machine_type': 'MRI Machine',
-                    'problem': 'This is problem 1', 'fault_occured': Date.now()
-                },
-                {
-                    'id': 2, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-                    'machine_type': 'CT Machine',
-                    'problem': 'This is problem 2', 'fault_occured': Date.now()
-                },
-                {
-                    'id': 3, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-                    'machine_type': 'LAB Machine',
-                    'problem': 'This is problem 3', 'fault_occured': Date.now()
-                },
-                {
-                    'id': 4, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-                    'machine_type': 'REM Machine',
-                    'problem': 'This is problem 4', 'fault_occured': Date.now()
-                },
-            ],
+            // testIssues: [
+            //     {
+            //         'id': 1, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+            //         'machine_type': 'MRI Machine',
+            //         'problem': 'This is problem 1', 'fault_occured': Date.now()
+            //     },
+            //     {
+            //         'id': 2, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+            //         'machine_type': 'CT Machine',
+            //         'problem': 'This is problem 2', 'fault_occured': Date.now()
+            //     },
+            //     {
+            //         'id': 3, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+            //         'machine_type': 'LAB Machine',
+            //         'problem': 'This is problem 3', 'fault_occured': Date.now()
+            //     },
+            //     {
+            //         'id': 4, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+            //         'machine_type': 'REM Machine',
+            //         'problem': 'This is problem 4', 'fault_occured': Date.now()
+            //     },
+            // ],
             isOpen: false,
             modalVisible: false,
             expandIconPosition: 'left',
             issueId: 0,
             staff: [],
             estimatedTime: '',
+            date: '',
             testStaff: [
                 { 'name': 'Staff1', 'id': 1, 'on_progress': true },
                 { 'name': 'Staff2', 'id': 2, 'on_progress': true },
@@ -113,15 +114,15 @@ class ServiceHeadPortal extends React.Component {
     }
 
     setSelectedHospitalProbelm = (issueId) => {
-        let selectedProblem = this.state.testIssues.filter(issue => { return issue.id == issueId });
+        let selectedProblem = this.state.issues.filter(issue => { return issue.issue_id == issueId });
         console.log(selectedProblem);
         this.setState(prevState => ({
             ...prevState, selectedHospitalProblem: {
                 ...prevState.selectedHospitalProblem,
-                hospitalName: selectedProblem[0].hospitalName,
-                machine_type: selectedProblem[0].machine_type,
+                hospitalName: selectedProblem[0].hospital_name,
+                machine_type: selectedProblem[0].machine_name,
                 problem: selectedProblem[0].problem,
-                issue_id: selectedProblem[0].id,
+                issue_id: selectedProblem[0].issue_id,
             },
         }));
     }
@@ -131,17 +132,18 @@ class ServiceHeadPortal extends React.Component {
     }
 
     assignTask = (message, staffId) => {
-        //console.log(estimatedTime);
+        // console.log(estimatedTime);
 
-        // axios.post('http://127.0.0.1:8000/api/issue-assign', {
-        //     'user_id': staffId,
-        //     'issue_id': this.state.selectedHospitalProblem.problem_id,
-        //   milni name lekha hererw       'start_date':this.state.estimatedTime[0],
-        //          'end_date':this.state.estimatedTime[1],
-        //     //k k chahinxa thapa la...  maile thapaina sayad tyo 2 ta date binding garne hola hai
-        // }).then(resp => {
+        axios.post('http://127.0.0.1:8000/api/issue-assign', {
+            'onField_user': staffId,
+            'issue_id': this.state.selectedHospitalProblem.problem_id,
+            'start_date':this.state.estimatedTime[0],
+            'end_date':this.state.estimatedTime[1],
+            'assign-date': this.state.date,
+            //k k chahinxa thapa la...  maile thapaina sayad tyo 2 ta date binding garne hola hai
+        }).then(resp => {
 
-        // }).catch();
+        }).catch();
 
         openNotificationWithIcon(message, 'Success', 'Sucessfullt assigned Task to Ground Staff');
     }
@@ -161,9 +163,11 @@ class ServiceHeadPortal extends React.Component {
     getAllIssues() {
         axios.get('http://127.0.0.1:8000/api/issue'
         ).then(resp => {
-            this.setState({ issues: resp.data.issues });
+             this.setState({ issues: resp.data.issues });
         })
     };
+
+    
 
     render() {
         const genExtraTest = (on_progress) => {
@@ -207,40 +211,40 @@ class ServiceHeadPortal extends React.Component {
                                 </TableHeader>
 
                                 <TableBody>
-                                    {this.state.testIssues.map(issues => {
-                                        return <TableRow key={issues.id}>
+                                    {this.state.issues.map((issue) => {
+                                        return <TableRow key={issue.id}>
                                             <TableCell >
                                                 <div style={{ width: "20px" }} className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issues.hospitalName}</p>
+                                                        <p className="font-semibold">{issue.hospital_name}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issues.hr}</p>
+                                                        <p className="font-semibold">{issue.hospital_representative}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issues.machine_type} </p>
+                                                        <p className="font-semibold">{issue.machine_name}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issues.problem} </p>
+                                                        <p className="font-semibold">{issue.problem} </p>
                                                     </div>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issues.fault_occured}</p>
+                                                        <p className="font-semibold">{issue.occurred_date}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
@@ -248,7 +252,7 @@ class ServiceHeadPortal extends React.Component {
                                                 <div className="flex items-center text-sm">
                                                     <div>
                                                         <p className="font-semibold">
-                                                            <Button type="primary" onClick={() => this.setModalVisible(true, issues.id)}>
+                                                            <Button type="primary" onClick={() => this.setModalVisible(true, issue.issue_id)}>
                                                                 Assign To
                                                         </Button>
                                                         </p>
@@ -321,7 +325,7 @@ class ServiceHeadPortal extends React.Component {
                                                     <span className="font-semibold">
                                                                 <Space direction="vertical" size={12}>
                                                                     <Form.Item>
-                                                                        <DatePicker />
+                                                                        <DatePicker onChange={(value, dateString) => this.setState({ date: dateString })} />
                                                                     </Form.Item>
                                                                 </Space>
                                                             </span>

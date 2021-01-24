@@ -72,7 +72,7 @@ class ProblemReporting extends React.Component {
         axios.get('http://127.0.0.1:8000/api/issue'
         ).then(resp => {
             this.setState({ 
-                issues : resp.data.notIssued
+                issues : resp.data.issues
             });
         });
     }
@@ -89,7 +89,6 @@ class ProblemReporting extends React.Component {
         }).then((resp) => {
             alert(resp.data.message);
             this.getAllIssues();
-            this.getAllMachines();
         });
         event.preventDefault();
     }
@@ -122,7 +121,7 @@ class ProblemReporting extends React.Component {
 
                                                     { this.state.machines.map((machine) => {
 
-                                                    return<Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
+                                                    return<Option key={machine.id} value={machine.id}>{machine.machine_name}</Option>
                                                     })}
                                             </Select>
                                         </Form.Item>
