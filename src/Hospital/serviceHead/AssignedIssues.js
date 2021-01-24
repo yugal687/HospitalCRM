@@ -3,7 +3,7 @@ import React from 'react'
 import { Drawer, List, Avatar, Divider, Col, Row, Card, Select, DatePicker, Radio, Button } from 'antd';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
-const listData = [{
+let listData = [{
     issueNo: `Issue No #1 (in progress)`,
     hospitalName: 'CMC',
     assignedDate: '2020-01-01',
@@ -33,6 +33,69 @@ const listData = [{
 },
 ];
 
+let allListData = [{
+    issueNo: `Issue No #1 (in progress)`,
+    is_completed: false,
+    hospitalName: 'CMC',
+    assignedDate: '2020-01-01',
+    problem:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+},
+{
+    issueNo: `Issue No #2 (completed)`,
+    is_completed: false,
+    hospitalName: 'CMS',
+    assignedDate: '2020-01-01',
+    problem:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+},
+{
+    issueNo: `Issue No #3 (in progress)`,
+    is_completed: false,
+    hospitalName: 'CMC 1',
+    assignedDate: '2020-01-01',
+    problem:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+},
+{
+    issueNo: `Issue No #4 (completed)`,
+    is_completed: false,
+    hospitalName: 'CMS 1',
+    assignedDate: '2020-01-01',
+    problem:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+},
+
+{
+    issueNo: `Issue No #5 (completed)`,
+    is_completed: true,
+    hospitalName: 'CMS 1',
+    assignedDate: '2020-01-01',
+    problem:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+},
+
+{
+    issueNo: `Issue No #6 (completed)`,
+    is_completed: false,
+    hospitalName: 'CMS 1',
+    assignedDate: '2020-01-01',
+    problem:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+},
+
+{
+    issueNo: `Issue No #7 (completed)`,
+    is_completed: false,
+    hospitalName: 'CMS 1',
+    assignedDate: '2020-01-01',
+    problem:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+},
+
+
+];
+
 
 const DescriptionItem = ({ title, content }) => (
     <div className="site-description-item-profile-wrapper">
@@ -48,7 +111,10 @@ class AssignedIssues extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { visible: false };
+        this.state = {
+            visible: false,
+        };
+        console.log(listData);
     }
 
 
@@ -88,7 +154,7 @@ class AssignedIssues extends React.Component {
                         <RangePicker />
                     </div>
                     <div className="md:col-span-1">
-                        <Radio.Group 
+                        <Radio.Group
                             defaultValue="all"
                             optionType="button"
                             buttonStyle="solid"
@@ -125,10 +191,10 @@ class AssignedIssues extends React.Component {
                         xl: 3,
                         xxl: 3,
                     }}
-                    dataSource={listData}
+                    dataSource={allListData}
                     renderItem={item => (
                         <List.Item>
-                            <Card title={item.issueNo}
+                            <Card title={`${item.issueNo}`}
                                 extra={<a onClick={this.showDrawer} key={`a-${item.id}`}>
                                     View Details
                                     </a>}>

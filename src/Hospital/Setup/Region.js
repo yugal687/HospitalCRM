@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import axiosInstance from '../../api'
 import {
     Table,
     TableHeader,
@@ -41,8 +42,11 @@ class Region extends React.Component {
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
-            this.setState({regions : resp.data.regions});
+            this.setState({ regions: resp.data.regions });
         });
+
+        axiosInstance.get('/region').then(resp => {});
+
     }
 
     handleChange(event) {
