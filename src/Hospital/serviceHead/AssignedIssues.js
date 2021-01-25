@@ -42,13 +42,42 @@ const DescriptionItem = ({ title, content }) => (
     </div>
 );
 
+const reviewTabList = [
+    {
+        key: 'ReviewOne',
+        tab: 'Review 1',
+    },
+    {
+        key: 'ReviewTwo',
+        tab: 'Review 2',
+    },
+    {
+        key: 'ReviewThree',
+        tab: 'Review 3',
+    },
+];
 
+const reviewContentList1 = [
+    {
+        workDone: '1. C / C + +, data structures, software engineering, operating systems, computer networks, databases, compiler theory, computer architecture, Microcomputer Principle and Interface Technology, Computer English, Java, ASP, etc.',
+        date: '2020-20-20'
+    },
+]
+
+const reviewContentList = {
+    ReviewOne: <p>Review 1</p>,
+    ReviewTwo: <p>Review 2</p>,
+    ReviewThree: <p>Review 3</p>,
+};
 
 class AssignedIssues extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { visible: false };
+        this.state = {
+            visible: false,
+            noTitleKey: 'ReviewOne',
+        };
     }
 
 
@@ -62,6 +91,12 @@ class AssignedIssues extends React.Component {
         this.setState({
             visible: false,
         });
+    };
+
+
+    onTabChange = (key, type) => {
+        console.log(key, type);
+        this.setState({ [type]: key });
     };
 
     render() {
@@ -88,7 +123,7 @@ class AssignedIssues extends React.Component {
                         <RangePicker />
                     </div>
                     <div className="md:col-span-1">
-                        <Radio.Group 
+                        <Radio.Group
                             defaultValue="all"
                             optionType="button"
                             buttonStyle="solid"
@@ -277,6 +312,70 @@ class AssignedIssues extends React.Component {
                                 title="Reviwed By"
                                 content="hospitalinfo"
                             />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={24}>
+                            <Card
+                                bordered={false}
+                                style={{ width: '100%' }}
+                                tabList={reviewTabList}
+                                activeTabKey={this.state.noTitleKey}
+                                onTabChange={key => {
+                                    this.onTabChange(key, 'noTitleKey');
+                                }}
+                            >
+                                {reviewContentList[this.state.noTitleKey]}
+                                <Row>
+                                    <Col span={24}>
+                                        <DescriptionItem
+                                            title="Work Done"
+                                            content={reviewContentList1[this.state.workDone]}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Date" content="February 5,1900" />
+                                    </Col>
+                                    <Col span={12}>
+                                        <DescriptionItem title="System Status" content="-------" />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={24}>
+                                        <p className="underline">Attended Engineers</p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Name" content="AntDesign@example.com" />
+                                    </Col>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Date" content="-------" />
+                                    </Col>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Arrival Time" content="----------" />
+                                    </Col>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Departure Time" content="-------" />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Name" content="AntDesign@example.com" />
+                                    </Col>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Date" content="-------" />
+                                    </Col>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Arrival Time" content="----------" />
+                                    </Col>
+                                    <Col span={12}>
+                                        <DescriptionItem title="Departure Time" content="-------" />
+                                    </Col>
+                                </Row>
+                            </Card>
                         </Col>
                     </Row>
                 </Drawer>
