@@ -91,7 +91,6 @@ class ServiceHeadPortal extends React.Component {
                 { 'name': 'Staff3', 'id': 3, 'on_progress': false },
                 { 'name': 'Staff4', 'id': 4, 'on_progress': false },
                 { 'name': 'Staff5', 'id': 5, 'on_progress': false },
-
             ],
 
 
