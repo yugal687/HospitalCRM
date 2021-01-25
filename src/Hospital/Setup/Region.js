@@ -16,9 +16,11 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
+import Beep from '../../../src/assets/sounds/Beep.mp3';
 
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
+import UIfx from 'uifx';
 
 import { Form, Button, Input, notification } from "antd"
 
@@ -28,6 +30,12 @@ const openNotificationWithIcon = (type, message, description) => {
         description: description
     });
 };
+
+
+
+
+
+
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
@@ -85,7 +93,8 @@ class Region extends React.Component {
                
                console.log(resp.data.error); 
             }else {
-                openNotificationWithIcon('success', 'Success', resp.data.message);
+                openNotificationWithIcon('success', 'Success', resp.data.message);  
+                
                 this.getAllRegions();
                 
                 
@@ -116,7 +125,7 @@ class Region extends React.Component {
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
-                                            label="Region Name"
+                                            
                                             value={this.state.name} onChange={this.handleChange}
                                             rules={[
                                                 {

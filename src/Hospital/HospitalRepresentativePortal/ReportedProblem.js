@@ -15,10 +15,31 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
+import axios from "axios"
 
 
 class ReportedProblem extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            issues: [],
+        };
+   
+    }
+
+    componentDidMount() {
+        this.getAllReportedProblem();
+    }
+
+    getAllReportedProblem() {
+        axios.get('http://127.0.0.1:8000/api/issue-assign'
+        ).then(resp => {
+            this.setState({ 
+                issues : resp.data.issueAssigns
+            });
+        });
+    }
 
     render() {
         return (
@@ -42,39 +63,41 @@ class ReportedProblem extends React.Component {
                                 </TableHeader>
                                 <TableBody>
 
-                                    <TableRow>
+                                {
+                                    this.state.issues.map( (issue) => {
+                                        return<TableRow key={issue.id}>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">Equipmwnt 1</p>
+                                                    <p className="font-semibold">{issue.machine_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">Problem 1</p>
+                                                    <p className="font-semibold">{issue.problem}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">2020/01/01</p>
+                                                    <p className="font-semibold">{issue.occurred_date}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">12:00</p>
+                                                    <p className="font-semibold">{issue.occurred_time}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">Asinged Staff 1</p>
+                                                    <p className="font-semibold">{issue.assigned_staff}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -83,16 +106,14 @@ class ReportedProblem extends React.Component {
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="inline-flex px-3 text-xs rounded-full text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100">
-                                                        completed
+                                                        {issue.status}
                                                     </p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         
-                                        
-
                                     </TableRow>
-
+                                    })}
                                 </TableBody>
                             </Table>
                             <TableFooter>

@@ -191,7 +191,7 @@ class ProblemReporting extends React.Component {
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{issue.machine_id}</p>
+                                                    <p className="font-semibold">{issue.machine_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>

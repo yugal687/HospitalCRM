@@ -56,44 +56,13 @@ class ServiceHeadPortal extends React.Component {
         super(props);
         this.state = {
             issues: [],
-            // testIssues: [
-            //     {
-            //         'id': 1, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-            //         'machine_type': 'MRI Machine',
-            //         'problem': 'This is problem 1', 'fault_occured': Date.now()
-            //     },
-            //     {
-            //         'id': 2, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-            //         'machine_type': 'CT Machine',
-            //         'problem': 'This is problem 2', 'fault_occured': Date.now()
-            //     },
-            //     {
-            //         'id': 3, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-            //         'machine_type': 'LAB Machine',
-            //         'problem': 'This is problem 3', 'fault_occured': Date.now()
-            //     },
-            //     {
-            //         'id': 4, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
-            //         'machine_type': 'REM Machine',
-            //         'problem': 'This is problem 4', 'fault_occured': Date.now()
-            //     },
-            // ],
             isOpen: false,
             modalVisible: false,
             expandIconPosition: 'left',
             issueId: 0,
-            staff: [],
+            staffs: [],
             estimatedTime: '',
             date: '',
-            testStaff: [
-                { 'name': 'Staff1', 'id': 1, 'on_progress': true },
-                { 'name': 'Staff2', 'id': 2, 'on_progress': true },
-                { 'name': 'Staff3', 'id': 3, 'on_progress': false },
-                { 'name': 'Staff4', 'id': 4, 'on_progress': false },
-                { 'name': 'Staff5', 'id': 5, 'on_progress': false },
-            ],
-
-
             selectedHospitalProblem: { 'hospitalName': '', 'machine_type': '', 'problem': '', 'problem_id': 0 },
         };
 
@@ -127,21 +96,25 @@ class ServiceHeadPortal extends React.Component {
     }
 
     getDetailOfStaff = () => {
-
+        axios.get('http://127.0.0.1:8000/api/ground-staffs'
+        ).then(resp => {
+             this.setState({ staffs: resp.data.staffs });
+        })
     }
 
     assignTask = (message, staffId) => {
         // console.log(estimatedTime);
 
         axios.post('http://127.0.0.1:8000/api/issue-assign', {
-            'onField_user': staffId,
-            'issue_id': this.state.selectedHospitalProblem.problem_id,
+            'user_id': staffId,
+            'issue_id': this.state.selectedHospitalProblem.issue_id,
             'start_date':this.state.estimatedTime[0],
             'end_date':this.state.estimatedTime[1],
-            'assign-date': this.state.date,
+            'assign_date': this.state.date,
             //k k chahinxa thapa la...  maile thapaina sayad tyo 2 ta date binding garne hola hai
         }).then(resp => {
-
+            alert(resp.data.message);
+            this.getDetailOfStaff();
         }).catch();
 
         openNotificationWithIcon(message, 'Success', 'Sucessfullt assigned Task to Ground Staff');
@@ -157,6 +130,7 @@ class ServiceHeadPortal extends React.Component {
 
     componentDidMount() {
         this.getAllIssues();
+        this.getDetailOfStaff();
     };
 
     getAllIssues() {
@@ -165,6 +139,7 @@ class ServiceHeadPortal extends React.Component {
              this.setState({ issues: resp.data.issues });
         })
     };
+
 
     
 
@@ -243,7 +218,7 @@ class ServiceHeadPortal extends React.Component {
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issue.occurred_date}</p>
+                                                        <p className="font-semibold">{issue.occurred_date}/{issue.occurred_time}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
@@ -299,8 +274,8 @@ class ServiceHeadPortal extends React.Component {
                                 expandIconPosition={expandIconPosition}
                             >
                                 {
-                                    this.state.testStaff.map(staffs => {
-                                        return <Panel header={staffs.name} key={staffs.id} style={mystyle} extra={genExtraTest(staffs.on_progress)}>
+                                    this.state.staffs.map((staff) => {
+                                        return <Panel header={staff.name} key={staff.id} style={mystyle} extra={genExtraTest(staff.availability)}>
                                             <div className="grid grid-cols-4">
                                                 <div className="col-span-1">
                                                     <p className="text-base font-medium">Hospital Name: <span className="font-semibold">
@@ -343,7 +318,7 @@ class ServiceHeadPortal extends React.Component {
                                                     </div>
                                                     <div className="col-span-1">
                                                         <Form.Item>
-                                                            <Button type="primary" size="large" style={buttonstyle} onClick={() => this.assignTask('success', staffs.id)}>Assign</Button>
+                                                            <Button type="primary" size="large" style={buttonstyle} onClick={() => this.assignTask('success', staff.id)}>Assign</Button>
                                                         </Form.Item>
                                                     </div>
 
