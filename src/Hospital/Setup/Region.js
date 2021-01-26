@@ -20,7 +20,6 @@ import { EditIcon, TrashIcon } from '../../icons'
 
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
-import UIfx from 'uifx';
 
 import { Form, Button, Input, notification } from "antd"
 
