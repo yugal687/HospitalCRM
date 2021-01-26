@@ -188,194 +188,164 @@ class AssignedIssues extends React.Component {
 
 
                 <Drawer
-                    width={640}
-                    placement="right"
-                    closable={false}
+                    title="Problem Report"
+                    height={600}
+                    placement="bottom"
                     onClose={this.onClose}
                     visible={this.state.visible}
                 >
-                    <p className="site-description-item-profile-p text-base font-semibold" style={{ marginBottom: 24 }}>
-                        Problem Report
-                    </p>
-                    <p className="site-description-item-profile-p font-semibold">Problem Details</p>
                     <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Hospital Name" content="CMC" />
+                        <Col span={8}>
+                            <p className="site-description-item-profile-p font-semibold">Problem Details</p>
+                            <Row>
+                                <Col span={12}>
+                                    <DescriptionItem title="Hospital Name" content="CMC" />
+                                </Col>
+                                <Col span={12}>
+                                    <DescriptionItem title="Representative Name" content="John Cena" />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
+                                    <DescriptionItem title="Machine" content="X-ray Machine" />
+                                </Col>
+                                <Col span={12}>
+                                    <DescriptionItem title="Machine Type" content="---------" />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <DescriptionItem title="Fault Occured Date" content="February 2,1900" />
+                                </Col>
+                                <Col span={24}>
+                                    <DescriptionItem title="Fault Occured Time" content="---------" />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <DescriptionItem
+                                        title="Problem"
+                                        content="Make things as simple as possible but no simpler."
+                                    />
+                                </Col>
+                            </Row>
+                            <Divider />
+                            <p className="site-description-item-profile-p font-semibold">Assignment Details</p>
+                            <Row>
+                                <Col span={24}>
+                                    <DescriptionItem title="Assigned To" content="Programmer 123" />
+                                </Col>
+                                <Col span={24}>
+                                    <DescriptionItem title="Assigned Date" content="February 3,1900" />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <DescriptionItem title="Estimated Date From" content="February 4,1900" />
+                                </Col>
+                                <Col span={24}>
+                                    <DescriptionItem title="Estimated Date To" content="February 5,1900" />
+                                </Col>
+                            </Row>
                         </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Representative Name" content="John Cena" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Machine" content="X-ray Machine" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Machine Type" content="---------" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Fault Occured Date" content="February 2,1900" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Fault Occured Time" content="---------" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <DescriptionItem
-                                title="Problem"
-                                content="Make things as simple as possible but no simpler."
-                            />
-                        </Col>
-                    </Row>
-                    <Divider />
-                    <p className="site-description-item-profile-p font-semibold">Assignment Details</p>
-                    <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Assigned To" content="Programmer 123" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Assigned Date" content="February 3,1900" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Estimated Date From" content="February 4,1900" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Estimated Date To" content="February 5,1900" />
-                        </Col>
-                    </Row>
-                    <Divider />
-                    <p className="site-description-item-profile-p font-semibold">Review On Work Done</p>
-                    <Row>
-                        <Col span={24}>
-                            <DescriptionItem
-                                title="Work Done"
-                                content="C / C + +, data structures, software engineering, operating systems, computer networks, databases, compiler theory, computer architecture, Microcomputer Principle and Interface Technology, Computer English, Java, ASP, etc."
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Date" content="February 5,1900" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="System Status" content="-------" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <p className="underline">Attended Engineers</p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Name" content="AntDesign@example.com" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Date" content="-------" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Arrival Time" content="----------" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Departure Time" content="-------" />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <DescriptionItem title="Name" content="AntDesign@example.com" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Date" content="-------" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Arrival Time" content="----------" />
-                        </Col>
-                        <Col span={12}>
-                            <DescriptionItem title="Departure Time" content="-------" />
-                        </Col>
-                    </Row>
-                    <Divider />
-                    <Row>
-                        <Col span={24}>
-                            <DescriptionItem
-                                title="Github"
-                                content="hospitalinfo@gmail.com"
-                            />
-                        </Col>
-                        <Col span={24}>
-                            <DescriptionItem
-                                title="Reviwed By"
-                                content="hospitalinfo"
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <Card
-                                bordered={false}
-                                style={{ width: '100%' }}
-                                tabList={reviewTabList}
-                                activeTabKey={this.state.noTitleKey}
-                                onTabChange={key => {
-                                    this.onTabChange(key, 'noTitleKey');
-                                }}
-                            >
-                                {reviewContentList[this.state.noTitleKey]}
-                                <Row>
-                                    <Col span={24}>
-                                        <DescriptionItem
-                                            title="Work Done"
-                                            content={reviewContentList1[this.state.workDone]}
-                                        />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Date" content="February 5,1900" />
-                                    </Col>
-                                    <Col span={12}>
-                                        <DescriptionItem title="System Status" content="-------" />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col span={24}>
-                                        <p className="underline">Attended Engineers</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Name" content="AntDesign@example.com" />
-                                    </Col>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Date" content="-------" />
-                                    </Col>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Arrival Time" content="----------" />
-                                    </Col>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Departure Time" content="-------" />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Name" content="AntDesign@example.com" />
-                                    </Col>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Date" content="-------" />
-                                    </Col>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Arrival Time" content="----------" />
-                                    </Col>
-                                    <Col span={12}>
-                                        <DescriptionItem title="Departure Time" content="-------" />
-                                    </Col>
-                                </Row>
-                            </Card>
+                        <Col span={16}>
+                            <p className="site-description-item-profile-p font-semibold">Review On Work Done</p>
+                            <Row>
+                                <Col span={24}>
+                                    <Card
+                                        bordered={false}
+                                        style={{ width: '100%' }}
+                                        tabList={reviewTabList}
+                                        activeTabKey={this.state.noTitleKey}
+                                        onTabChange={key => {
+                                            this.onTabChange(key, 'noTitleKey');
+                                        }}
+                                    >
+                                        {reviewContentList[this.state.noTitleKey]}
+                                        {/* Reviewed Data */}
+                                        <Row>
+                                            <Col span={24}>
+                                                <DescriptionItem
+                                                    title="Work Done"
+                                                    content="This is a report on work done"
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col span={24}>
+                                                <DescriptionItem
+                                                    title="Status"
+                                                    content="on process | halt | completed"
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Date" content="February 5,1900" />
+                                            </Col>
+                                            <Col span={12}>
+                                                <DescriptionItem title="System Status" content="-------" />
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col span={24}>
+                                                <p className="underline">Attended Engineers</p>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Name" content="AntDesign@example.com" />
+                                            </Col>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Date" content="-------" />
+                                            </Col>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Arrival Time" content="----------" />
+                                            </Col>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Departure Time" content="-------" />
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Name" content="AntDesign@example.com" />
+                                            </Col>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Date" content="-------" />
+                                            </Col>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Arrival Time" content="----------" />
+                                            </Col>
+                                            <Col span={12}>
+                                                <DescriptionItem title="Departure Time" content="-------" />
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col span={24}>
+                                                <Button type="primary">
+                                                    Print
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                        {/* Reviewed Data */}
+                                    </Card>
+                                </Col>
+                            </Row>
+                            <Divider />
+                            <Row>
+                                <Col span={24}>
+                                    <DescriptionItem
+                                        title="Hospital"
+                                        content="hospital name"
+                                    />
+                                </Col>
+                                <Col span={24}>
+                                    <DescriptionItem
+                                        title="Reviwed By"
+                                        content="hospital representative name"
+                                    />
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Drawer>
