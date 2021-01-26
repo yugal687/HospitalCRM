@@ -16,7 +16,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-import Beep from '../../../src/assets/sounds/Beep.mp3';
+
 
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
