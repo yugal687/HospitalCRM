@@ -10,6 +10,7 @@ const HospitalRep = lazy(() => import('../Hospital/Setup/Staff/HospitalRep'))
 const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
 const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
+const ErrorCodesView = lazy(() => import('../Hospital/serviceHead/ErrorCodesView'))
 const BranchManagerPortal = lazy(() => import('../Hospital/BranchManager/BranchManagerPortal'))
 const AssignedIssues = lazy(() => import ('../Hospital/serviceHead/AssignedIssues'))
 const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
@@ -73,6 +74,10 @@ const routes = [
   {
     path: '/serviceHead/service-head-portal', // the url
     component: ServiceHeadPortal, // view rendered
+  },
+  {
+    path: '/serviceHead/error-code-view', // the url error-code-view
+    component: ErrorCodesView, // view rendered
   },
   {
     path: '/serviceHead/assigned-issues', // the url
