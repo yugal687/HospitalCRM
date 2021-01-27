@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import axiosInstance from '../../api'
 import {
@@ -16,13 +16,12 @@ import {
     ModalFooter,
     Label, HelperText,
 } from '@windmill/react-ui'
-import { EditIcon, TrashIcon } from '../../icons'
+import {EditIcon, TrashIcon} from '../../icons'
 
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
 
-import { Form, Button, Input } from "antd"
-
+import {Form, Button, Input} from "antd"
 
 
 // make a copy of the data, for the second table
@@ -39,18 +38,15 @@ class Region extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/region'
-        ).then(resp => {
-            this.setState({ regions: resp.data.regions });
+        axiosInstance.get('/region').then((resp) => {
+            this.setState({regions: resp.data.regions})
         });
-
-        axiosInstance.get('/region').then(resp => {});
-
     }
 
     handleChange(event) {
-        this.setState({ name: event.target.value });
+        this.setState({name: event.target.value});
     }
 
     handleSubmit(event) {
@@ -67,33 +63,34 @@ class Region extends React.Component {
         console.log(this.state.regions);
         return (
             <div>
-
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
                     {/* Form Section */}
                     <div className="sm:col-span-1">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
-                            <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
+                            <div
+                                className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
                                 <p>Add region</p>
                             </div>
                             {/* Form */}
-                            <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
+                            <div
+                                className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form>
 
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
                                             value={this.state.name} onChange={this.handleChange}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
+                                            rules={[{required: true, message: 'Please input your username!'}]}
                                         >
-                                            <Input />
+                                            <Input/>
                                         </Form.Item>
                                     </Label>
 
-                                    <Form.Item  >
+                                    <Form.Item>
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
                                             Submit
-                                            </Button>
+                                        </Button>
                                     </Form.Item>
                                 </Form>
                             </div>
@@ -124,10 +121,10 @@ class Region extends React.Component {
                                                 <TableCell>
                                                     <div className="flex items-center space-x-4">
                                                         <Button layout="link" size="icon" aria-label="Edit">
-                                                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                            <EditIcon className="w-5 h-5" aria-hidden="true"/>
                                                         </Button>
                                                         <Button layout="link" size="icon" aria-label="Delete">
-                                                            <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                            <TrashIcon className="w-5 h-5" aria-hidden="true"/>
                                                         </Button>
                                                     </div>
                                                 </TableCell>
@@ -184,7 +181,6 @@ class Region extends React.Component {
                         </TableContainer>
 
                         <div>
-
 
 
                         </div>

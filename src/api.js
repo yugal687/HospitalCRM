@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let headers = {};
 
-if (localStorage.token) {
+if (localStorage.getItem('token')) {
     headers.Authorization = `Bearer ${localStorage.token}`;
 }
 
