@@ -51,7 +51,10 @@ const routes = [
         path: '/app/serviceHead/assigned-issues',
         name: 'AssignedIssues',
       },
-      
+      {
+        path: '/app/serviceHead/error-code-view',
+        name: 'ErrorCodesView',
+      },
     ],
   },
 

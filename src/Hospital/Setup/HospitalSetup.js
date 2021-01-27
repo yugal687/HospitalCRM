@@ -20,7 +20,12 @@ import axios from "axios"
 
 import { Form, Button, Input, Select } from "antd"
 
-
+// const openNotificationWithIcon = (type, message, description) => {
+//     notification[type]({
+//         message: message,
+//         description: description
+//     });
+// };
 
 const { Option } = Select;
 
