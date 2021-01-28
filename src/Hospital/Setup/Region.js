@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState,Suspense, useEffect} from 'react'
 
-import axiosInstance from '../../api'
+import axiosInstance from "../../api";
 import {
     Table,
     TableHeader,
@@ -18,12 +18,15 @@ import {
 } from '@windmill/react-ui'
 import {EditIcon, TrashIcon} from '../../icons'
 
+import { Roller } from 'react-awesome-spinners'
+import LoadingOverlay from 'react-loading-overlay'
+
 
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
-import UIfx from 'uifx';
 
-import { Form, Button, Input, notification } from "antd"
+import {Form, Button, Input, notification} from "antd"
+
 
 const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
@@ -34,26 +37,23 @@ const openNotificationWithIcon = (type, message, description) => {
 
 
 
-
-
-
 // make a copy of the data, for the second table
 const response2 = response.concat([])
 
 const validateMessages = {
     required: '${label} is required',
     types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
+        email: '${label} is not a valid email!',
+        number: '${label} is not a valid number!',
     },
     number: {
-      range: '${label} must be between ${min} and ${max}',
+        range: '${label} must be between ${min} and ${max}',
     },
-  };
+};
 
-  const onFinish = (values) => {
+const onFinish = (values) => {
     console.log(values);
-  };
+};
 
 class Region extends React.Component {
     constructor(props) {
@@ -61,20 +61,26 @@ class Region extends React.Component {
         this.state = {
             name: '',
             regions: [],
-             disabledButton: false,
+            isButtonDisabled: false,
+            loading: true,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    formRef = React.createRef();
+
     componentDidMount() {
         this.getAllRegions();
     }
 
     getAllRegions() {
-        axiosInstance.get('/region').then((resp) => {
-            this.setState({regions: resp.data.regions})
+        axiosInstance.get('/region'
+        ).then(resp => {
+            this.setState({
+                loading: false,
+                regions: resp.data.regions});
         });
     }
 
@@ -82,47 +88,37 @@ class Region extends React.Component {
         this.setState({name: event.target.value});
     }
 
-   
 
     handleSubmit(event) {
-
-         this.setState({disabledButton : true})
-
-            axiosInstance.post('/region', {
+        this.setState({loading: false,})
+        
+        this.setState({isButtonDisabled: true});
+        axiosInstance.post('/region', {
             region_name: this.state.name,
+        }).then((resp) => {
             
-        }).then(resp => {
-            
-            if(resp.data.error){
+            if (resp.data.error) {
                 openNotificationWithIcon('error', 'Error', resp.data.error.region_name);
-               
-               console.log(resp.data.error); 
-            }else {
-                openNotificationWithIcon('success', 'Success', resp.data.message);  
-                
+                console.log(resp.data.error);
+            } else {
+                openNotificationWithIcon('success', 'Success', resp.data.message);
+                //this.setState({name: ''});
+                 this.formRef.current.resetFields();
                 this.getAllRegions();
-                
-        }
-        });
+                this.setState({isButtonDisabled: false});
+            }
+        }).catch(err => this.setState({isButtonDisabled: false})
+        );
         event.preventDefault();
     }
 
     render() {
-        let isButton = this.state.disabledButton;
-        const renderButton = () => {
-            
-                if (!isButton) {
-                    return <button onClick={this.handleSubmit} disabled type="primary" htmlType="submit" >
-                         Submit
-                                </button>
-                }
-                 return <button onClick={this.handleSubmit}   type="primary" htmlType="submit" >
-                      Submit
-                                </button>
-        };
+        const { loading, active } = this.state;
+        
         
         return (
             <div>
+   {loading ?  <Roller color="blue" loading={loading} size={50} /> : 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
                     {/* Form Section */}
                     <div className="sm:col-span-1">
@@ -133,35 +129,38 @@ class Region extends React.Component {
                                 <p>Add region</p>
                             </div>
                             {/* Form */}
-                            <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
-                                <Form 
-                                onFinish={onFinish}
-                                validateMessages={validateMessages}>
+                            <div
+                                className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
+                                <Form ref={this.formRef}
+                                      onFinish={onFinish}
+                                      validateMessages={validateMessages}>
 
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
-                                            
                                             value={this.state.name} onChange={this.handleChange}
                                             rules={[
                                                 {
-                                                  required: true,
+                                                    required: true,
                                                 },
-                                              ]}
+                                            ]}
                                         >
                                             <Input/>
                                         </Form.Item>
                                     </Label>
-
-                            {/* <Button disabled onClick={this.handleSubmit} type="primary" htmlType="submit">
-                                Submit
-                                </Button> */}
+                                    <Form.Item>
+                                        <Button disabled={this.state.isButtonDisabled} onClick={this.handleSubmit}
+                                                type="primary" htmlType="submit">
+                                            <LoadingOverlay active={active} spinner>
+                                            Submit
+                                            </LoadingOverlay>
+                                        </Button>
+                                    </Form.Item>
                                 </Form>
-                                {renderButton}
-
                             </div>
                         </div>
                     </div>
+
                     {/* Table Section */}
                     <div className="sm:col-span-2">
                         {/* Tables */}
@@ -173,7 +172,8 @@ class Region extends React.Component {
                                         <TableCell>Actions</TableCell>
                                     </tr>
                                 </TableHeader>
-                                <TableBody>
+                                 
+                                 <TableBody>
                                     {
                                         this.state.regions.map(region => {
                                             return <TableRow key={region.id}>
@@ -240,6 +240,7 @@ class Region extends React.Component {
 
 
                                 </TableBody>
+    
                             </Table>
                             <TableFooter>
 
@@ -252,8 +253,9 @@ class Region extends React.Component {
                         </div>
                     </div>
                 </div>
+    
 
-
+                                }
                 {/* Edit Modal */}
                 {/* <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
                 <ModalHeader>Edit Region</ModalHeader>
