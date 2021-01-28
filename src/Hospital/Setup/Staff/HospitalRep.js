@@ -61,7 +61,7 @@ class HospitalRep extends React.Component {
     }
 
     getHospitalSetup() {
-        axios.get('http://127.0.0.1:8000/api/hospital', 
+        axiosInstance.get('/hospital', 
         ).then((resp) => {
             this.setState({
                 hospitals: resp.data.hospitals
@@ -70,7 +70,7 @@ class HospitalRep extends React.Component {
     }
     
     getHospitalRepresentativeDetail() {
-        axios.get('http://127.0.0.1:8000/api/hospital-representative', 
+        axiosInstance.get('/hospital-representative', 
         ).then((resp) => {
             this.setState({
                 details: resp.data.hospitalRepresentatives
@@ -81,7 +81,7 @@ class HospitalRep extends React.Component {
     handleSubmit(event) {
         alert('A name was submitted: ' 
         );
-        axios.post('http://127.0.0.1:8000/api/hospital-representative', {
+        axiosInstance.post('/hospital-representative', {
             // name: this.state.Name,
             // address: this.state.Address,
             // email:  this.state.Email,

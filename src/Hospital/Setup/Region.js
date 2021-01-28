@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios';
+
 import axiosInstance from '../../api'
 import {
     Table,
@@ -60,7 +60,8 @@ class Region extends React.Component {
         super(props);
         this.state = {
             name: '',
-            regions: []
+            regions: [],
+            disabledButton: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -68,6 +69,10 @@ class Region extends React.Component {
     }
 
     componentDidMount() {
+        this.getAllRegions();
+    }
+
+    getAllRegions() {
         axiosInstance.get('/region').then((resp) => {
             this.setState({regions: resp.data.regions})
         });
@@ -80,10 +85,14 @@ class Region extends React.Component {
    
 
     handleSubmit(event) {
-        
-        axios.post('http://127.0.0.1:8000/api/region', {
+
+        this.setState({disabledButton : true})
+
+            axiosInstance.post('/region', {
             region_name: this.state.name,
+            
         }).then(resp => {
+            
             if(resp.data.error){
                 openNotificationWithIcon('error', 'Error', resp.data.error.region_name);
                
@@ -93,14 +102,23 @@ class Region extends React.Component {
                 
                 this.getAllRegions();
                 
-                
         }
         });
         event.preventDefault();
     }
 
     render() {
-        console.log(this.state.regions);
+        
+        const Button = () => {
+
+           
+            
+                if (!this.state.disabledButton) {
+                    return <Button onClick={this.handleSubmit} disabled type="primary" htmlType="submit" />
+                }
+                 return <Button onClick={this.handleSubmit}   type="primary" htmlType="submit" />
+        };
+        
         return (
             <div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
@@ -134,10 +152,8 @@ class Region extends React.Component {
                                     </Label>
 
                                     <Form.Item  >
-                                        <Button onClick={this.handleSubmit}  type="primary" htmlType="submit">
-                                            Submit
-                                        </Button>
-                                    </Form.Item>
+                                      {Button}
+                                      </Form.Item>
                                 </Form>
                             </div>
                         </div>

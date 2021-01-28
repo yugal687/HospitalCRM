@@ -12,7 +12,7 @@ const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMach
 const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
 const AssignedIssues = lazy(()=> import('../Hospital/serviceHead/AssignedIssues'))
 const BranchManagerPortal = lazy(() => import('../Hospital/BranchManager/BranchManagerPortal'))
-const AssignedIssues = lazy(() => import ('../Hospital/serviceHead/AssignedIssues'))
+
 const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
 const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
 const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))

@@ -63,7 +63,7 @@ class Category extends React.Component {
     //  }
 
     getAllMachines() {
-        axios.get('http://127.0.0.1:8000/api/category-only'
+        axiosInstance.get('/category-only'
         ).then(resp => {
             this.setState({machines : resp.data.machines});
         });
@@ -72,7 +72,7 @@ class Category extends React.Component {
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.category 
         );
-        axios.post('http://127.0.0.1:8000/api/machine', {
+        axiosInstance.post('/machine', {
           category_name: this.state.category,
             
         }).then((resp) => {

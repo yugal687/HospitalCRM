@@ -60,7 +60,7 @@ class ProblemReporting extends React.Component {
     }
 
     getAllMachines() {
-        axios.get('http://127.0.0.1:8000/api/machine'
+        axiosInstance.get('/machine'
         ).then(resp => {
             this.setState({ 
                 machines : resp.data.machines
@@ -69,7 +69,7 @@ class ProblemReporting extends React.Component {
     }
 
     getAllIssues() {
-        axios.get('http://127.0.0.1:8000/api/issue'
+        axiosInstance.get('/issue'
         ).then(resp => {
             this.setState({ 
                 issues : resp.data.issues
@@ -81,7 +81,7 @@ class ProblemReporting extends React.Component {
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.machine_id + this.state.problem + this.state.issue_occured_date + this.state.issue_occured_time);
 
-        axios.post('http://127.0.0.1:8000/api/issue', {
+        axiosInstance.post('/issue', {
           machine_id: this.state.machine_id,
           problem: this.state.problem,
           occurred_date: this.state.issue_occured_date,

@@ -61,18 +61,17 @@ class Staffs extends React.Component {
         this.getRegion();
         this.getStaffs();
         this.getRole();
-        this.getHospital();
+        // this.getHospital();
     }
 
     getRole() {
-        axios.get('http://127.0.0.1:8000/api/role',
-        ).then((resp) => {
+        axiosInstance.get('/role').then((resp) => {
             this.setState({ roles: resp.data.roles })
         });
     }
 
     getRegion() {
-        axios.get('http://127.0.0.1:8000/api/region',
+        axiosInstance.get('/region'
         ).then((resp) => {
             this.setState({ regions: resp.data.regions })
         });
@@ -80,7 +79,7 @@ class Staffs extends React.Component {
 
 
     getStaffs() {
-        axios.get('http://127.0.0.1:8000/api/user',
+        axiosInstance.get('/user'
         ).then((resp) => {
             this.setState({
                 users: resp.data.users
@@ -93,7 +92,7 @@ class Staffs extends React.Component {
         alert('A name was submitted: ' + this.state.Name + this.state.Address + this.state.Email + this.state.ContactNo +
             this.state.Region + this.state.Role
         );
-        axios.post('http://127.0.0.1:8000/api/user', {
+        axiosInstance.get('/user', {
             name: this.state.Name,
             address: this.state.Address,
             email: this.state.Email,
@@ -108,7 +107,6 @@ class Staffs extends React.Component {
 
         event.preventDefault();
     }
-
 
     render() {
 
