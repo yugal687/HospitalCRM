@@ -61,7 +61,7 @@ class Region extends React.Component {
         this.state = {
             name: '',
             regions: [],
-            disabledButton: false,
+             disabledButton: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -86,7 +86,7 @@ class Region extends React.Component {
 
     handleSubmit(event) {
 
-        this.setState({disabledButton : true})
+         this.setState({disabledButton : true})
 
             axiosInstance.post('/region', {
             region_name: this.state.name,
@@ -108,15 +108,17 @@ class Region extends React.Component {
     }
 
     render() {
-        
-        const Button = () => {
-
-           
+        let isButton = this.state.disabledButton;
+        const renderButton = () => {
             
-                if (!this.state.disabledButton) {
-                    return <Button onClick={this.handleSubmit} disabled type="primary" htmlType="submit" />
+                if (!isButton) {
+                    return <button onClick={this.handleSubmit} disabled type="primary" htmlType="submit" >
+                         Submit
+                                </button>
                 }
-                 return <Button onClick={this.handleSubmit}   type="primary" htmlType="submit" />
+                 return <button onClick={this.handleSubmit}   type="primary" htmlType="submit" >
+                      Submit
+                                </button>
         };
         
         return (
@@ -151,10 +153,12 @@ class Region extends React.Component {
                                         </Form.Item>
                                     </Label>
 
-                                    <Form.Item  >
-                                      {Button}
-                                      </Form.Item>
+                            {/* <Button disabled onClick={this.handleSubmit} type="primary" htmlType="submit">
+                                Submit
+                                </Button> */}
                                 </Form>
+                                {renderButton}
+
                             </div>
                         </div>
                     </div>

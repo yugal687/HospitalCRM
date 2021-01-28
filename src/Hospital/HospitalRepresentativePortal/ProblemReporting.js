@@ -15,7 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-import axios from "axios"
+import axiosInstance from '../../api'
 
 
 import { Form, Button, Input, Select, DatePicker, TimePicker } from "antd"

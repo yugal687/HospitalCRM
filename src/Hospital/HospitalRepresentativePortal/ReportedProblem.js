@@ -13,7 +13,8 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-import axios from "axios"
+
+import axiosInstance from '../../api'
 
 import { Button, Table, Popconfirm, Drawer, Form, Input, Select, DatePicker, Checkbox, TimePicker, Radio, Badge } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';

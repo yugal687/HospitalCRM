@@ -15,7 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../../icons'
-import axios from "axios"
+import axiosInstance from '../../../api'
 
 
 
@@ -61,7 +61,7 @@ class Staffs extends React.Component {
         this.getRegion();
         this.getStaffs();
         this.getRole();
-        // this.getHospital();
+        this.getHospital();
     }
 
     getRole() {
@@ -74,6 +74,12 @@ class Staffs extends React.Component {
         axiosInstance.get('/region'
         ).then((resp) => {
             this.setState({ regions: resp.data.regions })
+        });
+    }
+    getHospital() {
+        axiosInstance.get('/hospital', 
+        ).then((resp) => {
+            this.setState({hospitals: resp.data.hospitals })
         });
     }
 
@@ -185,16 +191,23 @@ class Staffs extends React.Component {
                                     </Label>
 
                                     <Label>
-                                        <Form.Item >
-                                            <span> Role:</span>
-                                            <Select defaultValue="lucy" style={{ width: 230 }}
-                                                value={this.state.Role}
-                                                onChange={(e) => this.setState({ Role: e })}>
-                                                {this.state.roles.map((role) => {
-                                                    return <Option key={role.id} value={role.id}>{role.role_name}</Option>
-                                                })}
-                                            </Select>
-                                        </Form.Item>
+                                    <Form.Item >
+                                        <span> Role:</span>
+                                    <Select defaultValue="lucy" style={{ width: 230 }}
+                                    value={this.state.Role}  
+                                    onChange = {(e)=>{ 
+                                        this.setState({Role : e});
+                                        if(e == 3){
+                                          return  this.setState({ showHospital: true});
+                                        }
+                                        return  this.setState({ showHospital: false});
+                                        }}>
+
+                                        { this.state.roles.map((role) => {
+                                         return   <Option key={role.id} value={role.id}>{role.role_name}</Option>    
+                                        })}    
+                                    </Select>
+                                    </Form.Item>
                                     </Label>
 
                                     <Label>
