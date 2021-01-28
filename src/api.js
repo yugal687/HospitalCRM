@@ -1,5 +1,15 @@
 import axios from 'axios';
 
-export default axios.create({
-    baseUrl: `http://jsonplaceholder.typicode.com/`
+let headers = {};
+
+if (localStorage.getItem('token')) {
+    headers.Authorization = `Bearer ${localStorage.token}`;
+}
+
+const axiosInstance = axios.create({
+    baseURL: `http://127.0.0.1:8000/api`,
+    headers,
 });
+
+
+export default axiosInstance;
