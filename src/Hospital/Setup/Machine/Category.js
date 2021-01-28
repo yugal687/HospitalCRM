@@ -40,7 +40,8 @@ class Category extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
+            department: '',
             category: '',
             machines: [],
          };
@@ -89,9 +90,9 @@ class Category extends React.Component {
         return (
             <div>
 
-                <div className="grid grid-cols-1 gap-6 mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
                     {/* Form Section */}
-                    <div className="">
+                    <div className="md:col-span-1">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
                             <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
@@ -102,6 +103,21 @@ class Category extends React.Component {
                                 <Form
                                 validateMessages={validateMessages}
                                 >
+
+                                    <Label>
+                                        <span> Department:</span>
+                                        <Form.Item >
+                                            <Select
+                                            value={this.state.department}  
+                                            onChange = {(e)=> this.setState({department : e.target.value})}>
+
+                                                <Option key="" value="">Department 1</Option>
+                                                                                                
+
+                                            </Select>
+                                        </Form.Item>
+                                    </Label>
+
                                     <Label>
                                         <span>Category:</span>
                                         <Form.Item
@@ -126,17 +142,15 @@ class Category extends React.Component {
                         </div>
                     </div>
                     {/* Table Section */}
-                    <div className="">
+                    <div className="md:col-span-2">
                         {/* Tables */}
                         <TableContainer className="mb-8">
                         <Table>
                             <TableHeader>
                                 <tr>
+                                    <TableCell>Department</TableCell>
                                     <TableCell>Category</TableCell>
-                                    
                                     <TableCell>Actions</TableCell>
-                                    
-                                    
                                 </tr>
                             </TableHeader>
                             <TableBody>    
@@ -144,6 +158,15 @@ class Category extends React.Component {
                                 {
                                     this.state.machines.map( (machine) => {
                                         return    <TableRow key={machine.id}>
+                                            <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        {/* Department Name */}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>

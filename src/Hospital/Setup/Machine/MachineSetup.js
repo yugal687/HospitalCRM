@@ -113,6 +113,20 @@ class MachineSetup extends React.Component {
                                 >
 
                                     <Label>
+                                        <span> Department:</span>
+                                        <Form.Item >
+                                            <Select
+                                            value={this.state.department}  
+                                            onChange = {(e)=> this.setState({department : e.target.value})}>
+
+                                                <Option key="" value="">Department 1</Option>
+                                                                                                
+
+                                            </Select>
+                                        </Form.Item>
+                                    </Label>
+
+                                    <Label>
                                         <span>Machine Category: </span>
                                         <Form.Item>
                                             <Select defaultValue="lucy"
@@ -177,7 +191,7 @@ class MachineSetup extends React.Component {
                             <Table>
                                 <TableHeader>
                                     <tr>
-
+                                        <TableCell>Department</TableCell>
                                         <TableCell>Category</TableCell>
                                         <TableCell>Subcategory</TableCell>
                                         <TableCell>Machine Name</TableCell>
@@ -192,6 +206,15 @@ class MachineSetup extends React.Component {
                                     {
                                         this.state.machines.map((machine) => {
                                             return <TableRow key={machine.id}>
+                                                <TableCell>
+                                                    <div className="flex items-center text-sm">
+                                                        <div>
+                                                            <p className="font-semibold">
+                                                                {/* Department Name */}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
                                                 <TableCell>
                                                     <div className="flex items-center text-sm">
                                                         <div>

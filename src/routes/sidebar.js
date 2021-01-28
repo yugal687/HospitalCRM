@@ -16,6 +16,11 @@ const routes = [
     icon: 'HomeIcon', // the component being exported from icons/index.js
     name: 'HospitalSetup', // name that appear in Sidebar
   },
+  {
+    path: '/app/department', // the url
+    icon: 'HomeIcon', // the component being exported from icons/index.js
+    name: 'Department', // name that appear in Sidebar
+  },
   
 
   //for staff dropdown
