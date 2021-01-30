@@ -1,6 +1,5 @@
 import { lazy } from 'react'
 
-
 // use lazy for better code splitting, a.k.a. load faster
 const Region = lazy(() => import('../Hospital/Setup/Region'))
 const Department = lazy(() => import('../Hospital/Setup/DepartmentSetup'))
