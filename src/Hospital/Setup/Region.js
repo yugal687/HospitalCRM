@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios';
+
+import axiosInstance from "../../api";
 import {
     Table,
     TableHeader,
@@ -53,19 +54,22 @@ class Region extends React.Component {
         super(props);
         this.state = {
             name: '',
-            regions: []
+            regions: [],
+            isButtonDisabled: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    formRef = React.createRef();
+
     componentDidMount() {
         this.getAllRegions();
     }
 
     getAllRegions() {
-        axios.get('http://127.0.0.1:8000/api/region'
+        axiosInstance.get('/region'
         ).then(resp => {
             this.setState({regions: resp.data.regions});
         });
@@ -77,22 +81,22 @@ class Region extends React.Component {
 
 
     handleSubmit(event) {
-
-        axios.post('http://127.0.0.1:8000/api/region', {
+        this.setState({isButtonDisabled: true});
+        axiosInstance.post('/region', {
             region_name: this.state.name,
-        }).then(resp => {
+        }).then((resp) => {
             if (resp.data.error) {
                 openNotificationWithIcon('error', 'Error', resp.data.error.region_name);
-
                 console.log(resp.data.error);
             } else {
                 openNotificationWithIcon('success', 'Success', resp.data.message);
-
+                //this.setState({name: ''});
+                this.formRef.current.resetFields();
                 this.getAllRegions();
-
-
+                this.setState({isButtonDisabled: false});
             }
-        });
+        }).catch(err => this.setState({isButtonDisabled: false})
+        );
         event.preventDefault();
     }
 
@@ -113,14 +117,13 @@ class Region extends React.Component {
                             {/* Form */}
                             <div
                                 className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
-                                <Form
-                                    onFinish={onFinish}
-                                    validateMessages={validateMessages}>
+                                <Form ref={this.formRef}
+                                      onFinish={onFinish}
+                                      validateMessages={validateMessages}>
 
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
-
                                             value={this.state.name} onChange={this.handleChange}
                                             rules={[
                                                 {
@@ -131,9 +134,9 @@ class Region extends React.Component {
                                             <Input/>
                                         </Form.Item>
                                     </Label>
-
                                     <Form.Item>
-                                        <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
+                                        <Button disabled={this.state.isButtonDisabled} onClick={this.handleSubmit}
+                                                type="primary" htmlType="submit">
                                             Submit
                                         </Button>
                                     </Form.Item>
