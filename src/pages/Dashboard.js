@@ -22,6 +22,8 @@ import {
   Pagination,
 } from '@windmill/react-ui'
 
+import { Card, CardBody, Container, Title, CardFooter, FillButton, OutlineButton } from 'tailwind-react-ui'
+
 import {
   doughnutOptions,
   lineOptions,
@@ -50,47 +52,65 @@ function Dashboard() {
 
   return (
     <>
-      <PageTitle>Dashboard</PageTitle>
+    
+      <PageTitle><u>Ground Field Engineer Dashboard Portal</u></PageTitle>
 
-      <CTA />
+      {/* <CTA /> */}
 
       {/* <!-- Cards --> */}
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total clients" value="6389">
-          <RoundIcon
-            icon={PeopleIcon}
-            iconColorClass="text-orange-500 dark:text-orange-100"
-            bgColorClass="bg-orange-100 dark:bg-orange-500"
-            className="mr-4"
-          />
-        </InfoCard>
+      <div className="grid gap-6 mb-8 md:grid-cols-3 xl:grid-cols-3">
+        
+  <Card className="bg-blue-200" border shadow>
+    <CardBody>
+      <Title size={6} text="blue">
+        {/* Hello World */}
+        Issues Completed:
+      </Title>
+      <OutlineButton brand="primary" w="full" w-sm="1/5">
+        <h2>43</h2>
+      </OutlineButton>
+    </CardBody>
+    <CardFooter wrap>
+      <FillButton  brand="primary" w="full" w-sm="1/5">
+        <h2>hello</h2>
+      </FillButton>
+      
+    </CardFooter>
+  </Card>
+  <Card className="bg-blue-200" border shadow>
+    <CardBody>
+      <Title size={6} text="blue">
+        {/* Hello World */}
+        Issues Haulted:
+      </Title>
+      <OutlineButton brand="primary" w="full" w-sm="1/5">
+        <h2>43</h2>
+      </OutlineButton>
+    </CardBody>
+    <CardFooter wrap>
+      <FillButton brand="primary" w="full" w-sm="1/5">
+       <h2> hello</h2>
+      </FillButton>
+    </CardFooter>
+  </Card>
+  <Card className="bg-blue-200" border shadow>
+    <CardBody>
+      <Title size={6} text="blue">
+        {/* Hello World */}
+        Pending:
+      </Title>
+      <OutlineButton brand="primary" w="full" w-sm="1/5">
+        <h2>43</h2>
+      </OutlineButton>
+    </CardBody>
+    <CardFooter wrap>
+      <FillButton brand="primary" w="full" w-sm="1/5">
+        <h2>hello</h2>
+      </FillButton>
+      
+    </CardFooter>
+  </Card>
 
-        <InfoCard title="Account balance" value="$ 46,760.89">
-          <RoundIcon
-            icon={MoneyIcon}
-            iconColorClass="text-green-500 dark:text-green-100"
-            bgColorClass="bg-green-100 dark:bg-green-500"
-            className="mr-4"
-          />
-        </InfoCard>
-
-        <InfoCard title="New sales" value="376">
-          <RoundIcon
-            icon={CartIcon}
-            iconColorClass="text-blue-500 dark:text-blue-100"
-            bgColorClass="bg-blue-100 dark:bg-blue-500"
-            className="mr-4"
-          />
-        </InfoCard>
-
-        <InfoCard title="Pending contacts" value="35">
-          <RoundIcon
-            icon={ChatIcon}
-            iconColorClass="text-teal-500 dark:text-teal-100"
-            bgColorClass="bg-teal-100 dark:bg-teal-500"
-            className="mr-4"
-          />
-        </InfoCard>
       </div>
 
       <TableContainer>

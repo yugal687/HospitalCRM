@@ -15,7 +15,7 @@ import {
     Label,
     //HelperText,
 } from '@windmill/react-ui'
-import { EditIcon, TrashIcon } from '../../icons'
+import { EditIcon, TrashIcon, InfoIcon } from '../../icons'
 import axiosInstance from '../../api'
 
 
