@@ -135,12 +135,8 @@ function ServiceHeadDashboard() {
             <h4 className="text-white">
               33
             </h4>
-            
           </CardBody>
-          <hr className="text-blue-700" />
-          <CardFooter>
-          <a href="#" className=" mx-auto"><h6 className="text-white">Get Details</h6></a>
-           </CardFooter>
+          
         </Card>
         <Card colored className="text-white  bg-teal-500">
           <CardBody>
@@ -150,10 +146,7 @@ function ServiceHeadDashboard() {
             </h4>
             
           </CardBody>
-          <hr className="text-blue-700" />
-          <CardFooter className="">
-           <a href="#" className=" mx-auto"><h6 className="text-white">Get Details</h6></a>
-           </CardFooter>
+          
         </Card>
         <Card colored className="text-white  bg-teal-500">
           <CardBody>
@@ -163,10 +156,7 @@ function ServiceHeadDashboard() {
             </h4>
             
           </CardBody>
-          <hr className="text-blue-700" />
-          <CardFooter>
-           <h6 className="text-white mx-auto">Get Details</h6>
-           </CardFooter>
+          
         </Card>
         <Card colored className="text-white  bg-teal-500">
           <CardBody>
@@ -174,12 +164,8 @@ function ServiceHeadDashboard() {
             <h4 className="text-white">
               33
             </h4>
-            
           </CardBody>
-          <hr className="text-blue-700" />
-          <CardFooter>
-           <h6 className="text-white mx-auto">Get Details</h6>
-           </CardFooter>
+          
         </Card>
       </div>
 
