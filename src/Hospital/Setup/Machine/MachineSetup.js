@@ -15,7 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../../icons'
-import axios from "axios"
+import axiosInstance from '../../../api'
 
 
 
@@ -62,7 +62,7 @@ class MachineSetup extends React.Component {
     }
 
     getAllMachines() {
-        axios.get('http://127.0.0.1:8000/api/machine'
+        axiosInstance.get('/machine'
         ).then(resp => {
             this.setState({
                 machines: resp.data.machines
@@ -70,7 +70,7 @@ class MachineSetup extends React.Component {
         });
     }
     getOnlyMachine() {
-        axios.get('http://127.0.0.1:8000/api/category-only'
+        axiosInstance.get('/category-only'
         ).then(resp => {
             this.setState({
                 categories: resp.data.machines
@@ -79,7 +79,7 @@ class MachineSetup extends React.Component {
     }
 
     handleSubmit(event) {
-        axios.post('http://127.0.0.1:8000/api/machine', {
+        axiosInstance.post('/machine', {
             parent_id: this.state.category,
             machine_name: this.state.machineName,
             model_name: this.state.modelName,

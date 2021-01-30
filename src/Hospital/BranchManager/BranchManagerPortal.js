@@ -15,7 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-import axios from "axios"
+import axiosInstance from '../../api'
 
 
 
@@ -46,7 +46,7 @@ class BranchManagerPortal extends React.Component {
     };
 
     getAllIssues() {
-        axios.get('http://127.0.0.1:8000/api/issue'
+        axiosInstance.get('/issue'
         ).then(resp => {
             this.setState({issues: resp.data.issues});
         })

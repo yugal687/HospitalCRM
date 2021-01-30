@@ -8,6 +8,7 @@ import {Label, Input, Button} from '@windmill/react-ui'
 import AuthService from '../Auth/AuthService';
 import {notification, Divider, space} from "antd";
 
+
 const Login = () => {
     const history = useHistory();
     const [field, setFieldChange] = useState({
@@ -27,9 +28,12 @@ const Login = () => {
             if (resp.data.error) {
                 //          return alert(resp.data.error);
                 openNotificationWithIcon('Error', 'error', resp.data.error);
-            }
+            } else
             localStorage.setItem('token', resp.data.token);
             localStorage.setItem('role', resp.data.user_role);
+
+            return 
+
 
         }).catch((err) => {
             //      console.log(err.response.data);

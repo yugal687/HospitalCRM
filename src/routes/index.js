@@ -1,4 +1,5 @@
 import { lazy } from 'react'
+
 // use lazy for better code splitting, a.k.a. load faster
 const Region = lazy(() => import('../Hospital/Setup/Region'))
 const Department = lazy(() => import('../Hospital/Setup/DepartmentSetup'))
@@ -10,14 +11,19 @@ const HospitalRep = lazy(() => import('../Hospital/Setup/Staff/HospitalRep'))
 const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
 const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
+const ServiceHeadDashboard = lazy(() => import('../Hospital/serviceHead/ServiceHeadDashboard'))
 const ErrorCodesView = lazy(() => import('../Hospital/serviceHead/ErrorCodesView'))
 const AssignedIssues = lazy(()=> import('../Hospital/serviceHead/AssignedIssues'))
 const BranchManagerPortal = lazy(() => import('../Hospital/BranchManager/BranchManagerPortal'))
+const BranchManagerDashboard = lazy(() => import('../Hospital/BranchManager/BranchManagerDashboard'))
+const AssignedIssues = lazy(()=> import('../Hospital/serviceHead/AssignedIssues'))
 const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
+const HospitalRepresentativeDashboard = lazy(() => import('../Hospital/HospitalRepresentativePortal/HospitalRepresentativeDashboard'))
 const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
 const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
 const IssuesReported = lazy(() => import('../Hospital/OnFieldStaffPortal/IssuesReported'))
 const ReviewProblem = lazy(() => import('../Hospital/OnFieldStaffPortal/ReviewProblem'))
+const GroundEngineerDashboard = lazy(() => import('../Hospital/OnFieldStaffPortal/GroundEngineerDashboard'))
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
@@ -76,6 +82,10 @@ const routes = [
     component: HospitalAndMachines, // view rendered
   },
   {
+    path: '/serviceHead/dashboard', // the url
+    component: ServiceHeadDashboard, // view rendered
+  },
+  {
     path: '/serviceHead/service-head-portal', // the url
     component: ServiceHeadPortal, // view rendered
   },
@@ -91,7 +101,15 @@ const routes = [
     path: '/branchManager/branch-manager-portal',
     component: BranchManagerPortal,
   },
+  {
+    path: '/branchManager/dashboard',
+    component: BranchManagerDashboard,
+  },
 
+  {
+    path: '/hospitalRepresentativePortal/dashboard', // the url
+    component: HospitalRepresentativeDashboard, // view rendered
+  },
   {
     path: '/hospitalRepresentativePortal/problem-reporting', // the url
     component: ProblemReporting, // view rendered
@@ -111,6 +129,10 @@ const routes = [
   {
     path: '/onFieldStaff/review-problem', // the url
     component: ReviewProblem, // view rendered
+  },
+  {
+    path: '/onFieldStaff/dashboard', // the url
+    component: GroundEngineerDashboard, // view rendered
   },
   {
     path: '/dashboard', // the url

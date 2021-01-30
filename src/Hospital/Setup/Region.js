@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState,Suspense, useEffect} from 'react'
 
 import axiosInstance from "../../api";
 import {
@@ -17,12 +17,18 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import {EditIcon, TrashIcon} from '../../icons'
+import styled from 'styled-components'
+
+import { Roller } from 'react-awesome-spinners'
+import LoadingOverlay from 'react-loading-overlay'
 
 
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
 
 import {Form, Button, Input, notification} from "antd"
+import ThemedSuspense from '../../components/ThemedSuspense';
+
 
 const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
@@ -30,6 +36,8 @@ const openNotificationWithIcon = (type, message, description) => {
         description: description
     });
 };
+
+
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
@@ -56,7 +64,11 @@ class Region extends React.Component {
             name: '',
             regions: [],
             isButtonDisabled: false,
+            // loading: true,
+            
+            
         };
+        // this.timer = setTimeout(this.getAllRegions, 2000);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,12 +78,15 @@ class Region extends React.Component {
 
     componentDidMount() {
         this.getAllRegions();
+        // clearTimeout(this.timer);   
     }
 
     getAllRegions() {
         axiosInstance.get('/region'
         ).then(resp => {
-            this.setState({regions: resp.data.regions});
+            this.setState({
+                // loading: false,
+                regions: resp.data.regions});
         });
     }
 
@@ -81,17 +96,20 @@ class Region extends React.Component {
 
 
     handleSubmit(event) {
+        // this.setState({loading: false,})
+        
         this.setState({isButtonDisabled: true});
         axiosInstance.post('/region', {
             region_name: this.state.name,
         }).then((resp) => {
+            
             if (resp.data.error) {
                 openNotificationWithIcon('error', 'Error', resp.data.error.region_name);
                 console.log(resp.data.error);
             } else {
                 openNotificationWithIcon('success', 'Success', resp.data.message);
                 //this.setState({name: ''});
-                this.formRef.current.resetFields();
+                 this.formRef.current.resetFields();
                 this.getAllRegions();
                 this.setState({isButtonDisabled: false});
             }
@@ -101,10 +119,16 @@ class Region extends React.Component {
     }
 
     render() {
-        console.log(this.state.regions);
+        // const { loading } = this.state;
+         
+        
+        
         return (
             <div>
-
+   {/* {loading ? 
+   <div >
+   <Roller  color="blue" loading={loading} size={50} /> 
+    </div> :  */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
                     {/* Form Section */}
                     <div className="sm:col-span-1">
@@ -137,13 +161,16 @@ class Region extends React.Component {
                                     <Form.Item>
                                         <Button disabled={this.state.isButtonDisabled} onClick={this.handleSubmit}
                                                 type="primary" htmlType="submit">
+                                            
                                             Submit
+                                            
                                         </Button>
                                     </Form.Item>
                                 </Form>
                             </div>
                         </div>
                     </div>
+
                     {/* Table Section */}
                     <div className="sm:col-span-2">
                         {/* Tables */}
@@ -155,7 +182,8 @@ class Region extends React.Component {
                                         <TableCell>Actions</TableCell>
                                     </tr>
                                 </TableHeader>
-                                <TableBody>
+                                 
+                                 <TableBody>
                                     {
                                         this.state.regions.map(region => {
                                             return <TableRow key={region.id}>
@@ -222,6 +250,7 @@ class Region extends React.Component {
 
 
                                 </TableBody>
+    
                             </Table>
                             <TableFooter>
 
@@ -234,8 +263,9 @@ class Region extends React.Component {
                         </div>
                     </div>
                 </div>
+    
 
-
+                                {/* } */}
                 {/* Edit Modal */}
                 {/* <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
                 <ModalHeader>Edit Region</ModalHeader>

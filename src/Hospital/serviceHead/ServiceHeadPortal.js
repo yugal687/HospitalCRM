@@ -14,7 +14,8 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-import axios from "axios"
+import axiosInstance from '../../api'
+
 
 
 import { Form, Button, Input, Select, Modal, Collapse, notification, DatePicker, Space } from "antd"
@@ -96,7 +97,7 @@ class ServiceHeadPortal extends React.Component {
     }
 
     getDetailOfStaff = () => {
-        axios.get('http://127.0.0.1:8000/api/ground-staffs'
+        axiosInstance.get('/ground-staffs'
         ).then(resp => {
              this.setState({ staffs: resp.data.staffs });
         })
@@ -105,7 +106,7 @@ class ServiceHeadPortal extends React.Component {
     assignTask = (message, staffId) => {
         // console.log(estimatedTime);
 
-        axios.post('http://127.0.0.1:8000/api/issue-assign', {
+        axiosInstance.post('/issue-assign', {
             'user_id': staffId,
             'issue_id': this.state.selectedHospitalProblem.issue_id,
             'start_date':this.state.estimatedTime[0],
@@ -134,7 +135,7 @@ class ServiceHeadPortal extends React.Component {
     };
 
     getAllIssues() {
-        axios.get('http://127.0.0.1:8000/api/issue'
+        axiosInstance.get('/issue'
         ).then(resp => {
              this.setState({ issues: resp.data.issues });
         })

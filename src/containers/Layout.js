@@ -30,7 +30,7 @@ function Layout() {
 
                 <CTA/>
                 <Main>
-                    <Suspense fallback={<ThemedSuspense/>}>
+                    {/* <Suspense fallback={<ThemedSuspense/>}> */}
                         <Switch>
                             {routes.map((route, i) => {
                                 return route.component ? (
@@ -45,7 +45,7 @@ function Layout() {
                             <Redirect exact from="/app" to="/app/dashboard"/>
                             <Route component={Page404}/>
                         </Switch>
-                    </Suspense>
+                    {/* </Suspense> */}
                 </Main>
 
             </div>

@@ -16,8 +16,9 @@ import {
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../../icons'
 
-import axios from "axios"
+import axiosInstance from '../../../api'
 
+import ThemedSuspense from '../../../components/ThemedSuspense';
 
 
 import { Form, Button, Input, Select } from "antd"
@@ -40,6 +41,8 @@ const validateMessages = {
 // import { render } from '@testing-library/react'
 
 
+
+
 class HospitalRep extends React.Component {
     constructor(props) {
         super()
@@ -51,6 +54,7 @@ class HospitalRep extends React.Component {
             hospitalName: '',
             details: [],
             hospitals: [],
+            loading: true,
             
         }
     }
@@ -58,10 +62,11 @@ class HospitalRep extends React.Component {
     componentDidMount(){
         this.getHospitalRepresentativeDetail();
         this.getHospitalSetup();
+        this.setState({loading: true})
     }
 
     getHospitalSetup() {
-        axios.get('http://127.0.0.1:8000/api/hospital', 
+        axiosInstance.get('/hospital', 
         ).then((resp) => {
             this.setState({
                 hospitals: resp.data.hospitals
@@ -70,7 +75,7 @@ class HospitalRep extends React.Component {
     }
     
     getHospitalRepresentativeDetail() {
-        axios.get('http://127.0.0.1:8000/api/hospital-representative', 
+        axiosInstance.get('/hospital-representative', 
         ).then((resp) => {
             this.setState({
                 details: resp.data.hospitalRepresentatives
@@ -81,7 +86,7 @@ class HospitalRep extends React.Component {
     handleSubmit(event) {
         alert('A name was submitted: ' 
         );
-        axios.post('http://127.0.0.1:8000/api/hospital-representative', {
+        axiosInstance.post('/hospital-representative', {
             // name: this.state.Name,
             // address: this.state.Address,
             // email:  this.state.Email,
@@ -122,9 +127,15 @@ class HospitalRep extends React.Component {
 //     setIsDeleteModalOpen(false)
 // }
 
+
+    
 render() {
+    const {loading} = this.state;
+    
     return (
+        
         <div>
+           
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
                 {/* Form Section */}
@@ -274,7 +285,7 @@ render() {
                 </div>
             </div>
 
-
+                    
             {/* Edit Modal */}
             {/* <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
                 <ModalHeader>Edit Region</ModalHeader>
@@ -340,3 +351,4 @@ render() {
 
 
 export default HospitalRep
+

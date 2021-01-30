@@ -16,6 +16,7 @@ import {
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
 import axios from "axios"
+import axiosInstance from '../../api'
 
 
 import { Form, Button, Input, Select } from "antd"
@@ -65,14 +66,14 @@ class HospitalSetup extends React.Component {
     }
     
     getRegion(){
-        axios.get('http://127.0.0.1:8000/api/region', 
+        axiosInstance.get('/region', 
         ).then((resp) => {
             this.setState({regions: resp.data.regions })
         });
         
     }
     getHospitalSetup() {
-        axios.get('http://127.0.0.1:8000/api/hospital', 
+        axiosInstance.get('/hospital', 
         ).then((resp) => {
             this.setState({
                 hospitals: resp.data.hospitals
@@ -83,7 +84,7 @@ class HospitalSetup extends React.Component {
     handleSubmit(event) {
         alert('A name was submitted: '
         );
-        axios.post('http://127.0.0.1:8000/api/hospital', {
+        axiosInstance.post('/hospital', {
             hospital_name: this.state.HospitalName,
             address: this.state.Address,
             contact_number: this.state.ContactNo,

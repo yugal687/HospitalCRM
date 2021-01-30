@@ -1,9 +1,20 @@
 import React from 'react'
+import LoadingOverlay from 'react-loading-overlay'
+import { Roller } from 'react-awesome-spinners'
 
-function Main({ children }) {
+function Main({ children, active  }) {
   return (
     <main className="h-full overflow-y-auto">
-      <div className="container grid px-6 mx-auto">{children}</div>
+      {/* <LoadingOverlay
+      active={active}
+      spinner={<Roller color="blue"  size={50} />}
+    > */}
+      <div className="container grid px-6 mx-auto">
+      
+        {children}
+        
+        </div>
+        {/* </LoadingOverlay> */}
     </main>
   )
 }
