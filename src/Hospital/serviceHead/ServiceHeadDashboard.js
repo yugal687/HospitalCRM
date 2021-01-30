@@ -34,7 +34,7 @@ import {
   barLegends
 } from '../../utils/demo/chartsData'
 
-function GroundEngineerDashboard() {
+function ServiceHeadDashboard() {
   const [page, setPage] = useState(1)
   const [data, setData] = useState([])
 
@@ -119,11 +119,9 @@ function GroundEngineerDashboard() {
   }, [page])
 
   return (
-    <>
-    
-      
-          <h4 className="text-center mb-5 p-2 border bg-green-300">Dashboard Portal For Ground Field Engineer</h4>
-      
+
+    <>  
+     <h4 className="text-center mb-5 p-2 border bg-green-300">Dashboard Portal For Service Head</h4>
       
       {/* <CTA /> */}
 
@@ -141,7 +139,7 @@ function GroundEngineerDashboard() {
           </CardBody>
           <hr className="text-blue-700" />
           <CardFooter>
-           <h6 className="text-white mx-auto">Get Details</h6>
+          <a href="#" className=" mx-auto"><h6 className="text-white">Get Details</h6></a>
            </CardFooter>
         </Card>
         <Card colored className="text-white  bg-teal-500">
@@ -154,7 +152,7 @@ function GroundEngineerDashboard() {
           </CardBody>
           <hr className="text-blue-700" />
           <CardFooter className="">
-           <h6 className="text-white mx-auto">Get Details</h6>
+           <a href="#" className=" mx-auto"><h6 className="text-white">Get Details</h6></a>
            </CardFooter>
         </Card>
         <Card colored className="text-white  bg-teal-500">
@@ -207,4 +205,4 @@ function GroundEngineerDashboard() {
   )
 }
 
-export default GroundEngineerDashboard
+export default ServiceHeadDashboard

@@ -34,7 +34,7 @@ import {
   barLegends
 } from '../../utils/demo/chartsData'
 
-function GroundEngineerDashboard() {
+function BranchManagerDashboard() {
   const [page, setPage] = useState(1)
   const [data, setData] = useState([])
 
@@ -122,7 +122,7 @@ function GroundEngineerDashboard() {
     <>
     
       
-          <h4 className="text-center mb-5 p-2 border bg-green-300">Dashboard Portal For Ground Field Engineer</h4>
+          <h4 className="text-center mb-5 p-2 border bg-green-300">Dashboard Portal For Branch Manager Dashboard</h4>
       
       
       {/* <CTA /> */}
@@ -207,4 +207,4 @@ function GroundEngineerDashboard() {
   )
 }
 
-export default GroundEngineerDashboard
+export default BranchManagerDashboard

@@ -49,6 +49,10 @@ const routes = [
     routes: [
       // submenu
       {
+        path: '/app/serviceHead/dashboard',
+        name: 'ServiceHeadDashboard',
+      },
+      {
         path: '/app/serviceHead/service-head-portal',
         name: 'ServiceHeadPortal',
       },
@@ -70,11 +74,13 @@ const routes = [
     routes: [
       // submenu
       {
+        path: '/app/branchManager/dashboard',
+        name: 'BranchManagerDashboard',
+      },
+      {
         path: '/app/branchManager/branch-manager-portal',
         name: 'BranchManagerPortal',
       },
-      
-      
       
     ],
   },
@@ -112,6 +118,10 @@ const routes = [
     name: 'HospitalRepresentativePortal',
     routes: [
       // submenu
+      {
+        path: '/app/hospitalRepresentativePortal/dashboard',
+        name: 'HospitalRepresentativeDashboard',
+      },
       {
         path: '/app/hospitalRepresentativePortal/problem-reporting',
         name: 'ProblemReporting',
