@@ -18,6 +18,7 @@ import { EditIcon, TrashIcon } from '../../../icons'
 
 import axiosInstance from '../../../api'
 
+import ThemedSuspense from '../../../components/ThemedSuspense';
 
 
 import { Form, Button, Input, Select } from "antd"
@@ -40,6 +41,8 @@ const validateMessages = {
 // import { render } from '@testing-library/react'
 
 
+
+
 class HospitalRep extends React.Component {
     constructor(props) {
         super()
@@ -51,6 +54,7 @@ class HospitalRep extends React.Component {
             hospitalName: '',
             details: [],
             hospitals: [],
+            loading: true,
             
         }
     }
@@ -58,6 +62,7 @@ class HospitalRep extends React.Component {
     componentDidMount(){
         this.getHospitalRepresentativeDetail();
         this.getHospitalSetup();
+        this.setState({loading: true})
     }
 
     getHospitalSetup() {
@@ -122,9 +127,15 @@ class HospitalRep extends React.Component {
 //     setIsDeleteModalOpen(false)
 // }
 
+
+    
 render() {
+    const {loading} = this.state;
+    
     return (
+        
         <div>
+           
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
                 {/* Form Section */}
@@ -274,7 +285,7 @@ render() {
                 </div>
             </div>
 
-
+                    
             {/* Edit Modal */}
             {/* <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
                 <ModalHeader>Edit Region</ModalHeader>
@@ -340,3 +351,4 @@ render() {
 
 
 export default HospitalRep
+
