@@ -41,6 +41,7 @@ class SubCategory extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
+            department: '',
             category: '',
             subCategoryName: '',
             machines: [],
@@ -86,9 +87,9 @@ class SubCategory extends React.Component {
         return (
             <div>
 
-                <div className="grid grid-cols-1 gap-6 mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
                     {/* Form Section */}
-                    <div className="">
+                    <div className="md:col-span-1">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
                             <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
@@ -98,22 +99,38 @@ class SubCategory extends React.Component {
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
                                 validateMessages={validateMessages}
-                                >                        
+                                >     
+
                                     <Label>
-                                    <Form.Item >
+                                        <span> Department:</span>
+                                        <Form.Item >
+                                            <Select
+                                            value={this.state.department}  
+                                            onChange = {(e)=> this.setState({department : e.target.value})}
+                                            >
+
+                                                <Option key="" value="">Department 1</Option>                                          
+
+                                            </Select>
+                                        </Form.Item>
+                                    </Label>
+
+                                    <Label>
                                         <span> Category:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.category}  
-                                    onChange = {(e)=> this.setState({category : e})}>
+                                        <Form.Item >
+                                            <Select 
+                                                value={this.state.category}  
+                                                onChange = {(e)=> this.setState({category : e})}
+                                            >
 
-                                        { this.state.machines.map((machine) => {
+                                                { this.state.machines.map((machine) => {
 
-                                        return  <Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
-                                        })}
-                                            
+                                                    return  <Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
+                                                })}
+                                                    
 
-                                    </Select>
-                                    </Form.Item>
+                                            </Select>
+                                        </Form.Item>
                                     </Label>
 
                                     <Label>
@@ -131,24 +148,23 @@ class SubCategory extends React.Component {
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
                                             Submit
-                                            </Button>
+                                        </Button>
                                     </Form.Item>
                                 </Form>
                             </div>
                         </div>
                     </div>
                     {/* Table Section */}
-                    <div className="">
+                    <div className="md:col-span-2">
                         {/* Tables */}
                         <TableContainer className="mb-8">
                         <Table>
                             <TableHeader>
                                 <tr>
+                                    <TableCell>Department</TableCell>
                                     <TableCell>Category</TableCell>
                                     <TableCell>Sub-Category</TableCell>
                                     <TableCell>Actions</TableCell>
-                                    
-                                    
                                 </tr>
                             </TableHeader>
                             <TableBody>     
@@ -156,6 +172,15 @@ class SubCategory extends React.Component {
                                    {
                                     this.state.machines.map( (machine) => {
                                         return  <TableRow key={machine.id}>
+                                            <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        {/* Department Name */}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>

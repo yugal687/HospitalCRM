@@ -14,8 +14,8 @@ import {
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
 
-import { Button, Table, Popconfirm, Drawer, Form, Input, Select, DatePicker, Checkbox, TimePicker, Radio, Badge } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Table, Popconfirm, Drawer, Form, Input, Select, DatePicker, Checkbox, TimePicker, Radio, Upload, Modal, Badge } from 'antd';
+import { QuestionCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -100,7 +100,14 @@ const issueSolved = () => {
     alert('Confirming Issue');
 };
 
-
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
 
 
 class IssuesReported extends React.Component {
@@ -152,11 +159,73 @@ class IssuesReported extends React.Component {
             }],
             //Table Ends
             customerRemarks: '',
-            feRemarks: ''
+            feRemarks: '',
+            //UploadedImageList
+            previewVisible: false,
+            previewImage: '',
+            previewTitle: '',
+            imageList: [
+                {
+                    uid: '-1',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                    uid: '-2',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                    uid: '-3',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                    uid: '-4',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                    uid: '-xxx',
+                    percent: 50,
+                    name: 'image.png',
+                    status: 'uploading',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+            ],
+
+            //ErrorMessageImagesVisible
+            errorMessageModalVisible: false,
 
         }
         this.addPartsTable = this.addPartsTable.bind(this);
     }
+
+    //ErrorMessageImagesVisible
+    setErrorMessageModalVisible(errorMessageModalVisible) {
+        this.setState({ errorMessageModalVisible });
+    }
+
+
+    //Cancel Image Preview
+    handleCancel = () => this.setState({ previewVisible: false });
+    //Open Image Preview
+    handlePreview = async file => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }
+        this.setState({
+            previewImage: file.url || file.preview,
+            previewVisible: true,
+            previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+        });
+    };
+
+
 
     addPartsTable() {
         let table = {
@@ -189,6 +258,8 @@ class IssuesReported extends React.Component {
 
 
     render() {
+
+        const { previewVisible, previewImage, previewTitle, imageList } = this.state;
 
 
         return (
@@ -239,12 +310,75 @@ class IssuesReported extends React.Component {
                                                 </p>
                                             </div>
                                             <div className="md:col-span-1">
-                                                <Button type="primary" onClick={this.showDrawer}>
-                                                    Add Review
+                                                <Button type="primary" onClick={() => this.setErrorMessageModalVisible(true)}>
+                                                    View Error Images
                                                 </Button>
                                             </div>
                                         </div>
+                                        
                                     </div>
+                                    <Button type="primary" onClick={this.showDrawer}>
+                                        Add Review
+                                    </Button>
+                                    {/* Error Sections */}
+                                    {/* Error Message Images Modal Visible */}
+                                    <Modal
+                                        width={650}
+                                        title="Error Description"
+                                        centered
+                                        visible={this.state.errorMessageModalVisible}
+                                        onCancel={() => this.setErrorMessageModalVisible(false)}
+                                        className="z-50"
+                                    >
+                                        <p className="font-bold">Error Images:</p>
+                                        <div>
+                                            <Upload
+                                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                listType="picture-card"
+                                                fileList={imageList}
+                                                onPreview={this.handlePreview}
+                                                onChange={this.handleChange}
+                                            >
+                                            </Upload>
+                                            <Modal
+                                                visible={previewVisible}
+                                                title={previewTitle}
+                                                footer={null}
+                                                onCancel={this.handleCancel}
+                                            >
+                                                <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                                            </Modal>
+                                        </div>
+                                        <p className="font-semibold mb-1">Error Codes</p>
+                                        <div>
+                                            <ul>
+                                                <li>Error Code - 0001</li>
+                                                <li>Error Code - 0002</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold mb-1">Optional Representative Details</p>
+                                            <div className="grid grid-cols-2">
+                                                <div>
+                                                    <span className="font-semibold">Department Name: .....</span>
+                                                </div>
+                                                <div>
+                                                    <span className="font-semibold">Representative Name: .....</span>
+                                                </div>
+                                                <div>
+                                                    <span className="font-semibold">Contact Number: .....</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p className="font-bold mb-0 mt-2">Called For</p>
+                                        <div>
+                                            <span class="inline-flex items-center justify-center mx-2 px-2 py-1 text-base font-bold leading-none text-green-100 bg-green-700 rounded">Installation</span>
+                                            <span class="inline-flex items-center justify-center mx-2 px-2 py-1 text-base font-bold leading-none text-indigo-100 bg-indigo-700 rounded">Preventive Maintainence</span>
+                                            <span class="inline-flex items-center justify-center mx-2 px-2 py-1 text-base font-bold leading-none text-red-100 bg-red-700 rounded">Breakdown Call</span>
+                                            <span class="inline-flex items-center justify-center mx-2 px-2 py-1 text-base font-bold leading-none text-yellow-100 bg-yellow-500 rounded">Update</span>
+                                        </div>
+                                    </Modal>
+                                    {/* Error Images Modal Ends*/}
                                     {/* Previous Reviews */}
                                     <div className="grid grid-cols-1">
                                         <p className="font-semibold">
@@ -263,6 +397,7 @@ class IssuesReported extends React.Component {
                                         </div>
 
                                     </div>
+
 
                                     {/* Add New Review Drawer */}
                                     <div>

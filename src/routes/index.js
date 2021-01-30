@@ -2,6 +2,7 @@ import { lazy } from 'react'
 
 // use lazy for better code splitting, a.k.a. load faster
 const Region = lazy(() => import('../Hospital/Setup/Region'))
+const Department = lazy(() => import('../Hospital/Setup/DepartmentSetup'))
 const HospitalSetup = lazy(() => import('../Hospital/Setup/HospitalSetup'))
 const MachineSetup = lazy(() => import('../Hospital/Setup/Machine/MachineSetup'))
 const Category = lazy(() => import('../Hospital/Setup/Machine/Category'))
@@ -10,9 +11,9 @@ const HospitalRep = lazy(() => import('../Hospital/Setup/Staff/HospitalRep'))
 const Staffs = lazy(() => import('../Hospital/Setup/Staff/Staffs'))
 const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMachines'))
 const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
-const AssignedIssues = lazy(()=> import('../Hospital/serviceHead/AssignedIssues'))
+const ErrorCodesView = lazy(() => import('../Hospital/serviceHead/ErrorCodesView'))
 const BranchManagerPortal = lazy(() => import('../Hospital/BranchManager/BranchManagerPortal'))
-
+const AssignedIssues = lazy(()=> import('../Hospital/serviceHead/AssignedIssues'))
 const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
 const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
 const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
@@ -39,6 +40,10 @@ const Blank = lazy(() => import('../pages/Blank'))
  * `routes/sidebar.js`
  */
 const routes = [
+  {
+    path: '/department', // the url
+    component: Department, // view rendered
+  },
   {
     path: '/machine/category', // the url
     component: Category, // view rendered
@@ -74,6 +79,10 @@ const routes = [
   {
     path: '/serviceHead/service-head-portal', // the url
     component: ServiceHeadPortal, // view rendered
+  },
+  {
+    path: '/serviceHead/error-code-view', // the url error-code-view
+    component: ErrorCodesView, // view rendered
   },
   {
     path: '/serviceHead/assigned-issues', // the url

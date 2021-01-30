@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Drawer, List, Avatar, Divider, Col, Row, Card, Select, DatePicker, Radio, Button } from 'antd';
+import { Drawer, List, Avatar, Divider, Col, Row, Card, Select, DatePicker, Radio, Button, Upload, Modal } from 'antd';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const listData = [{
@@ -70,6 +70,15 @@ const reviewContentList = {
     ReviewThree: <p>Review 3</p>,
 };
 
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
 class AssignedIssues extends React.Component {
 
     constructor(props) {
@@ -77,8 +86,54 @@ class AssignedIssues extends React.Component {
         this.state = {
             visible: false,
             noTitleKey: 'ReviewOne',
+
+            //UploadedImageList
+            previewVisible: false,
+            previewImage: '',
+            previewTitle: '',
+            imageList: [
+                {
+                    uid: '-1',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                    uid: '-2',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                    uid: '-3',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+                {
+                    uid: '-4',
+                    name: 'image.png',
+                    status: 'done',
+                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                },
+            ],
         };
     }
+
+
+        //Cancel Image Preview
+        handleCancel = () => this.setState({ previewVisible: false });
+        //Open Image Preview
+        handlePreview = async file => {
+            if (!file.url && !file.preview) {
+                file.preview = await getBase64(file.originFileObj);
+            }
+            this.setState({
+                previewImage: file.url || file.preview,
+                previewVisible: true,
+                previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+            });
+        };
 
 
     showDrawer = () => {
@@ -100,6 +155,9 @@ class AssignedIssues extends React.Component {
     };
 
     render() {
+
+        const { previewVisible, previewImage, previewTitle, imageList } = this.state;
+
         return (
             <div>
 
@@ -130,6 +188,7 @@ class AssignedIssues extends React.Component {
                         >
                             <Radio.Button value="all">All</Radio.Button>
                             <Radio.Button value="assigned">Assigned</Radio.Button>
+                            <Radio.Button value="halt">Halt</Radio.Button>
                             <Radio.Button value="completed">Completed</Radio.Button>
                         </Radio.Group>
                     </div>
@@ -164,9 +223,13 @@ class AssignedIssues extends React.Component {
                     renderItem={item => (
                         <List.Item>
                             <Card title={item.issueNo}
-                                extra={<a onClick={this.showDrawer} key={`a-${item.id}`}>
-                                    View Details
-                                    </a>}>
+                                extra={
+                                    <span>
+                                        <span className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">pending</span>
+                                        <span className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-yellow-100 bg-yellow-500 rounded-full">on progress</span>
+                                        <span className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">completed</span>
+                                    </span>
+                                }>
                                 <div>
                                     <p className="text-sm font-semibold mb-0">
                                         {item.hospitalName}
@@ -176,6 +239,11 @@ class AssignedIssues extends React.Component {
                                     </p>
                                     <p className="text-sm mb-0 text-justify">
                                         {item.problem}
+                                    </p>
+                                    <p className="mb-0 font-semibold">
+                                        <a onClick={this.showDrawer} key={`a-${item.id}`}>
+                                            View Details
+                                        </a>
                                     </p>
                                 </div>
                             </Card>
@@ -195,30 +263,57 @@ class AssignedIssues extends React.Component {
                     visible={this.state.visible}
                 >
                     <Row>
-                        <Col span={8}>
+                        <Col xs={24} md={10}>
                             <p className="site-description-item-profile-p font-semibold">Problem Details</p>
                             <Row>
                                 <Col span={12}>
-                                    <DescriptionItem title="Hospital Name" content="CMC" />
+                                    <p><span>Department: </span> Lab </p>
                                 </Col>
                                 <Col span={12}>
-                                    <DescriptionItem title="Representative Name" content="John Cena" />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={12}>
-                                    <DescriptionItem title="Machine" content="X-ray Machine" />
-                                </Col>
-                                <Col span={12}>
-                                    <DescriptionItem title="Machine Type" content="---------" />
+                                    <p><span>Machine: </span> X-Ray Machine </p>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col span={24}>
-                                    <DescriptionItem title="Fault Occured Date" content="February 2,1900" />
+                                <p><span>Serial Number: </span> 00001020 </p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <p><span>Fault Occured Date: </span> February 2,1900 </p>
                                 </Col>
                                 <Col span={24}>
-                                    <DescriptionItem title="Fault Occured Time" content="---------" />
+                                    <p><span>Fault Occured Time: </span> ------------ </p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <p className="font-bold">Error Images:</p>
+                                    <div>
+                                        <Upload
+                                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                            listType="picture-card"
+                                            fileList={imageList}
+                                            onPreview={this.handlePreview}
+                                            onChange={this.handleChange}
+                                        >
+                                        </Upload>
+                                        <Modal
+                                            visible={previewVisible}
+                                            title={previewTitle}
+                                            footer={null}
+                                            onCancel={this.handleCancel}
+                                        >
+                                            <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                                        </Modal>
+                                    </div>
+                                    <p className="font-semibold mb-1">Error Codes</p>
+                                    <div>
+                                        <ul>
+                                            <li>Error Code - 0001</li>
+                                            <li>Error Code - 0002</li>
+                                        </ul>
+                                    </div>
                                 </Col>
                             </Row>
                             <Row>
@@ -228,6 +323,28 @@ class AssignedIssues extends React.Component {
                                         content="Make things as simple as possible but no simpler."
                                     />
                                 </Col>
+                            </Row>
+                            <Divider />
+                            <p className="site-description-item-profile-p font-semibold">Hospital Details</p>
+                            <Row>
+                                <Col span={12}>
+                                    <p><span>Hospital Name: </span> CMC </p>
+                                </Col>
+                                <Col span={12}>
+                                    <p><span>Representative Name: </span> John Cena </p>
+                                </Col>
+                            </Row>
+                            <p>Contact Person in case of unavailibility</p>
+                            <Row>
+                                <Col span={12}>
+                                    <p><span>Name: </span> ----------- </p>
+                                </Col> 
+                                <Col span={12}>
+                                    <p><span>Contact: </span> ----------- </p>
+                                </Col> 
+                                <Col span={12}>
+                                    <p><span>Department: </span> ----------- </p>
+                                </Col> 
                             </Row>
                             <Divider />
                             <p className="site-description-item-profile-p font-semibold">Assignment Details</p>
@@ -248,7 +365,7 @@ class AssignedIssues extends React.Component {
                                 </Col>
                             </Row>
                         </Col>
-                        <Col span={16}>
+                        <Col xs={24} md={14}>
                             <p className="site-description-item-profile-p font-semibold">Review On Work Done</p>
                             <Row>
                                 <Col span={24}>

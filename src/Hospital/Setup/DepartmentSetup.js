@@ -14,73 +14,43 @@ import {
     ModalFooter,
     Label, HelperText,
 } from '@windmill/react-ui'
-import { EditIcon, TrashIcon } from '../../../icons'
-import axiosInstance from '../../../api'
+import { EditIcon, TrashIcon } from '../../icons'
+import axios from "axios"
 
 
 
 import { Form, Button, Input, Select } from "antd"
-
-
 
 const { Option } = Select;
 
 const validateMessages = {
     required: '${label} is required!',
     types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
+        email: '${label} is not a valid email!',
+        number: '${label} is not a valid number!',
     },
     number: {
-      range: '${label} must be between ${min} and ${max}',
+        range: '${label} must be between ${min} and ${max}',
     },
-  };
+};
 
-class Category extends React.Component {
+class Department extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             department: '',
-            category: '',
-            machines: [],
-         };
+        };
 
-       
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        this.getAllMachines();
-        // this.getMachines();
-     }
 
-     // to render machines data on table
-    //  getMachines(){
-    //     axios.get('http://127.0.0.1:8000/api/machine'
-    //     ).then(resp => {
-    //         this.setState({machines : resp.data.machines});
-    //     });
-    //  }
-
-    getAllMachines() {
-        axiosInstance.get('/category-only'
-        ).then(resp => {
-            this.setState({machines : resp.data.machines});
-        });
-    }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.category 
+        alert('A name was submitted: ' + this.state.department
         );
-        axiosInstance.post('/machine', {
-          category_name: this.state.category,
-            
-        }).then((resp) => {
-            alert(resp.data.message);
-            this.getAllMachines();
-        });
-
         event.preventDefault();
     }
 
@@ -101,36 +71,23 @@ class Category extends React.Component {
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
-                                validateMessages={validateMessages}
+                                    validateMessages={validateMessages}
                                 >
 
-                                    <Label>
-                                        <span> Department:</span>
-                                        <Form.Item >
-                                            <Select
-                                            value={this.state.department}  
-                                            onChange = {(e)=> this.setState({department : e.target.value})}>
-
-                                                <Option key="" value="">Department 1</Option>
-                                                                                                
-
-                                            </Select>
-                                        </Form.Item>
-                                    </Label>
 
                                     <Label>
-                                        <span>Category:</span>
+                                        <span>Department Name:</span>
                                         <Form.Item
-                                            value={this.state.category} 
-                                            onChange = {(e)=> this.setState({category : e.target.value})}
-                                            rules={[{ required: true,  }]}
+                                            value={this.state.department}
+                                            onChange={(e) => this.setState({ department: e.target.value })}
+                                            rules={[{ required: true, }]}
                                         >
                                             <Input />
-                                            
+
                                         </Form.Item>
                                     </Label>
-                                    
-                                    
+
+
 
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
@@ -145,32 +102,21 @@ class Category extends React.Component {
                     <div className="md:col-span-2">
                         {/* Tables */}
                         <TableContainer className="mb-8">
-                        <Table>
-                            <TableHeader>
-                                <tr>
-                                    <TableCell>Department</TableCell>
-                                    <TableCell>Category</TableCell>
-                                    <TableCell>Actions</TableCell>
-                                </tr>
-                            </TableHeader>
-                            <TableBody>    
-
-                                {
-                                    this.state.machines.map( (machine) => {
-                                        return    <TableRow key={machine.id}>
-                                            <TableCell>
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableCell>Department</TableCell>
+                                        <TableCell>Actions</TableCell>
+                                    </tr>
+                                </TableHeader>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="font-semibold">
                                                         {/* Department Name */}
                                                     </p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{machine.category_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -185,13 +131,13 @@ class Category extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
-                                    })}
-                            </TableBody>
-                        </Table>
-                        <TableFooter>
-                            
-                        </TableFooter>
-                    </TableContainer>
+
+                                </TableBody>
+                            </Table>
+                            <TableFooter>
+
+                            </TableFooter>
+                        </TableContainer>
                     </div>
                 </div>
 
@@ -259,4 +205,4 @@ class Category extends React.Component {
     }
 }
 
-export default Category
+export default Department
