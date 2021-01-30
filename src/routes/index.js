@@ -13,7 +13,6 @@ const HospitalAndMachines = lazy(() => import('../Hospital/Setup/HospitalAndMach
 const ServiceHeadPortal = lazy(() => import('../Hospital/serviceHead/ServiceHeadPortal'))
 const ServiceHeadDashboard = lazy(() => import('../Hospital/serviceHead/ServiceHeadDashboard'))
 const ErrorCodesView = lazy(() => import('../Hospital/serviceHead/ErrorCodesView'))
-const AssignedIssues = lazy(()=> import('../Hospital/serviceHead/AssignedIssues'))
 const BranchManagerPortal = lazy(() => import('../Hospital/BranchManager/BranchManagerPortal'))
 const BranchManagerDashboard = lazy(() => import('../Hospital/BranchManager/BranchManagerDashboard'))
 const AssignedIssues = lazy(()=> import('../Hospital/serviceHead/AssignedIssues'))
