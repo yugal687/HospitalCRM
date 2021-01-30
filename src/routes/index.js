@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 
+
 // use lazy for better code splitting, a.k.a. load faster
 const Region = lazy(() => import('../Hospital/Setup/Region'))
 const Department = lazy(() => import('../Hospital/Setup/DepartmentSetup'))
@@ -19,6 +20,7 @@ const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePor
 const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
 const IssuesReported = lazy(() => import('../Hospital/OnFieldStaffPortal/IssuesReported'))
 const ReviewProblem = lazy(() => import('../Hospital/OnFieldStaffPortal/ReviewProblem'))
+const GroundEngineerDashboard = lazy(() => import('../Hospital/OnFieldStaffPortal/GroundEngineerDashboard'))
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
@@ -112,6 +114,10 @@ const routes = [
   {
     path: '/onFieldStaff/review-problem', // the url
     component: ReviewProblem, // view rendered
+  },
+  {
+    path: '/onFieldStaff/dashboard', // the url
+    component: GroundEngineerDashboard, // view rendered
   },
   {
     path: '/dashboard', // the url

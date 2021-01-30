@@ -133,6 +133,10 @@ const routes = [
     routes: [
       // submenu
       {
+        path: '/app/onFieldStaff/dashboard',
+        name: 'GroundEngineerDashboard',
+      },
+      {
         path: '/app/onFieldStaff/issues-reported',
         name: 'IssuesReported',
       },
