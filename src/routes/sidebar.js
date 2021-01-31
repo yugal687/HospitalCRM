@@ -18,6 +18,10 @@ const routes = [
         name: 'Dashboard', // name that appear in Sidebar
       },
       {
+        path: '/app/issue-assign-view',
+        name: 'IssuesView'
+      },
+      {
         path: '/app/region', // the url
         name: 'Region', // name that appear in Sidebar
       },

@@ -7,7 +7,7 @@ import ThemedSuspense from './components/ThemedSuspense'
 import { Windmill } from '@windmill/react-ui'
 import * as serviceWorker from './serviceWorker'
 import 'antd/dist/antd.css';
-
+import 'antd-button-color/dist/css/style.css'; 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 

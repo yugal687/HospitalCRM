@@ -53,10 +53,10 @@ const data = [
         key: 1,
         issueNo: 'Issue No. #1',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'MRI machine',
         hospitalName: 'CMC',
-        hospitalRepresentative: 'John Brown',
-        problem: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
+        hospitalRepresentative: 'Jeevan Thapa',
+        problem: 'Magnetic coils detection failure on MRI machine.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -64,10 +64,10 @@ const data = [
         key: 2,
         issueNo: 'Issue No. #2',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'X-Rays machine',
         hospitalName: 'CMS',
-        hospitalRepresentative: 'Jim Green',
-        problem: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+        hospitalRepresentative: 'Amit Gurung',
+        problem: 'Flash Failure On X-RAYS machine.And also changes to be done on some regular parts at time instance.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -75,10 +75,10 @@ const data = [
         key: 3,
         issueNo: 'Issue No. #3',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'Video X-rays',
         hospitalName: 'Bharatpur Hospital',
-        hospitalRepresentative: 'John Cena',
-        problem: 'This not expandable',
+        hospitalRepresentative: 'Narayan Kandel',
+        problem: 'Rotating Joints Stucked on a Video X-RAYS machine. Changing of the respective part is to done.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -86,10 +86,10 @@ const data = [
         key: 4,
         issueNo: 'Issue No. #4',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'CT SCAN',
         hospitalName: 'Narayani Samudayek',
-        hospitalRepresentative: 'Joe Black',
-        problem: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
+        hospitalRepresentative: 'Bhuwan Chaudhary',
+        problem: 'The displaying machine of CT SCAN not working as smoothly it needs to be.Also parts need to be changed on certain time duration.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -169,32 +169,32 @@ class IssuesReported extends React.Component {
                     uid: '-1',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMkwZN7BoThw_-a5q4qyQoQXVqxYUlJJWaw&usqp=CAU',
                 },
                 {
                     uid: '-2',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://lh3.googleusercontent.com/proxy/aThHQdc6FqGg8Xlo2IIlk8bRTThOb9mf1zfztd0jyK5joDqu9a5ymeqh6h8HEc121_-zGwxU-M29iCKuSk-HK-bYpfxiGvoD9IOqFIKxt9q-VHmk-dJC3Z2xzyAGGQPCxjjOm5m_9Q',
                 },
                 {
                     uid: '-3',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://www.nde-ed.org/EducationResources/CommunityCollege/Radiography/Graphics/xraytube1.jpg',
                 },
                 {
                     uid: '-4',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Z0R0urYYQ2mWhXE16upDMRNBgEbv919fvw&usqp=CAU',
                 },
                 {
                     uid: '-xxx',
                     percent: 50,
                     name: 'image.png',
                     status: 'uploading',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMkwZN7BoThw_-a5q4qyQoQXVqxYUlJJWaw&usqp=CAU',
                 },
             ],
 
@@ -360,13 +360,13 @@ class IssuesReported extends React.Component {
                                             <p className="font-semibold mb-1">Optional Representative Details</p>
                                             <div className="grid grid-cols-2">
                                                 <div>
-                                                    <span className="font-semibold">Department Name: .....</span>
+                                                    <span className="font-semibold">Department Name: Radiology</span>
                                                 </div>
                                                 <div>
-                                                    <span className="font-semibold">Representative Name: .....</span>
+                                                    <span className="font-semibold">Representative Name: Aashish Guragain</span>
                                                 </div>
                                                 <div>
-                                                    <span className="font-semibold">Contact Number: .....</span>
+                                                    <span className="font-semibold">Contact Number: 9812345678</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -422,7 +422,7 @@ class IssuesReported extends React.Component {
                                                 </div>
                                             }
                                         >
-                                            <Form
+                                           <Form
                                                 layout="vertical"
                                                 name="basic"
                                             >
@@ -433,12 +433,13 @@ class IssuesReported extends React.Component {
                                                     <div className="md:col-span-1">
                                                         {/* Customer */}
                                                         <Form.Item
+                                                            
                                                             label="Customer"
                                                             name="customer"
                                                             value={this.state.customer}
                                                             onChange={(e) => this.setState({ customer: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Norvick Hospital" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -446,12 +447,13 @@ class IssuesReported extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Request ID No. */}
                                                                 <Form.Item
+                                                                    
                                                                     label="Request ID No."
                                                                     name="request-id-no"
                                                                     value={this.state.requestIDNo}
                                                                     onChange={(e) => this.setState({ requestIDNo: e.target.value })}
                                                                 >
-                                                                    <Input />
+                                                                    <Input defaultValue="011453-01" />
                                                                 </Form.Item>
                                                             </div>
                                                             <div className="sm:col-span-1">
@@ -478,7 +480,7 @@ class IssuesReported extends React.Component {
                                                             value={this.state.department}
                                                             onChange={(e) => this.setState({ department: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Radiology" />
                                                         </Form.Item>
                                                         {/* Address */}
                                                         <Form.Item
@@ -487,7 +489,7 @@ class IssuesReported extends React.Component {
                                                             value={this.state.address}
                                                             onChange={(e) => this.setState({ address: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Baluwatar, Kathmandu" />
                                                         </Form.Item>
                                                         {/* Telephone */}
                                                         <Form.Item
@@ -496,7 +498,7 @@ class IssuesReported extends React.Component {
                                                             value={this.state.telephone}
                                                             onChange={(e) => this.setState({ telephone: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="01456743" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -504,7 +506,7 @@ class IssuesReported extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Installation */}
                                                                 <Form.Item name="installation" valuePropName="">
-                                                                    <Checkbox
+                                                                    <Checkbox 
                                                                         onChange={(e) => this.setState({ installation: e.target.checked })}
                                                                     >
                                                                         Installation
@@ -514,7 +516,7 @@ class IssuesReported extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Preventative Maintainence */}
                                                                 <Form.Item name="preventataive-maintainence" valuePropName="">
-                                                                    <Checkbox
+                                                                    <Checkbox checked={true}
                                                                         onChange={(e) => this.setState({ preventataiveMaintainence: e.target.checked })}
                                                                     >
                                                                         Preventataive Maintainence (PM)
@@ -547,7 +549,7 @@ class IssuesReported extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Update */}
                                                                 <Form.Item name="update" valuePropName="">
-                                                                    <Checkbox
+                                                                    <Checkbox checked={true}
                                                                         onChange={(e) => this.setState({ update: e.target.checked })}
                                                                     >
                                                                         Update
@@ -575,7 +577,7 @@ class IssuesReported extends React.Component {
                                                                 value={this.state.equipmentUptime}
                                                                 onChange={(e) => this.setState({ equipmentUptime: e.target.value })}
                                                             >
-                                                                <Input />
+                                                                <Input defaultValue="09:13pm" />
                                                             </Form.Item>
                                                         </div>
                                                     </div>
@@ -591,7 +593,7 @@ class IssuesReported extends React.Component {
                                                             value={this.state.equipmentType}
                                                             onChange={(e) => this.setState({ equipmentType: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Molecular Diagnostics" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -622,6 +624,7 @@ class IssuesReported extends React.Component {
                                                                     label="Service Contract"
                                                                 >
                                                                     <Radio.Group
+                                                                    
                                                                         onChange={(e) => this.setState({ serviceContract: e.target.value })}
                                                                     >
                                                                         <Radio value="yes">Yes</Radio>
@@ -656,7 +659,7 @@ class IssuesReported extends React.Component {
                                                             value={this.state.customerReference}
                                                             onChange={(e) => this.setState({ customerReference: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Customer Reference-1" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -669,7 +672,7 @@ class IssuesReported extends React.Component {
                                                                     value={this.state.srNo}
                                                                     onChange={(e) => this.setState({ srNo: e.target.value })}
                                                                 >
-                                                                    <Input />
+                                                                    <Input defaultValue="01-432-98" />
                                                                 </Form.Item>
                                                             </div>
                                                             <div className="sm:col-span-1">
@@ -680,7 +683,7 @@ class IssuesReported extends React.Component {
                                                                     value={this.state.swVersion}
                                                                     onChange={(e) => this.setState({ swVersion: e.target.value })}
                                                                 >
-                                                                    <Input />
+                                                                    <Input defaultValue="Ver-2.8" />
                                                                 </Form.Item>
                                                             </div>
                                                         </div>
@@ -695,7 +698,7 @@ class IssuesReported extends React.Component {
                                                         value={this.state.errorMessage}
                                                         onChange={(e) => this.setState({ errorMessage: e.target.value })}
                                                     >
-                                                        <Input />
+                                                        <Input defaultValue="Error msg -1" />
                                                     </Form.Item>
                                                 </div>
 
@@ -705,7 +708,7 @@ class IssuesReported extends React.Component {
                                                         label="Problem"
                                                         name="problem"
                                                     >
-                                                        <Input.TextArea rows={3} disabled />
+                                                        <Input.TextArea defaultValue="Misdiagnosis. Error in diagnosis machine. Might be some problem in the machine system " rows={3} disabled />
                                                     </Form.Item>
                                                 </div>
 
@@ -717,7 +720,7 @@ class IssuesReported extends React.Component {
                                                         value={this.state.workDone}
                                                         onChange={(e) => this.setState({ workDone: e.target.value })}
                                                     >
-                                                        <Input.TextArea rows={6} />
+                                                        <Input.TextArea defaultValue="System Software is Updated with some changes on machines hardware parts." rows={6} />
                                                     </Form.Item>
                                                 </div>
 
@@ -765,7 +768,7 @@ class IssuesReported extends React.Component {
                                                                 <th className="px-4 py-2 bg-gray-200 ">Description</th>
                                                                 <th className="px-4 py-2 bg-gray-200 ">Part Number</th>
                                                                 <th className="px-4 py-2 bg-gray-200 ">Qty</th>
-                                                                <th className="px-4 py-2 bg-gray-200 ">Service Charge Amount</th>
+                                                                <th className="px-4 py-2 bg-gray-200 "></th>
                                                                 <th className="px-4 py-2 bg-gray-200 ">Actions</th>
                                                             </tr>
                                                         </thead>
@@ -776,17 +779,19 @@ class IssuesReported extends React.Component {
                                                                         key={index}>
                                                                         <td className="px-4 py-2">
                                                                             <Input type="text"
+                                                                               defaultValue="Software Updated"
                                                                                 value={this.state.partsTable[index].description}
                                                                                 onChange={(e) => {
                                                                                     let partsTable = [...this.state.partsTable];
                                                                                     partsTable[index].description = e.target.value;
                                                                                     this.setState({ partsTable: partsTable });
-                                                                                }} />
+                                                                                }}  />
 
 
                                                                         </td>
                                                                         <td className="px-4 py-2">
                                                                             <Input
+                                                                                defaultValue="10-1932"
                                                                                 style={{ marginBottom: "0px" }}
                                                                                 name="part-number"
                                                                                 value={this.state.partsTable[index].partNumber}
@@ -794,7 +799,7 @@ class IssuesReported extends React.Component {
                                                                                     let partsTable = [...this.state.partsTable];
                                                                                     partsTable[index].partNumber = e.target.value;
                                                                                     this.setState({ partsTable: partsTable });
-                                                                                }}
+                                                                                }} 
                                                                             />
                                                                         </td>
                                                                         <td className="px-4 py-2">
@@ -810,7 +815,7 @@ class IssuesReported extends React.Component {
                                                                             />
                                                                         </td>
                                                                         <td className="px-4 py-2">
-                                                                            <Input
+                                                                            {/* <Input
                                                                                 style={{ marginBottom: "0px" }}
                                                                                 name="service-charge-amount"
                                                                                 value={this.state.partsTable[index].serviceChargeAmt}
@@ -819,7 +824,7 @@ class IssuesReported extends React.Component {
                                                                                     partsTable[index].serviceChargeAmt = e.target.value;
                                                                                     this.setState({ partsTable: partsTable });
                                                                                 }}
-                                                                            />
+                                                                            /> */}
                                                                         </td>
                                                                         <td className="px-4 py-2">
                                                                             <Button onClick={(e) => {
@@ -871,15 +876,16 @@ class IssuesReported extends React.Component {
                                                                             style={{ marginBottom: "0px" }}
                                                                             name="attending-engineer"
                                                                         >
-                                                                            <Input />
+                                                                            <Input defaultValue="Aashish Guragain" />
                                                                         </Form.Item>
                                                                     </td>
                                                                     <td className="px-4 py-2">
                                                                         <Form.Item
+                                                                         
                                                                             style={{ marginBottom: "0px" }}
                                                                             name="engineer-attended-date"
                                                                         >
-                                                                            <DatePicker />
+                                                                            <DatePicker  />
                                                                         </Form.Item>
                                                                     </td>
                                                                     <td className="px-4 py-2">
@@ -903,7 +909,7 @@ class IssuesReported extends React.Component {
                                                                             style={{ marginBottom: "0px" }}
                                                                             name="travel-time"
                                                                         >
-                                                                            <Input />
+                                                                            <Input defaultValue="3 Hours Approximately" />
                                                                         </Form.Item>
                                                                     </td>
                                                                     <td className="px-4 py-2">
@@ -934,7 +940,7 @@ class IssuesReported extends React.Component {
                                                             value={this.state.customerRemarks}
                                                             onChange={(e) => this.setState({ customerRemarks: e.target.value })}
                                                         >
-                                                            <Input.TextArea rows={4} />
+                                                            <Input.TextArea  defaultValue="Work Completion On Time.Done with Effective Maintainance on Machine.Changed parts as required by Time Instance." rows={4} />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -945,7 +951,7 @@ class IssuesReported extends React.Component {
                                                             value={this.state.feRemarks}
                                                             onChange={(e) => this.setState({ feRemarks: e.target.value })}
                                                         >
-                                                            <Input.TextArea rows={4} />
+                                                            <Input.TextArea  defaultValue="System Software was updated on machine also with some Checkings done on parts and are changed according to required Instance." rows={4} />
                                                         </Form.Item>
                                                     </div>
                                                 </div>

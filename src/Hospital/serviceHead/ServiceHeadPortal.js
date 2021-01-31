@@ -62,22 +62,22 @@ class ServiceHeadPortal extends React.Component {
                 {
                     'issue_id': 1, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
                     'machine_type': 'MRI Machine',
-                    'problem': 'This is problem 1', 'fault_occured': Date.now()
+                    'problem': 'This is problem 1', 'fault_occured': '2020/09/17 | 09:18 A.M.'
                 },
                 {
                     'issue_id': 2, 'hospitalName': 'Hospital1', 'hr': 'Surah JUnd',
                     'machine_type': 'CT Machine',
-                    'problem': 'This is problem 2', 'fault_occured': Date.now()
+                    'problem': 'This is problem 2', 'fault_occured': '2020/12/01 | 06:17 P.M.'
                 },
                 {
                     'issue_id': 3, 'hospitalName': 'Hospital1', 'hr': 'Never Cena',
                     'machine_type': 'LAB Machine',
-                    'problem': 'This is problem 3', 'fault_occured': Date.now()
+                    'problem': 'This is problem 3', 'fault_occured': '2021/05/16 | 12:09 A.M.'
                 },
                 {
                     'issue_id': 4, 'hospitalName': 'Hospital1', 'hr': 'badal Chapgain',
                     'machine_type': 'REM Machine',
-                    'problem': 'This is problem 4', 'fault_occured': Date.now()
+                    'problem': 'This is problem 4', 'fault_occured': '2021/11/05 | 07:58 P.M.'
                 },
             ],
             isOpen: false,

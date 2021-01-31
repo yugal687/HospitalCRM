@@ -55,10 +55,11 @@ const data = [
         key: 1,
         issueNo: 'Issue No. #1',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'MRI Machine',
         hospitalName: 'CMC',
-        assignedTo: 'John Brown',
-        problem: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
+        assignedTo: 'Manish Ghimire',
+        
+        problem: 'Magnetic coils detection failure on MRI machine.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -66,10 +67,10 @@ const data = [
         key: 2,
         issueNo: 'Issue No. #2',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'X-RAYS',
         hospitalName: 'CMS',
-        assignedTo: 'Jim Green',
-        problem: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+        assignedTo: 'Sanoj Shani',
+        problem: 'Flash Failure On X-RAYS machine.And also changes to be done on some regular parts at time instance.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -77,10 +78,10 @@ const data = [
         key: 3,
         issueNo: 'Issue No. #3',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'Video X-RAYS',
         hospitalName: 'Bharatpur Hospital',
-        assignedTo: 'John Cena',
-        problem: 'This not expandable',
+        assignedTo: 'Rahul Giri',
+        problem: 'Rotating Joints Stucked on a Video X-RAYS machine. Changing of the respective part is to done.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -88,10 +89,10 @@ const data = [
         key: 4,
         issueNo: 'Issue No. #4',
         assignedDate: '2020-12-02',
-        machine: 'Machine 123',
+        machine: 'CT-SCAN Machine',
         hospitalName: 'Narayani Samudayek',
-        assignedTo: 'Joe Black',
-        problem: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
+        assignedTo: 'Roman Dhakal',
+        problem: 'The displaying machine of CT SCAN not working as smoothly it needs to be.Also parts need to be changed on certain time duration.',
         faultOccuredDate: '2021-01-20',
         faultOccuredTime: '13:00'
     },
@@ -119,11 +120,11 @@ class ReportedProblem extends React.Component {
         this.state = {
             visible: false,
             //Review Forms
-            customer: '',
-            requestIDNo: '',
-            date: '',
-            department: '',
-            address: '',
+            customer: 'Norvick Hospital',
+            requestIDNo: '001265',
+            date: '2021/01/12',
+            department: 'department',
+            address: 'Kathmandu-4',
             telephone: '',
             installation: false,
             preventataiveMaintainence: false,
@@ -172,32 +173,32 @@ class ReportedProblem extends React.Component {
                     uid: '-1',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMkwZN7BoThw_-a5q4qyQoQXVqxYUlJJWaw&usqp=CAU',
                 },
                 {
                     uid: '-2',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://lh3.googleusercontent.com/proxy/aThHQdc6FqGg8Xlo2IIlk8bRTThOb9mf1zfztd0jyK5joDqu9a5ymeqh6h8HEc121_-zGwxU-M29iCKuSk-HK-bYpfxiGvoD9IOqFIKxt9q-VHmk-dJC3Z2xzyAGGQPCxjjOm5m_9Q',
                 },
                 {
                     uid: '-3',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://www.nde-ed.org/EducationResources/CommunityCollege/Radiography/Graphics/xraytube1.jpg',
                 },
                 {
                     uid: '-4',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Z0R0urYYQ2mWhXE16upDMRNBgEbv919fvw&usqp=CAU',
                 },
                 {
                     uid: '-xxx',
                     percent: 50,
                     name: 'image.png',
                     status: 'uploading',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMkwZN7BoThw_-a5q4qyQoQXVqxYUlJJWaw&usqp=CAU',
                 },
             ],
 
@@ -433,12 +434,13 @@ class ReportedProblem extends React.Component {
                                                     <div className="md:col-span-1">
                                                         {/* Customer */}
                                                         <Form.Item
+                                                            
                                                             label="Customer"
                                                             name="customer"
                                                             value={this.state.customer}
                                                             onChange={(e) => this.setState({ customer: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Norvick Hospital" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -446,12 +448,13 @@ class ReportedProblem extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Request ID No. */}
                                                                 <Form.Item
+                                                                    
                                                                     label="Request ID No."
                                                                     name="request-id-no"
                                                                     value={this.state.requestIDNo}
                                                                     onChange={(e) => this.setState({ requestIDNo: e.target.value })}
                                                                 >
-                                                                    <Input />
+                                                                    <Input defaultValue="011453-01" />
                                                                 </Form.Item>
                                                             </div>
                                                             <div className="sm:col-span-1">
@@ -478,7 +481,7 @@ class ReportedProblem extends React.Component {
                                                             value={this.state.department}
                                                             onChange={(e) => this.setState({ department: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Radiology" />
                                                         </Form.Item>
                                                         {/* Address */}
                                                         <Form.Item
@@ -487,7 +490,7 @@ class ReportedProblem extends React.Component {
                                                             value={this.state.address}
                                                             onChange={(e) => this.setState({ address: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Baluwatar, Kathmandu" />
                                                         </Form.Item>
                                                         {/* Telephone */}
                                                         <Form.Item
@@ -496,7 +499,7 @@ class ReportedProblem extends React.Component {
                                                             value={this.state.telephone}
                                                             onChange={(e) => this.setState({ telephone: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="01456743" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -504,7 +507,7 @@ class ReportedProblem extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Installation */}
                                                                 <Form.Item name="installation" valuePropName="">
-                                                                    <Checkbox
+                                                                    <Checkbox 
                                                                         onChange={(e) => this.setState({ installation: e.target.checked })}
                                                                     >
                                                                         Installation
@@ -514,7 +517,7 @@ class ReportedProblem extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Preventative Maintainence */}
                                                                 <Form.Item name="preventataive-maintainence" valuePropName="">
-                                                                    <Checkbox
+                                                                    <Checkbox checked={true}
                                                                         onChange={(e) => this.setState({ preventataiveMaintainence: e.target.checked })}
                                                                     >
                                                                         Preventataive Maintainence (PM)
@@ -547,7 +550,7 @@ class ReportedProblem extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Update */}
                                                                 <Form.Item name="update" valuePropName="">
-                                                                    <Checkbox
+                                                                    <Checkbox checked={true}
                                                                         onChange={(e) => this.setState({ update: e.target.checked })}
                                                                     >
                                                                         Update
@@ -575,7 +578,7 @@ class ReportedProblem extends React.Component {
                                                                 value={this.state.equipmentUptime}
                                                                 onChange={(e) => this.setState({ equipmentUptime: e.target.value })}
                                                             >
-                                                                <Input />
+                                                                <Input defaultValue="09:13pm" />
                                                             </Form.Item>
                                                         </div>
                                                     </div>
@@ -591,7 +594,7 @@ class ReportedProblem extends React.Component {
                                                             value={this.state.equipmentType}
                                                             onChange={(e) => this.setState({ equipmentType: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Molecular Diagnostics" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -622,6 +625,7 @@ class ReportedProblem extends React.Component {
                                                                     label="Service Contract"
                                                                 >
                                                                     <Radio.Group
+                                                                    
                                                                         onChange={(e) => this.setState({ serviceContract: e.target.value })}
                                                                     >
                                                                         <Radio value="yes">Yes</Radio>
@@ -656,7 +660,7 @@ class ReportedProblem extends React.Component {
                                                             value={this.state.customerReference}
                                                             onChange={(e) => this.setState({ customerReference: e.target.value })}
                                                         >
-                                                            <Input />
+                                                            <Input defaultValue="Customer Reference-1" />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -669,7 +673,7 @@ class ReportedProblem extends React.Component {
                                                                     value={this.state.srNo}
                                                                     onChange={(e) => this.setState({ srNo: e.target.value })}
                                                                 >
-                                                                    <Input />
+                                                                    <Input defaultValue="01-432-98" />
                                                                 </Form.Item>
                                                             </div>
                                                             <div className="sm:col-span-1">
@@ -680,7 +684,7 @@ class ReportedProblem extends React.Component {
                                                                     value={this.state.swVersion}
                                                                     onChange={(e) => this.setState({ swVersion: e.target.value })}
                                                                 >
-                                                                    <Input />
+                                                                    <Input defaultValue="Ver-2.8" />
                                                                 </Form.Item>
                                                             </div>
                                                         </div>
@@ -695,7 +699,7 @@ class ReportedProblem extends React.Component {
                                                         value={this.state.errorMessage}
                                                         onChange={(e) => this.setState({ errorMessage: e.target.value })}
                                                     >
-                                                        <Input />
+                                                        <Input defaultValue="Error msg -1" />
                                                     </Form.Item>
                                                 </div>
 
@@ -705,7 +709,7 @@ class ReportedProblem extends React.Component {
                                                         label="Problem"
                                                         name="problem"
                                                     >
-                                                        <Input.TextArea rows={3} disabled />
+                                                        <Input.TextArea defaultValue="Misdiagnosis. Error in diagnosis machine. Might be some problem in the machine system " rows={3} disabled />
                                                     </Form.Item>
                                                 </div>
 
@@ -717,7 +721,7 @@ class ReportedProblem extends React.Component {
                                                         value={this.state.workDone}
                                                         onChange={(e) => this.setState({ workDone: e.target.value })}
                                                     >
-                                                        <Input.TextArea rows={6} />
+                                                        <Input.TextArea defaultValue="System Software is Updated with some changes on machines hardware parts." rows={6} />
                                                     </Form.Item>
                                                 </div>
 
@@ -765,7 +769,7 @@ class ReportedProblem extends React.Component {
                                                                 <th className="px-4 py-2 bg-gray-200 ">Description</th>
                                                                 <th className="px-4 py-2 bg-gray-200 ">Part Number</th>
                                                                 <th className="px-4 py-2 bg-gray-200 ">Qty</th>
-                                                                <th className="px-4 py-2 bg-gray-200 ">Service Charge Amount</th>
+                                                                <th className="px-4 py-2 bg-gray-200 "></th>
                                                                 <th className="px-4 py-2 bg-gray-200 ">Actions</th>
                                                             </tr>
                                                         </thead>
@@ -776,17 +780,19 @@ class ReportedProblem extends React.Component {
                                                                         key={index}>
                                                                         <td className="px-4 py-2">
                                                                             <Input type="text"
+                                                                               defaultValue="Software Updated"
                                                                                 value={this.state.partsTable[index].description}
                                                                                 onChange={(e) => {
                                                                                     let partsTable = [...this.state.partsTable];
                                                                                     partsTable[index].description = e.target.value;
                                                                                     this.setState({ partsTable: partsTable });
-                                                                                }} />
+                                                                                }}  />
 
 
                                                                         </td>
                                                                         <td className="px-4 py-2">
                                                                             <Input
+                                                                                defaultValue="10-1932"
                                                                                 style={{ marginBottom: "0px" }}
                                                                                 name="part-number"
                                                                                 value={this.state.partsTable[index].partNumber}
@@ -794,7 +800,7 @@ class ReportedProblem extends React.Component {
                                                                                     let partsTable = [...this.state.partsTable];
                                                                                     partsTable[index].partNumber = e.target.value;
                                                                                     this.setState({ partsTable: partsTable });
-                                                                                }}
+                                                                                }} 
                                                                             />
                                                                         </td>
                                                                         <td className="px-4 py-2">
@@ -810,7 +816,7 @@ class ReportedProblem extends React.Component {
                                                                             />
                                                                         </td>
                                                                         <td className="px-4 py-2">
-                                                                            <Input
+                                                                            {/* <Input
                                                                                 style={{ marginBottom: "0px" }}
                                                                                 name="service-charge-amount"
                                                                                 value={this.state.partsTable[index].serviceChargeAmt}
@@ -819,7 +825,7 @@ class ReportedProblem extends React.Component {
                                                                                     partsTable[index].serviceChargeAmt = e.target.value;
                                                                                     this.setState({ partsTable: partsTable });
                                                                                 }}
-                                                                            />
+                                                                            /> */}
                                                                         </td>
                                                                         <td className="px-4 py-2">
                                                                             <Button onClick={(e) => {
@@ -871,15 +877,16 @@ class ReportedProblem extends React.Component {
                                                                             style={{ marginBottom: "0px" }}
                                                                             name="attending-engineer"
                                                                         >
-                                                                            <Input />
+                                                                            <Input defaultValue="Aashish Guragain" />
                                                                         </Form.Item>
                                                                     </td>
                                                                     <td className="px-4 py-2">
                                                                         <Form.Item
+                                                                         
                                                                             style={{ marginBottom: "0px" }}
                                                                             name="engineer-attended-date"
                                                                         >
-                                                                            <DatePicker />
+                                                                            <DatePicker  />
                                                                         </Form.Item>
                                                                     </td>
                                                                     <td className="px-4 py-2">
@@ -903,7 +910,7 @@ class ReportedProblem extends React.Component {
                                                                             style={{ marginBottom: "0px" }}
                                                                             name="travel-time"
                                                                         >
-                                                                            <Input />
+                                                                            <Input defaultValue="3 Hours Approximately" />
                                                                         </Form.Item>
                                                                     </td>
                                                                     <td className="px-4 py-2">
@@ -934,7 +941,7 @@ class ReportedProblem extends React.Component {
                                                             value={this.state.customerRemarks}
                                                             onChange={(e) => this.setState({ customerRemarks: e.target.value })}
                                                         >
-                                                            <Input.TextArea rows={4} />
+                                                            <Input.TextArea  defaultValue="Work Completion On Time.Done with Effective Maintainance on Machine.Changed parts as required by Time Instance." rows={4} />
                                                         </Form.Item>
                                                     </div>
                                                     <div className="md:col-span-1">
@@ -945,7 +952,7 @@ class ReportedProblem extends React.Component {
                                                             value={this.state.feRemarks}
                                                             onChange={(e) => this.setState({ feRemarks: e.target.value })}
                                                         >
-                                                            <Input.TextArea rows={4} />
+                                                            <Input.TextArea  defaultValue="System Software was updated on machine also with some Checkings done on parts and are changed according to required Instance." rows={4} />
                                                         </Form.Item>
                                                     </div>
                                                 </div>
@@ -987,64 +994,35 @@ class ReportedProblem extends React.Component {
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-<<<<<<< HEAD
                                                     <p className="font-semibold">{issue.machine_name}</p>
-=======
-                                                    <p className="font-semibold">Hospital 1</p>
->>>>>>> 8a0857699bd3fcb1a408aebb40ed8afd5f5886d0
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-<<<<<<< HEAD
                                                     <p className="font-semibold">{issue.problem}</p>
-=======
-                                                    <p className="font-semibold">Hospital Representative 1</p>
->>>>>>> 8a0857699bd3fcb1a408aebb40ed8afd5f5886d0
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-<<<<<<< HEAD
                                                     <p className="font-semibold">{issue.occurred_date}</p>
-=======
-                                                    <p className="font-semibold">Machine 1</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm w-60">
-                                                <div>
-                                                    <p className="font-semibold">
-                                                        Lorem ipsum dolor sit amet
-                                                    </p>
->>>>>>> 8a0857699bd3fcb1a408aebb40ed8afd5f5886d0
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-<<<<<<< HEAD
                                                     <p className="font-semibold">{issue.occurred_time}</p>
-=======
-                                                    <p className="font-semibold">2020/01/01</p>
->>>>>>> 8a0857699bd3fcb1a408aebb40ed8afd5f5886d0
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-<<<<<<< HEAD
                                                     <p className="font-semibold">{issue.assigned_staff}</p>
-=======
-                                                    <p className="font-semibold">12:00</p>
->>>>>>> 8a0857699bd3fcb1a408aebb40ed8afd5f5886d0
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -1052,26 +1030,13 @@ class ReportedProblem extends React.Component {
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-<<<<<<< HEAD
                                                     <p className="inline-flex px-3 text-xs rounded-full text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100">
                                                         {issue.status}
-=======
-                                                    <p>
-                                                        <Button type="primary">
-                                                            Review
-                                                        </Button>
->>>>>>> 8a0857699bd3fcb1a408aebb40ed8afd5f5886d0
                                                     </p>
                                                 </div>
                                             </div>
                                         </TableCell>
-<<<<<<< HEAD
                                         
-=======
-
-
-
->>>>>>> 8a0857699bd3fcb1a408aebb40ed8afd5f5886d0
                                     </TableRow>
                                     })}
                                 </TableBody>

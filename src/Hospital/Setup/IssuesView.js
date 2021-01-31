@@ -1,5 +1,5 @@
 import React from 'react'
-
+import axiosInstance from '../../api'
 import { Drawer, List, Avatar, Divider, Col, Row, Card, Select, DatePicker, Radio, Button, Upload, Modal } from 'antd';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -79,7 +79,7 @@ function getBase64(file) {
     });
 }
 
-class AssignedIssues extends React.Component {
+class IssuesView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -91,35 +91,59 @@ class AssignedIssues extends React.Component {
             previewVisible: false,
             previewImage: '',
             previewTitle: '',
+            regions: [],
+            hospitals: [],
             imageList: [
                 {
                     uid: '-1',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMkwZN7BoThw_-a5q4qyQoQXVqxYUlJJWaw&usqp=CAU',
                 },
                 {
                     uid: '-2',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://lh3.googleusercontent.com/proxy/aThHQdc6FqGg8Xlo2IIlk8bRTThOb9mf1zfztd0jyK5joDqu9a5ymeqh6h8HEc121_-zGwxU-M29iCKuSk-HK-bYpfxiGvoD9IOqFIKxt9q-VHmk-dJC3Z2xzyAGGQPCxjjOm5m_9Q',
                 },
                 {
                     uid: '-3',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://www.nde-ed.org/EducationResources/CommunityCollege/Radiography/Graphics/xraytube1.jpg',
                 },
                 {
                     uid: '-4',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Z0R0urYYQ2mWhXE16upDMRNBgEbv919fvw&usqp=CAU',
                 },
             ],
         };
     }
 
+    componentDidMount() {
+        this.getAllRegions();
+        this.getHospitalSetup();
+    }
+
+    getAllRegions() {
+        axiosInstance.get('/region'
+        ).then(resp => {
+            this.setState({
+                // loading: false,
+                regions: resp.data.regions});
+        });
+    }
+
+    getHospitalSetup() {
+        axiosInstance.get('/hospital', 
+        ).then((resp) => {
+            this.setState({
+                hospitals: resp.data.hospitals
+             })
+        });
+    }
 
         //Cancel Image Preview
         handleCancel = () => this.setState({ previewVisible: false });
@@ -161,21 +185,33 @@ class AssignedIssues extends React.Component {
         return (
             <div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                <div className="md:col-span-1">
+                <Select  style={{ width: 230 }}
+                            placeholder="Select Region"
+                                    value={this.state.region}  
+                                    onChange = {(e)=> this.setState({region: e})}>
+                                     { this.state.regions.map((region) => {
+
+                                     return <Option key={region.id} value={region.id}>{region.region_name}</Option>
+                                    }) }
+
+                                    </Select>
+                    </div>
                     <div className="md:col-span-1">
-                        <Select
-                            showSearch
-                            style={{ width: 300 }}
+                    <Select style={{ width: 230 }}
                             placeholder="Select hospital"
-                            optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                        >
-                            <Option value="hospital1">Hospital 1</Option>
-                            <Option value="hospital2">Hospital 2</Option>
-                            <Option value="hospital3">Hospital 3</Option>
-                        </Select>
+                                                            value={this.state.hospital}
+                                                            onChange={(e) => this.setState({hospital: e.target.value})}>
+
+                                                            {this.state.hospitals.map((hospital) => {
+
+                                                                return <Option key={hospital.id}
+                                                                               value={hospital.id}>{hospital.hospital_name}</Option>
+                                                            })}
+
+
+                                                        </Select>
                     </div>
                     <div className="md:col-span-1">
                         <RangePicker />
@@ -476,4 +512,4 @@ class AssignedIssues extends React.Component {
     }
 }
 
-export default AssignedIssues
+export default IssuesView

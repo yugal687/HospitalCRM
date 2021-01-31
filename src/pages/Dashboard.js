@@ -236,7 +236,7 @@ function Dashboard() {
 
       <PageTitle>Progress Charts</PageTitle>
       <div className="grid gap-6 border border-info mb-8 md:grid-cols-2">
-        <ChartCard title="Engineer's Progress Chart">
+        <ChartCard title="Issues Progress Chart">
           <Doughnut {...doughnutOptions} />
           <ChartLegend legends={doughnutLegends} />
         </ChartCard>
