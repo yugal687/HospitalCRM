@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     Table,
     TableHeader,
@@ -13,16 +13,17 @@ import {
     ModalFooter,
     Label, HelperText,
 } from '@windmill/react-ui'
-import { EditIcon, TrashIcon } from '../../icons'
+import {EditIcon, TrashIcon} from '../../icons'
 import axiosInstance from '../../api'
+import axios from 'axios';
 
 
+import {Form, Button, Input, Select, Modal, Collapse, notification, DatePicker, Space} from "antd"
+import {CaretRightOutlined, SettingOutlined} from '@ant-design/icons';
 
-import { Form, Button, Input, Select, Modal, Collapse, notification, DatePicker, Space } from "antd"
-import { CaretRightOutlined, SettingOutlined } from '@ant-design/icons';
-const { Option } = Select;
-const { Panel } = Collapse;
-const { RangePicker } = DatePicker;
+const {Option} = Select;
+const {Panel} = Collapse;
+const {RangePicker} = DatePicker;
 
 const text = `
   A dog is a type of domesticated animal.
@@ -57,14 +58,45 @@ class ServiceHeadPortal extends React.Component {
         super(props);
         this.state = {
             issues: [],
+            testIssues: [
+                {
+                    'issue_id': 1, 'hospitalName': 'Hospital1', 'hr': 'prakhsh',
+                    'machine_type': 'MRI Machine',
+                    'problem': 'This is problem 1', 'fault_occured': Date.now()
+                },
+                {
+                    'issue_id': 2, 'hospitalName': 'Hospital1', 'hr': 'Surah JUnd',
+                    'machine_type': 'CT Machine',
+                    'problem': 'This is problem 2', 'fault_occured': Date.now()
+                },
+                {
+                    'issue_id': 3, 'hospitalName': 'Hospital1', 'hr': 'Never Cena',
+                    'machine_type': 'LAB Machine',
+                    'problem': 'This is problem 3', 'fault_occured': Date.now()
+                },
+                {
+                    'issue_id': 4, 'hospitalName': 'Hospital1', 'hr': 'badal Chapgain',
+                    'machine_type': 'REM Machine',
+                    'problem': 'This is problem 4', 'fault_occured': Date.now()
+                },
+            ],
             isOpen: false,
             modalVisible: false,
             expandIconPosition: 'left',
             issueId: 0,
-            staffs: [],
+            staff: [],
             estimatedTime: '',
-            date: '',
-            selectedHospitalProblem: { 'hospitalName': '', 'machine_type': '', 'problem': '', 'problem_id': 0 },
+            testStaff: [
+                {'name': 'Staff1', 'id': 1, 'on_progress': true},
+                {'name': 'Staff2', 'id': 2, 'on_progress': true},
+                {'name': 'Staff3', 'id': 3, 'on_progress': false},
+                {'name': 'Staff4', 'id': 4, 'on_progress': false},
+                {'name': 'Staff5', 'id': 5, 'on_progress': false},
+
+            ],
+
+
+            selectedHospitalProblem: {'hospitalName': '', 'machine_type': '', 'problem': '', 'problem_id': 0},
         };
 
         this.openModal = this.openModal.bind(this);
@@ -72,24 +104,27 @@ class ServiceHeadPortal extends React.Component {
     };
 
     setModalVisible(modalVisible, issueId) {
-        this.setState({ modalVisible });
-        this.setState({ issueId: issueId });
+        this.setState({modalVisible});
+        this.setState({issueId: issueId});
         //call axios request to fetch the staffs 
         //getDetalOfStaff()
-        alert(this.state.modalVisible);
+//        alert(this.state.modalVisible);
         if (!this.state.modalVisible) {
             this.setSelectedHospitalProbelm(issueId);
         }
     }
 
     setSelectedHospitalProbelm = (issueId) => {
-        let selectedProblem = this.state.issues.filter(issue => { return issue.issue_id == issueId });
+      //  alert(issueId);
+        let selectedProblem = this.state.testIssues.filter(issue => {
+            return issue.issue_id == issueId
+        });
         console.log(selectedProblem);
         this.setState(prevState => ({
             ...prevState, selectedHospitalProblem: {
                 ...prevState.selectedHospitalProblem,
-                hospitalName: selectedProblem[0].hospital_name,
-                machine_type: selectedProblem[0].machine_name,
+                hospitalName: selectedProblem[0].hospitalName,
+                machine_type: selectedProblem[0].machine_type,
                 problem: selectedProblem[0].problem,
                 issue_id: selectedProblem[0].issue_id,
             },
@@ -97,60 +132,53 @@ class ServiceHeadPortal extends React.Component {
     }
 
     getDetailOfStaff = () => {
-        axiosInstance.get('/ground-staffs'
-        ).then(resp => {
-             this.setState({ staffs: resp.data.staffs });
-        })
+
     }
 
     assignTask = (message, staffId) => {
         // console.log(estimatedTime);
 
-        axiosInstance.post('/issue-assign', {
-            'user_id': staffId,
-            'issue_id': this.state.selectedHospitalProblem.issue_id,
-            'start_date':this.state.estimatedTime[0],
-            'end_date':this.state.estimatedTime[1],
-            'assign_date': this.state.date,
-            //k k chahinxa thapa la...  maile thapaina sayad tyo 2 ta date binding garne hola hai
-        }).then(resp => {
-            alert(resp.data.message);
-            this.getDetailOfStaff();
-        }).catch();
+        // axios.post('http://127.0.0.1:8000/api/issue-assign', {
+        //     'user_id': staffId,
+        //     'issue_id': this.state.selectedHospitalProblem.problem_id,
+        //   milni name lekha hererw       'start_date':this.state.estimatedTime[0],
+        //          'end_date':this.state.estimatedTime[1],
+        //     //k k chahinxa thapa la...  maile thapaina sayad tyo 2 ta date binding garne hola hai
+        // }).then(resp => {
+
+        // }).catch();
 
         openNotificationWithIcon(message, 'Success', 'Sucessfullt assigned Task to Ground Staff');
     }
 
     openModal = (issueId) => {
         //        alert(issueId);
-        this.setState({ isOpen: true });
+        this.setState({isOpen: true});
     }
 
 
-    closeModal = () => this.setState({ isOpen: false });
+    closeModal = () => this.setState({isOpen: false});
 
     componentDidMount() {
         this.getAllIssues();
-        this.getDetailOfStaff();
     };
 
     getAllIssues() {
-        axiosInstance.get('/issue'
+        axios.get('http://127.0.0.1:8000/api/issue'
         ).then(resp => {
-             this.setState({ issues: resp.data.issues });
+            this.setState({issues: resp.data.issues});
         })
     };
 
-
-    
-
     render() {
         const genExtraTest = (on_progress) => {
-            return on_progress ? <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">Available</span>
-                : <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">On Field</span>
+            return on_progress ? <span
+                    class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">Available</span>
+                : <span
+                    class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">On Field</span>
         };
 
-        const { expandIconPosition } = this.state;
+        const {expandIconPosition} = this.state;
         return (
             <div>
 
@@ -159,7 +187,8 @@ class ServiceHeadPortal extends React.Component {
                     <div className="">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
-                            <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
+                            <div
+                                className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
                                 <p>Service Head portal</p>
                             </div>
                             {/* Form */}
@@ -186,26 +215,26 @@ class ServiceHeadPortal extends React.Component {
                                 </TableHeader>
 
                                 <TableBody>
-                                    {this.state.issues.map((issue) => {
-                                        return <TableRow key={issue.id}>
-                                            <TableCell >
-                                                <div style={{ width: "20px" }} className="flex items-center text-sm">
+                                    {this.state.testIssues.map((issue) => {
+                                        return <TableRow key={issue.issue_id}>
+                                            <TableCell>
+                                                <div style={{width: "20px"}} className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issue.hospital_name}</p>
+                                                        <p className="font-semibold">{issue.hospitalName}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issue.hospital_representative}</p>
+                                                        <p className="font-semibold">{issue.hr}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issue.machine_name}</p>
+                                                        <p className="font-semibold">{issue.machine_type}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
@@ -219,7 +248,7 @@ class ServiceHeadPortal extends React.Component {
                                             <TableCell>
                                                 <div className="flex items-center text-sm">
                                                     <div>
-                                                        <p className="font-semibold">{issue.occurred_date}/{issue.occurred_time}</p>
+                                                        <p className="font-semibold">{issue.fault_occured}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
@@ -227,9 +256,10 @@ class ServiceHeadPortal extends React.Component {
                                                 <div className="flex items-center text-sm">
                                                     <div>
                                                         <p className="font-semibold">
-                                                            <Button type="primary" onClick={() => this.setModalVisible(true, issue.issue_id)}>
+                                                            <Button type="primary"
+                                                                    onClick={() => this.setModalVisible(true, issue.issue_id)}>
                                                                 Assign To
-                                                        </Button>
+                                                            </Button>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -237,10 +267,10 @@ class ServiceHeadPortal extends React.Component {
                                             <TableCell>
                                                 <div className="flex items-center space-x-4">
                                                     <Button layout="link" size="icon" aria-label="Edit">
-                                                        <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                        <EditIcon className="w-5 h-5" aria-hidden="true"/>
                                                     </Button>
                                                     <Button layout="link" size="icon" aria-label="Delete">
-                                                        <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                        <TrashIcon className="w-5 h-5" aria-hidden="true"/>
                                                     </Button>
                                                 </div>
                                             </TableCell>
@@ -266,28 +296,34 @@ class ServiceHeadPortal extends React.Component {
                             {/* Problem Title */}
                             <p className="text-lg font-bold">
                                 {this.state.selectedHospitalProblem.problem}
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco lab
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco lab
                             </p>
                             {/* Staffs Lists */}
                             <Collapse
                                 bordered={false}
-                                expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+                                expandIcon={({isActive}) => <CaretRightOutlined rotate={isActive ? 90 : 0}/>}
                                 expandIconPosition={expandIconPosition}
                             >
                                 {
-                                    this.state.staffs.map((staff) => {
-                                        return <Panel header={staff.name} key={staff.id} style={mystyle} extra={genExtraTest(staff.availability)}>
+                                    this.state.testStaff.map(staffs => {
+                                        return <Panel header={staffs.name} key={staffs.id} style={mystyle}
+                                                      extra={genExtraTest(staffs.on_progress)}>
                                             <div className="grid grid-cols-4">
                                                 <div className="col-span-1">
-                                                    <p className="text-base font-medium">Hospital Name: <span className="font-semibold">
+                                                    <p className="text-base font-medium">Hospital Name: <span
+                                                        className="font-semibold">
                                                         {this.state.selectedHospitalProblem.hospitalName}</span></p>
                                                 </div>
                                                 <div className="col-span-1">
-                                                    <p className="text-base font-medium">Machine Name: <span className="font-semibold">
+                                                    <p className="text-base font-medium">Machine Name: <span
+                                                        className="font-semibold">
                                                         {this.state.selectedHospitalProblem.machine_type}</span></p>
                                                 </div>
                                                 <div className="col-span-1">
-                                                    <p className="text-base font-medium">Problem:<span className="font-semibold">
+                                                    <p className="text-base font-medium">Problem:<span
+                                                        className="font-semibold">
                                                         {this.state.selectedHospitalProblem.problem}
                                                     </span></p>
                                                 </div>
@@ -297,10 +333,11 @@ class ServiceHeadPortal extends React.Component {
 
                                                     <div className="col-span-1">
                                                         <p className="text-base font-medium">Date: &nbsp;
-                                                    <span className="font-semibold">
+                                                            <span className="font-semibold">
                                                                 <Space direction="vertical" size={12}>
                                                                     <Form.Item>
-                                                                        <DatePicker onChange={(value, dateString) => this.setState({ date: dateString })} />
+                                                                        <DatePicker
+                                                                            onChange={(value, dateString) => this.setState({date: dateString})}/>
                                                                     </Form.Item>
                                                                 </Space>
                                                             </span>
@@ -308,18 +345,19 @@ class ServiceHeadPortal extends React.Component {
                                                     </div>
                                                     <div className="col-span-2">
                                                         <p className="text-base font-medium">Estimated Time: &nbsp;
-                                                <span className="font-semibold">
+                                                            <span className="font-semibold">
                                                                 <Space direction="vertical" size={12}>
                                                                     <Form.Item>
                                                                         <RangePicker
-                                                                            onChange={(value, dateString) => this.setState({ estimatedTime: dateString })} />
+                                                                            onChange={(value, dateString) => this.setState({estimatedTime: dateString})}/>
                                                                     </Form.Item>
                                                                 </Space>
                                                             </span></p>
                                                     </div>
                                                     <div className="col-span-1">
                                                         <Form.Item>
-                                                            <Button type="primary" size="large" style={buttonstyle} onClick={() => this.assignTask('success', staff.id)}>Assign</Button>
+                                                            <Button type="primary" size="large" style={buttonstyle}
+                                                                    onClick={() => this.assignTask('success', staffs.id)}>Assign</Button>
                                                         </Form.Item>
                                                     </div>
 
