@@ -17,6 +17,7 @@ import {
 } from '@windmill/react-ui'
 import {EditIcon, TrashIcon, InfoIcon} from '../../icons'
 import axios from "axios"
+import axiosInstance from '../../api'
 
 
 import {Form, Button, Input, Select, DatePicker, TimePicker, Radio, Upload, Modal, Checkbox} from "antd"
@@ -74,6 +75,7 @@ class NewProblemReporting extends React.Component {
             //Image Upload Section Ends
             machines: [],
             issues: [],
+            departments: [],
             //InfoModal
             infoModalVisible: false,
             installationInfoModalVisible: false,
@@ -140,14 +142,21 @@ class NewProblemReporting extends React.Component {
     componentDidMount() {
         this.getAllMachines();
         this.getAllIssues();
+        this.getAllDepartments();
     }
 
     getAllMachines() {
-        axios.get('http://127.0.0.1:8000/api/machine'
+        axiosInstance.get('/category-only'
         ).then(resp => {
-            this.setState({
-                machines: resp.data.machines
-            });
+            this.setState({machines : resp.data.machines});
+           
+        });
+    }
+
+    getAllDepartments() {
+        axiosInstance.get('/department',
+        ).then((resp) => {
+            this.state.departments = resp.data.departments;
         });
     }
 
@@ -266,13 +275,16 @@ class NewProblemReporting extends React.Component {
                                                 <Label>
                                                     <span> Select Department:</span>
                                                     <Form.Item>
-                                                        <Select
-                                                            value={this.state.installationDepartment}
-                                                            onChange={(e) => this.setState({installationDepartment: e.target.value})}>
+                                                    <Select
+                                                            value={this.state.department}
+                                                            onChange={(e) => this.setState({department: e})}>
+                                                            {
+                                                                this.state.departments.map((dept) => {
+                                                                    return <Option key={dept.id}
+                                                                                   value={dept.id}>{dept.department_name}</Option>
+                                                                })
 
-                                                            <Option key="" value="">Department 1</Option>
-                                                            <Option key="" value="">Department 2</Option>
-                                                            <Option key="" value="">Department 3</Option>
+                                                            }
 
                                                         </Select>
                                                     </Form.Item>
@@ -281,13 +293,18 @@ class NewProblemReporting extends React.Component {
                                                 <Label>
                                                     <span> Select Equipment Category:</span>
                                                     <Form.Item>
-                                                        <Select
-                                                            value={this.state.installationMachineCategory}
-                                                            onChange={(e) => this.setState({installationMachineCategory: e.target.value})}>
-                                                            <Option key="" value="">Machine 1</Option>
-                                                            <Option key="" value="">Machine 2</Option>
-                                                            <Option key="" value="">Machine 3</Option>
-                                                        </Select>
+                                                    <Select 
+                                                value={this.state.category}  
+                                                onChange = {(e)=> this.setState({category : e})}
+                                            >
+
+                                                { this.state.machines.map((machine) => {
+
+                                                    return  <Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
+                                                })}
+                                                    
+
+                                            </Select>
                                                     </Form.Item>
                                                 </Label>
                                                 {/* Select Equipment Category */}
@@ -477,13 +494,16 @@ class NewProblemReporting extends React.Component {
                                                 <Label>
                                                     <span> Select Department:</span>
                                                     <Form.Item>
-                                                        <Select
-                                                            value={this.state.preventativeMaintainenceDepartment}
-                                                            onChange={(e) => this.setState({preventativeMaintainenceDepartment: e.target.value})}>
+                                                    <Select
+                                                            value={this.state.department}
+                                                            onChange={(e) => this.setState({department: e})}>
+                                                            {
+                                                                this.state.departments.map((dept) => {
+                                                                    return <Option key={dept.id}
+                                                                                   value={dept.id}>{dept.department_name}</Option>
+                                                                })
 
-                                                            <Option key="" value="">Department 1</Option>
-                                                            <Option key="" value="">Department 2</Option>
-                                                            <Option key="" value="">Department 3</Option>
+                                                            }
 
                                                         </Select>
                                                     </Form.Item>
@@ -746,11 +766,16 @@ class NewProblemReporting extends React.Component {
                                                 <Label>
                                                     <span> Department:</span>
                                                     <Form.Item>
-                                                        <Select
+                                                    <Select
                                                             value={this.state.department}
-                                                            onChange={(e) => this.setState({department: e.target.value})}>
+                                                            onChange={(e) => this.setState({department: e})}>
+                                                            {
+                                                                this.state.departments.map((dept) => {
+                                                                    return <Option key={dept.id}
+                                                                                   value={dept.id}>{dept.department_name}</Option>
+                                                                })
 
-                                                            <Option key="" value="">Department 1</Option>
+                                                            }
 
                                                         </Select>
                                                     </Form.Item>
