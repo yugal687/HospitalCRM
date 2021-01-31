@@ -122,7 +122,7 @@ class ReportedProblem extends React.Component {
             customer: '',
             requestIDNo: '',
             date: '',
-            department: '',
+            department: 'Lab Department',
             address: '',
             telephone: '',
             installation: false,
@@ -228,7 +228,6 @@ class ReportedProblem extends React.Component {
             previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
         });
     };
-
 
     addPartsTable() {
         let table = {
@@ -504,7 +503,7 @@ class ReportedProblem extends React.Component {
                                                             <div className="sm:col-span-1">
                                                                 {/* Installation */}
                                                                 <Form.Item name="installation" valuePropName="">
-                                                                    <Checkbox
+                                                                    <Checkbox checked={true}
                                                                         onChange={(e) => this.setState({ installation: e.target.checked })}
                                                                     >
                                                                         Installation
