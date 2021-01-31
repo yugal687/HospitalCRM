@@ -47,7 +47,7 @@ function getBase64(file) {
 
 
 
-class ProblemReporting extends React.Component {
+class NewProblemReporting extends React.Component {
 
     constructor(props) {
         super(props);
@@ -77,38 +77,39 @@ class ProblemReporting extends React.Component {
             issues: [],
             //InfoModal
             infoModalVisible: false,
+            installationInfoModalVisible: false,
+            preventativeMaintainenceInfoModalVisible: false,
             //UploadedImageList
             imageList: [
                 {
                     uid: '-1',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://media.gettyimages.com/photos/medical-equipment-are-damaged-after-russian-warplanes-hit-residential-picture-id1197609576?s=2048x2048',
                 },
                 {
                     uid: '-2',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://i.jauns.lv/t/2020/06/09/1972346/1000x620.jpg?v=1591728809',
                 },
                 {
                     uid: '-3',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://i.pinimg.com/564x/f5/85/e4/f585e4fd32c7ab8a0212d2d4bf4276be.jpg',
                 },
                 {
                     uid: '-4',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://i.jauns.lv/t/2020/06/09/1972346/1000x620.jpg?v=1591728809',
                 },
                 {
-                    uid: '-xxx',
-                    percent: 50,
+                    uid: '-5',
                     name: 'image.png',
-                    status: 'uploading',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    status: 'done',
+                    url: 'https://i.pinimg.com/564x/f5/85/e4/f585e4fd32c7ab8a0212d2d4bf4276be.jpg',
                 },
             ],
 
@@ -193,6 +194,14 @@ class ProblemReporting extends React.Component {
         this.setState({ infoModalVisible });
     }
 
+    setInstallationInfoModalVisible(installationInfoModalVisible){
+        this.setState({installationInfoModalVisible});
+    }
+
+    setPreventativeMaintainenceInfoModalVisible(preventativeMaintainenceInfoModalVisible){
+        this.setState({preventativeMaintainenceInfoModalVisible});
+    }
+
     render() {
 
         const { previewVisible, previewImage, fileList, previewTitle, imageList } = this.state;
@@ -209,7 +218,403 @@ class ProblemReporting extends React.Component {
             <div>
 
                 <div className="grid grid-cols-1 gap-6 mt-2">
-                    {/* Form Section */}
+                    <div className="">
+                        <Radio.Group defaultValue="installation" buttonStyle="solid">
+                            <Radio.Button value="installation">Installation</Radio.Button>
+                            <Radio.Button value="preventativeMaintainence">Preventative Maintainence</Radio.Button>
+                            <Radio.Button value="breakdownCall">Breakdown Call</Radio.Button>
+                        </Radio.Group>
+                    </div>
+                    {/* Installation Call Form Section */}
+                    <div className="">
+                        <div className="w-full border-1 shadow-md">
+                                {/* Title */}
+                                <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
+                                    <p>Installation</p>
+                                </div>
+                                {/* Form */}
+                                <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
+
+                                    <Form
+                                        validateMessages={validateMessages}
+                                        layout="vertical"
+                                    >
+
+                                        <p className="font-semibold">Select Equipment for Installation</p>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                                            <Label>
+                                                <span> Select Department:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.installationDepartment}
+                                                        onChange={(e) => this.setState({ installationDepartment: e.target.value })}>
+
+                                                        <Option key="" value="">Department 1</Option>
+                                                        <Option key="" value="">Department 2</Option>
+                                                        <Option key="" value="">Department 3</Option>
+
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label>
+                                            {/* Select Equipment Category */}
+                                            <Label>
+                                                <span> Select Equipment Category:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.installationMachineCategory}
+                                                        onChange={(e) => this.setState({ installationMachineCategory: e.target.value })}>
+                                                            <Option key="" value="">Machine 1</Option>
+                                                            <Option key="" value="">Machine 2</Option>
+                                                            <Option key="" value="">Machine 3</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label>
+                                            {/* Select Equipment Category */}
+                                            <Label>
+                                                <span> Select Equipment Subcategory:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.installationMachineSubcategory}
+                                                        onChange={(e) => this.setState({ installationMachineSubcategory: e.target.value })}>
+                                                            <Option key="" value="">Machine 1</Option>
+                                                            <Option key="" value="">Machine 2</Option>
+                                                            <Option key="" value="">Machine 3</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label>
+                                            {/* Select Equipment */}
+                                            <Label>
+                                                <span> Select Equipment:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.installationMachineId}
+                                                        onChange={(e) => this.setState({ installationMachineId: e.target.value })}>
+                                                            <Option key="" value="">Machine 1</Option>
+                                                            <Option key="" value="">Machine 2</Option>
+                                                            <Option key="" value="">Machine 3</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label>
+
+                                        </div>
+
+                                        <Label>
+                                            <span>Review:</span>
+                                            <Form.Item
+                                                value={this.state.installationReview}
+                                                onChange={(e) => this.setState({ installationReview: e.target.value })}
+                                            >
+                                                <Input.TextArea rows={4} />
+                                            </Form.Item>
+                                        </Label>
+
+                                        <Form.Item >
+                                            <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
+                                                Submit
+                                                </Button>
+                                        </Form.Item>
+                                    </Form>
+                                </div>
+                            </div>
+                        
+                    </div>
+                    
+                    {/*Inctallation Call Table Section */}
+                    <div className="">
+                        <p className="font-semibold">
+                            Installation Table Details
+                        </p>
+                    </div>
+                    <div className="">
+                        {/* Tables */}
+                        <TableContainer className="mb-8">
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableCell>Department</TableCell>
+                                        <TableCell>Category</TableCell>
+                                        <TableCell>Subcategory</TableCell>
+                                        <TableCell>Equipment</TableCell>
+                                        <TableCell>Actions</TableCell>
+                                    </tr>
+                                </TableHeader>
+                                <TableBody>
+                                    <TableRow key="">
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        Lab Department
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        Category 1
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        Sub Category 1.1
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        Machine 1-1-1
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center space-x-4">
+                                                <Button layout="link" size="icon" aria-label="Edit" onClick={() => this.setInstallationInfoModalVisible(true)}>
+                                                    <InfoIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                                <Button layout="link" size="icon" aria-label="Edit">
+                                                    <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                                <Button layout="link" size="icon" aria-label="Delete">
+                                                    <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+
+                                </TableBody>
+                            </Table>
+                            <TableFooter>
+
+                            </TableFooter>
+                        </TableContainer>
+                    </div>
+                    
+                    {/* Installation Info Modal */}
+                <Modal
+                    width={650}
+                    title="Installation Info"
+                    centered
+                    visible={this.state.installationInfoModalVisible}
+                    onCancel={() => this.setInstallationInfoModalVisible(false)}
+                    className="z-50"
+                >
+                    <p className="font-semibold text-base">Review</p>
+                    <p className="text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    
+                </Modal>
+                    
+                    {/*Preventative Maintainece Call Form Section */}
+                    <div className="">
+                        <div className="w-full border-1 shadow-md">
+                                {/* Title */}
+                                <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
+                                    <p>Preventive Maintainence</p>
+                                </div>
+                                {/* Form */}
+                                <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
+
+                                    <Form
+                                        validateMessages={validateMessages}
+                                        layout="vertical"
+                                    >
+
+                                        <p className="font-semibold">Select Equipment for Installation</p>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                                            <Label>
+                                                <span> Select Department:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.preventativeMaintainenceDepartment}
+                                                        onChange={(e) => this.setState({ preventativeMaintainenceDepartment: e.target.value })}>
+
+                                                        <Option key="" value="">Department 1</Option>
+                                                        <Option key="" value="">Department 2</Option>
+                                                        <Option key="" value="">Department 3</Option>
+
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label>
+                                            {/* Select Equipment Category */}
+                                            {/* <Label>
+                                                <span> Select Equipment Category:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.preventativeMaintainenceMachineCategory}
+                                                        onChange={(e) => this.setState({ preventativeMaintainenceMachineCategory: e.target.value })}>
+                                                            <Option key="" value="">Category 1</Option>
+                                                            <Option key="" value="">Category 2</Option>
+                                                            <Option key="" value="">Category 3</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label> */}
+                                            {/* Select Equipment Category */}
+                                            {/* <Label>
+                                                <span> Select Equipment Subcategory:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.preventativeMaintainenceMachineSubcategory}
+                                                        onChange={(e) => this.setState({ preventativeMaintainenceMachineSubcategory: e.target.value })}>
+                                                            <Option key="" value="">Subcategory 1</Option>
+                                                            <Option key="" value="">Subcategory 2</Option>
+                                                            <Option key="" value="">Subcategory 3</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label> */}
+                                            {/* Select Equipment */}
+                                            <Label>
+                                                <span> Select Equipment:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.preventativeMaintainenceMachineId}
+                                                        onChange={(e) => this.setState({ preventativeMaintainenceMachineId: e.target.value })}>
+                                                            <Option key="" value="">Machine 1</Option>
+                                                            <Option key="" value="">Machine 2</Option>
+                                                            <Option key="" value="">Machine 3</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label>
+                                            {/* Select Equipment */}
+                                            <Label>
+                                                <span> Select Serial Number:</span>
+                                                <Form.Item >
+                                                    <Select
+                                                        value={this.state.preventativeMaintainenceSerialNumber}
+                                                        onChange={(e) => this.setState({ preventativeMaintainenceSerialNumber: e.target.value })}>
+                                                            <Option key="" value="">Machine 1</Option>
+                                                            <Option key="" value="">Machine 2</Option>
+                                                            <Option key="" value="">Machine 3</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Label>
+
+                                        </div>
+
+                                        <Label>
+                                            <span>Review:</span>
+                                            <Form.Item
+                                                value={this.state.installationReview}
+                                                onChange={(e) => this.setState({ installationReview: e.target.value })}
+                                            >
+                                                <Input.TextArea rows={4} />
+                                            </Form.Item>
+                                        </Label>
+
+                                        <Form.Item >
+                                            <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
+                                                Submit
+                                                </Button>
+                                        </Form.Item>
+                                    </Form>
+                                </div>
+                            </div>
+                        
+                    </div>
+                    
+                    {/*Preventative Maintainence Table Section */}
+                    <div className="">
+                        <p className="font-semibold">
+                            Preventative Maintainence Details
+                        </p>
+                    </div>
+                    <div className="">
+                        {/* Tables */}
+                        <TableContainer className="mb-8">
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableCell>Department</TableCell>
+                                        <TableCell>Machine</TableCell>
+                                        <TableCell>Serial Number</TableCell>
+                                        <TableCell>Actions</TableCell>
+                                    </tr>
+                                </TableHeader>
+                                <TableBody>
+                                    <TableRow key="">
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        Lab Department
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        Machine 1-1-1
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        Serial Number 00001
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center space-x-4">
+                                                <Button layout="link" size="icon" aria-label="Edit" onClick={() => this.setPreventativeMaintainenceInfoModalVisible(true)}>
+                                                    <InfoIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                                <Button layout="link" size="icon" aria-label="Edit">
+                                                    <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                                <Button layout="link" size="icon" aria-label="Delete">
+                                                    <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+
+                                </TableBody>
+                            </Table>
+                            <TableFooter>
+
+                            </TableFooter>
+                        </TableContainer>
+                    </div>
+               
+
+                    {/* Preventative Maintainence Info Modal */}
+                <Modal
+                    width={650}
+                    title="Preventative Maintainence Info"
+                    centered
+                    visible={this.state.preventativeMaintainenceInfoModalVisible}
+                    onCancel={() => this.setPreventativeMaintainenceInfoModalVisible(false)}
+                    className="z-50"
+                >
+                    <p className="font-semibold text-base">Review</p>
+                    <p className="text-base">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    
+                </Modal>
+
+
+                    {/*Breakdown Call Form Section */}
                     <div className="">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
@@ -358,7 +763,7 @@ class ProblemReporting extends React.Component {
                                                 <TimePicker style={{ width: 250 }} onChange={(time, timeString) => this.setState({ issue_occured_time: timeString })} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />
                                             </Form.Item>
                                         </Label>
-                                        <Label>
+                                        {/* <Label>
                                             <span>Called For:</span>
                                             <Form.Item>
                                                 <Radio.Group
@@ -370,41 +775,8 @@ class ProblemReporting extends React.Component {
                                                     <Radio value="update">Update</Radio>
                                                 </Radio.Group>
                                             </Form.Item>
-                                        </Label>
+                                        </Label> */}
 
-                                        {/* <div>
-                                            <Form.Item >
-                                                <Checkbox
-                                                    onChange={(e) => this.setState({ installation: e.target.checked })}
-                                                >
-                                                    Installation
-                                                </Checkbox>
-                                            </Form.Item>
-
-                                            <Form.Item >
-                                                <Checkbox
-                                                    onChange={(e) => this.setState({ preventiveMaintainence: e.target.checked })}
-                                                >
-                                                    Preventive Maintainence (PM)
-                                                </Checkbox>
-                                            </Form.Item>
-
-                                            <Form.Item >
-                                                <Checkbox
-                                                    onChange={(e) => this.setState({ breakdownCall: e.target.checked })}
-                                                >
-                                                    Breakdown Call (BC)
-                                                </Checkbox>
-                                            </Form.Item>
-
-                                            <Form.Item >
-                                                <Checkbox
-                                                    onChange={(e) => this.setState({ update: e.target.checked })}
-                                                >
-                                                    Update
-                                                </Checkbox>
-                                            </Form.Item>
-                                        </div> */}
                                     </div>
 
                                     <p className="font-semibold">Whom you may concern:</p>
@@ -454,7 +826,14 @@ class ProblemReporting extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {/* Table Section */}
+                    
+                    
+                    {/*Breakdown Call Table Section */}
+                    <div className="">
+                        <p className="font-semibold">
+                            Breakdown Call Table Details
+                        </p>
+                    </div>
                     <div className="">
                         {/* Tables */}
                         <TableContainer className="mb-8">
@@ -464,8 +843,8 @@ class ProblemReporting extends React.Component {
                                         <TableCell>Department</TableCell>
                                         <TableCell>Equipment</TableCell>
                                         <TableCell>Serial Number</TableCell>
-                                        <TableCell>Fault Occured Date-Time</TableCell>
-                                        <TableCell>Called For</TableCell>
+                                        <TableCell>Fault Occured Date</TableCell>
+                                        <TableCell>Fault Occured Time</TableCell>
                                         <TableCell>Actions</TableCell>
                                     </tr>
                                 </TableHeader>
@@ -479,7 +858,7 @@ class ProblemReporting extends React.Component {
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="font-semibold">
-                                                        {/* Department Name */}
+                                                        Intensive Care
                                                     </p>
                                                 </div>
                                             </div>
@@ -488,7 +867,7 @@ class ProblemReporting extends React.Component {
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="font-semibold">
-                                                        {/* {issue.machine_name} */}
+                                                        Machine 2-2-2
                                                     </p>
                                                 </div>
                                             </div>
@@ -497,23 +876,7 @@ class ProblemReporting extends React.Component {
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="font-semibold">
-                                                        {/* Serial Number */}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        {/* <TableCell>
-                                                    <div className="flex items-center text-sm">
-                                                        <div>
-                                                            <p className="font-semibold">{issue.problem}</p>
-                                                        </div>
-                                                    </div>
-                                                </TableCell> */}
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">
-                                                        {/* {issue.occurred_date} - {issue.occurred_time} */}
+                                                        Serial Number 0000002
                                                     </p>
                                                 </div>
                                             </div>
@@ -522,7 +885,16 @@ class ProblemReporting extends React.Component {
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="font-semibold">
-                                                        {/* Called For */}
+                                                        2021-01-23
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center text-sm">
+                                                <div>
+                                                    <p className="font-semibold">
+                                                        13:00
                                                     </p>
                                                 </div>
                                             </div>
@@ -552,10 +924,10 @@ class ProblemReporting extends React.Component {
                     </div>
                 </div>
 
-
+                {/* Breakdown Call Info Modal */}
                 <Modal
                     width={650}
-                    title="Info"
+                    title="Breakdown Call Info"
                     centered
                     visible={this.state.infoModalVisible}
                     onCancel={() => this.setInfoModalVisible(false)}
@@ -586,13 +958,13 @@ class ProblemReporting extends React.Component {
                         <p className="font-semibold mb-1">Optional Representative Details</p>
                         <div className="grid grid-cols-2">
                             <div>
-                                <span className="font-semibold">Department Name: .....</span>
+                                <span className="font-semibold">Department Name: </span>  Lab
                             </div>
                             <div>
-                                <span className="font-semibold">Representative Name: .....</span>
+                                <span className="font-semibold">Representative Name: </span> Representative 1
                             </div>
                             <div>
-                                <span className="font-semibold">Contact Number: .....</span>
+                                <span className="font-semibold">Contact Number: </span> 98675278267
                             </div>
                         </div>
                     </div>
@@ -668,4 +1040,4 @@ class ProblemReporting extends React.Component {
     }
 }
 
-export default ProblemReporting
+export default NewProblemReporting

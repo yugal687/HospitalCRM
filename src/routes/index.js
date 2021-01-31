@@ -15,6 +15,7 @@ const ErrorCodesView = lazy(() => import('../Hospital/serviceHead/ErrorCodesView
 const BranchManagerPortal = lazy(() => import('../Hospital/BranchManager/BranchManagerPortal'))
 const AssignedIssues = lazy(() => import ('../Hospital/serviceHead/AssignedIssues'))
 const ProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/ProblemReporting'))
+const NewProblemReporting = lazy(() => import('../Hospital/HospitalRepresentativePortal/NewProblemReporting'))
 const ReportedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/ReportedProblem'))
 const SolvedProblem = lazy(() => import('../Hospital/HospitalRepresentativePortal/SolvedProblem'))
 const IssuesReported = lazy(() => import('../Hospital/OnFieldStaffPortal/IssuesReported'))
@@ -96,6 +97,10 @@ const routes = [
   {
     path: '/hospitalRepresentativePortal/problem-reporting', // the url
     component: ProblemReporting, // view rendered
+  },
+  {
+    path: '/hospitalRepresentativePortal/new-problem-reporting', // the url
+    component: NewProblemReporting, // view rendered
   },
   {
     path: '/hospitalRepresentativePortal/reported-problem', // the url
