@@ -26,8 +26,6 @@ function Layout() {
             <Sidebar/>
             <div className="flex flex-col flex-1 w-full">
                 <Header/>
-
-
                 <CTA/>
                 <Main>
                     {/* <Suspense fallback={<ThemedSuspense/>}> */}
