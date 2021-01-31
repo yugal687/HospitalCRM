@@ -14,6 +14,10 @@ const routes = [
     routes: [
       // submenu
       {
+        path: '/app/dashboard', // the url
+        name: 'Dashboard', // name that appear in Sidebar
+      },
+      {
         path: '/app/region', // the url
         name: 'Region', // name that appear in Sidebar
       },
@@ -58,7 +62,7 @@ const routes = [
   //for staff dropdown
   {
     icon: 'PagesIcon',
-    name: 'Staff',
+    name: 'Staff Setup',
     routes: [
       // submenu
       {
@@ -77,7 +81,7 @@ const routes = [
 //service Head
   {
     icon: 'PagesIcon',
-    name: 'serviceHead',
+    name: 'Service Head Portal',
     routes: [
       // submenu
       {
@@ -102,7 +106,7 @@ const routes = [
   //Branch manager Portal
   {
     icon: 'PagesIcon',
-    name: 'BranchManager',
+    name: 'Branch Manager',
     routes: [
       // submenu
       {
@@ -143,7 +147,7 @@ const routes = [
   // Hospital Representative Portal
   {
     icon: 'PagesIcon',
-    name: 'HospitalRepresentativePortal',
+    name: 'HospitalRepresentative',
     routes: [
       // submenu
       {

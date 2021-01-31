@@ -20,9 +20,10 @@ import {
   Avatar,
   Badge,
   Pagination,
+  Card, CardBody,
 } from '@windmill/react-ui'
 
-import { Card, CardBody, Container, Title, CardFooter, FillButton, OutlineButton } from 'tailwind-react-ui'
+import { Button, Title, CardFooter, FillButton, OutlineButton } from 'tailwind-react-ui'
 
 import {
   // doughnutOptions,
@@ -72,6 +73,105 @@ function Dashboard() {
     },
   }
 
+  const lineLegends = [
+    { title: 'Issue Assigned', color: 'bg-teal-600' },
+    { title: 'Issue Completed', color: 'bg-purple-600' },
+  ]
+
+  const lineOptions = {
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'Issue Assigned',
+          /**
+           * These colors come from Tailwind CSS palette
+           * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
+           */
+          backgroundColor: '#0694a2',
+          borderColor: '#0694a2',
+          data: [43, 48, 40, 54, 67, 73, 70],
+          fill: false,
+        },
+        {
+          label: 'Issues Completed',
+          fill: false,
+          /**
+           * These colors come from Tailwind CSS palette
+           * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
+           */
+          backgroundColor: '#7e3af2',
+          borderColor: '#7e3af2',
+          data: [24, 50, 64, 74, 52, 51, 65],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true,
+      },
+      scales: {
+        x: {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Month',
+          },
+        },
+        y: {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value',
+          },
+        },
+      },
+    },
+    legend: {
+      display: false,
+    },
+  }
+
+  const barOptions = {
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'Issues Assigned',
+          backgroundColor: '#0694a2',
+          // borderColor: window.chartColors.red,
+          borderWidth: 1,
+          data: [-3, 14, 52, 74, 33, 90, 70],
+        },
+        {
+          label: 'Isseues Completed',
+          backgroundColor: '#7e3af2',
+          // borderColor: window.chartColors.blue,
+          borderWidth: 1,
+          data: [66, 33, 43, 12, 54, 62, 84],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+    },
+    legend: {
+      display: false,
+    },
+  }
+
+  const barLegends = [
+    { title: 'Issues Assigned', color: 'bg-teal-600' },
+    { title: 'Isseues Completed', color: 'bg-purple-600' },
+  ]
+  
+
   // pagination change control
   function onPageChange(p) {
     setPage(p)
@@ -84,81 +184,69 @@ function Dashboard() {
   }, [page])
 
   return (
-    <>
-    
-      <PageTitle>Ground Field Engineer Dashboard Portal</PageTitle>
 
+    <>  
+      
       {/* <CTA /> */}
 
       {/* <!-- Cards --> */}
-      <div className="grid gap-6 mb-8 md:grid-cols-3 xl:grid-cols-3">
-        
-  <Card className="bg-blue-200" border shadow>
-    <CardBody>
-      <Title size={6} text="blue">
-        {/* Hello World */}
-        Issues Completed:
-      </Title>
-      <OutlineButton brand="primary" w="full" w-sm="1/5">
-        <h2>43</h2>
-      </OutlineButton>
-    </CardBody>
-    <CardFooter wrap>
-      <FillButton  brand="primary" w="full" w-sm="1/5">
-        <h2>hello</h2>
-      </FillButton>
       
-    </CardFooter>
-  </Card>
-  <Card className="bg-blue-200" border shadow>
-    <CardBody>
-      <Title size={6} text="blue">
-        {/* Hello World */}
-        Issues Haulted:
-      </Title>
-      <OutlineButton brand="primary" w="full" w-sm="1/5">
-        <h2>43</h2>
-      </OutlineButton>
-    </CardBody>
-    <CardFooter wrap>
-      <FillButton brand="primary" w="full" w-sm="1/5">
-       <h2> hello</h2>
-      </FillButton>
-    </CardFooter>
-  </Card>
-  <Card className="bg-blue-200" border shadow>
-    <CardBody>
-      <Title size={6} text="blue">
-        {/* Hello World */}
-        Pending:
-      </Title>
-      <OutlineButton brand="primary" w="full" w-sm="1/5">
-        <h2>43</h2>
-      </OutlineButton>
-    </CardBody>
-    <CardFooter wrap>
-      <FillButton brand="primary" w="full" w-sm="1/5">
-        <h2>hello</h2>
-      </FillButton>
+      <div className="grid gap-3 mb-8 p-2 md:grid-cols-4 xl:grid-cols-4">
+          
       
-    </CardFooter>
-  </Card>
+        <Card colored className="text-white  bg-purple-600">
+          <CardBody>
+            <h6 className="mb-3 text-white font-semibold">Completed Issues Count</h6>
+            <h4 className="text-white">
+              33
+            </h4>
+            
+          </CardBody>
+          
+        </Card>
+        <Card colored className="text-white bg-teal-500">
+          <CardBody>
+            <h6 className="mb-3 text-white font-semibold">On Progress Issues Count</h6>
+            <h4 className="text-white">
+              33
+            </h4>
+            
+          </CardBody>
+          
+        </Card>
+        <Card colored className="text-white  bg-blue-600">
+          <CardBody>
+            <h6 className="mb-3 text-white font-semibold">Pending Issues Count</h6>
+            <h4 className="text-white">
+              33
+            </h4>
+          </CardBody>
+          
+        </Card>
+        <Card colored className="text-white  bg-blue-400">
+          <CardBody>
+            <h6 className="mb-3 text-white font-semibold">Total Issues Count</h6>
+            <h4 className="text-white">
+              33
+            </h4>
+          </CardBody>
+          
+        </Card>
       </div>
 
-
-      <PageTitle>Charts</PageTitle>
-      <div className="grid gap-6 mb-8 md:grid-cols-2">
-        <ChartCard title="Revenue">
+      <PageTitle>Progress Charts</PageTitle>
+      <div className="grid gap-6 border border-info mb-8 md:grid-cols-2">
+        <ChartCard title="Engineer's Progress Chart">
           <Doughnut {...doughnutOptions} />
           <ChartLegend legends={doughnutLegends} />
         </ChartCard>
 
-        <ChartCard title="Traffic">
+        <ChartCard title="Oraganiztion Progress">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
 
-        <ChartCard title="Bars">
+        <ChartCard className="text-center" title="Progress Timeline">
           <Bar {...barOptions} />
           <ChartLegend legends={barLegends} />
         </ChartCard>

@@ -15,8 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../icons'
-import axios from "axios"
-
+import axiosInstance from '../../api'
 
 
 import { Form, Button, Input, Select } from "antd"
@@ -40,12 +39,25 @@ class Department extends React.Component {
         super(props);
         this.state = {
             department: '',
+            departments: [],
         };
 
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.getAllDepartments();
+    }
+
+    getAllDepartments() {
+        axiosInstance.get('/department',
+        ).then((resp) => {
+            this.setState({
+                departments: resp.data.departments
+            })
+        });
+    }
 
 
     handleSubmit(event) {
@@ -110,12 +122,14 @@ class Department extends React.Component {
                                     </tr>
                                 </TableHeader>
                                 <TableBody>
-                                    <TableRow>
+                                {
+                                this.state.departments.map((dept) => {
+                                return <TableRow key={dept.id}>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
                                                     <p className="font-semibold">
-                                                        {/* Department Name */}
+                                                       {dept.department_name}
                                                     </p>
                                                 </div>
                                             </div>
@@ -131,7 +145,9 @@ class Department extends React.Component {
                                             </div>
                                         </TableCell>
                                     </TableRow>
+ })
 
+}
                                 </TableBody>
                             </Table>
                             <TableFooter>

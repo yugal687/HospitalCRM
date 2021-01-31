@@ -44,6 +44,7 @@ class Category extends React.Component {
             department: '',
             category: '',
             machines: [],
+            departments: [],
          };
 
        
@@ -52,6 +53,7 @@ class Category extends React.Component {
 
     componentDidMount() {
         this.getAllMachines();
+        this.getAllDepartments();
         // this.getMachines();
      }
 
@@ -62,6 +64,15 @@ class Category extends React.Component {
     //         this.setState({machines : resp.data.machines});
     //     });
     //  }
+
+    getAllDepartments() {
+        axiosInstance.get('/department',
+        ).then((resp) => {
+            this.setState({
+                departments: resp.data.departments
+            })
+        });
+    }
 
     getAllMachines() {
         axiosInstance.get('/category-only'
@@ -107,14 +118,18 @@ class Category extends React.Component {
                                     <Label>
                                         <span> Department:</span>
                                         <Form.Item >
-                                            <Select
-                                            value={this.state.department}  
-                                            onChange = {(e)=> this.setState({department : e.target.value})}>
+                                        <Select
+                                                            value={this.state.department}
+                                                            onChange={(e) => this.setState({department: e})}>
+                                                            {
+                                                                this.state.departments.map((dept) => {
+                                                                    return <Option key={dept.id}
+                                                                                   value={dept.id}>{dept.department_name}</Option>
+                                                                })
 
-                                                <Option key="" value="">Department 1</Option>
-                                                                                                
+                                                            }
 
-                                            </Select>
+                                                        </Select>
                                         </Form.Item>
                                     </Label>
 

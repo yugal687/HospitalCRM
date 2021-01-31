@@ -202,20 +202,18 @@ function ServiceHeadDashboard() {
             <h4 className="text-white">
               33
             </h4>
-            
           </CardBody>
-          
         </Card>
+
         <Card colored className="text-white bg-teal-500">
           <CardBody>
             <h6 className="mb-3 text-white font-semibold">On Progress Issues Count</h6>
             <h4 className="text-white">
               33
-            </h4>
-            
+            </h4> 
           </CardBody>
-          
         </Card>
+
         <Card colored className="text-white  bg-blue-600">
           <CardBody>
             <h6 className="mb-3 text-white font-semibold">Pending Issues Count</h6>
@@ -223,8 +221,8 @@ function ServiceHeadDashboard() {
               33
             </h4>
           </CardBody>
-          
         </Card>
+
         <Card colored className="text-white  bg-blue-400">
           <CardBody>
             <h6 className="mb-3 text-white font-semibold">Total Issues Count</h6>
@@ -232,7 +230,6 @@ function ServiceHeadDashboard() {
               33
             </h4>
           </CardBody>
-          
         </Card>
       </div>
 

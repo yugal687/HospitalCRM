@@ -34,7 +34,7 @@ import {
   barLegends
 } from '../../utils/demo/chartsData'
 
-function GroundEngineerDashboard() {
+function Dashboard() {
   const [page, setPage] = useState(1)
   const [data, setData] = useState([])
 
@@ -255,4 +255,4 @@ function GroundEngineerDashboard() {
   )
 }
 
-export default GroundEngineerDashboard
+export default Dashboard

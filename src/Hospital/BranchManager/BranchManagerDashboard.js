@@ -74,8 +74,8 @@ function BranchManagerDashboard() {
   }
 
   const lineLegends = [
-    { title: 'Organic', color: 'bg-teal-600' },
-    { title: 'Paid', color: 'bg-purple-600' },
+    { title: 'Issue Assigned', color: 'bg-teal-600' },
+    { title: 'Issue Completed', color: 'bg-purple-600' },
   ]
 
   const lineOptions = {
@@ -83,7 +83,7 @@ function BranchManagerDashboard() {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: 'Organic',
+          label: 'Issue Assigned',
           /**
            * These colors come from Tailwind CSS palette
            * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
@@ -94,7 +94,7 @@ function BranchManagerDashboard() {
           fill: false,
         },
         {
-          label: 'Paid',
+          label: 'Issues Completed',
           fill: false,
           /**
            * These colors come from Tailwind CSS palette
@@ -241,7 +241,7 @@ function BranchManagerDashboard() {
           <ChartLegend legends={doughnutLegends} />
         </ChartCard>
 
-        <ChartCard title="Traffic">
+        <ChartCard title="Oraganization Progress">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
