@@ -119,7 +119,7 @@ class ReportedProblem extends React.Component {
         this.state = {
             visible: false,
             //Review Forms
-            customer: '',
+            customer: 'kaaslaslkkl',
             requestIDNo: '',
             date: '',
             department: 'Lab Department',

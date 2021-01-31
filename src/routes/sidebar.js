@@ -127,6 +127,10 @@ const routes = [
         name: 'ProblemReporting',
       },
       {
+        path: '/app/hospitalRepresentativePortal/new-problem-reporting',
+        name: 'NewProblemReporting',
+      },
+      {
         path: '/app/hospitalRepresentativePortal/reported-problem',
         name: 'ReportedProblem',
       },
