@@ -45,6 +45,8 @@ function getBase64(file) {
     });
 }
 
+
+
 class ProblemReporting extends React.Component {
 
     constructor(props) {

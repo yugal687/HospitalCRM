@@ -230,7 +230,6 @@ class ReportedProblem extends React.Component {
         });
     };
 
-
     addPartsTable() {
         let table = {
             description: '',
