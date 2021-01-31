@@ -27,9 +27,8 @@ function Layout() {
             <div className="flex flex-col flex-1 w-full">
                 <Header/>
 
-
-                <CTA/>
                 <Main>
+                <CTA/>
                     {/* <Suspense fallback={<ThemedSuspense/>}> */}
                         <Switch>
                             {routes.map((route, i) => {

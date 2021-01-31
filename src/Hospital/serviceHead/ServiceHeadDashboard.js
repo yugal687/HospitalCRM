@@ -73,6 +73,71 @@ function ServiceHeadDashboard() {
     },
   }
 
+  const lineLegends = [
+    { title: 'Issue Assigned', color: 'bg-teal-600' },
+    { title: 'Issue Completed', color: 'bg-purple-600' },
+  ]
+
+  const lineOptions = {
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'Issue Assigned',
+          /**
+           * These colors come from Tailwind CSS palette
+           * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
+           */
+          backgroundColor: '#0694a2',
+          borderColor: '#0694a2',
+          data: [43, 48, 40, 54, 67, 73, 70],
+          fill: false,
+        },
+        {
+          label: 'Issues Completed',
+          fill: false,
+          /**
+           * These colors come from Tailwind CSS palette
+           * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
+           */
+          backgroundColor: '#7e3af2',
+          borderColor: '#7e3af2',
+          data: [24, 50, 64, 74, 52, 51, 65],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true,
+      },
+      scales: {
+        x: {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Month',
+          },
+        },
+        y: {
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value',
+          },
+        },
+      },
+    },
+    legend: {
+      display: false,
+    },
+  }
+
   const barOptions = {
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -105,7 +170,9 @@ function ServiceHeadDashboard() {
     { title: 'Issues Assigned', color: 'bg-teal-600' },
     { title: 'Isseues Completed', color: 'bg-purple-600' },
   ]
-  
+  const cssCard = {
+   style: "bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+  }
 
   // pagination change control
   function onPageChange(p) {
@@ -121,24 +188,15 @@ function ServiceHeadDashboard() {
   return (
 
     <>  
-     <h4 className="text-center mb-5 p-2 border bg-green-300">Dashboard Portal For Service Head</h4>
       
       {/* <CTA /> */}
 
       {/* <!-- Cards --> */}
-      <h4 className="mb-3 text-bold">Issues Details Counts</h4>
+      
       <div className="grid gap-3 mb-8 p-2 md:grid-cols-4 xl:grid-cols-4">
           
-      <Card colored className="text-white  bg-teal-500">
-          <CardBody>
-            <h6 className="mb-3 text-white font-semibold">Total Issues Count</h6>
-            <h4 className="text-white">
-              33
-            </h4>
-          </CardBody>
-          
-        </Card>
-        <Card colored className="text-white  bg-teal-500">
+      
+        <Card colored className="text-white  bg-blue-500" >
           <CardBody>
             <h6 className="mb-3 text-white font-semibold">Completed Issues Count</h6>
             <h4 className="text-white">
@@ -148,7 +206,7 @@ function ServiceHeadDashboard() {
           </CardBody>
           
         </Card>
-        <Card colored className="text-white  bg-teal-500">
+        <Card colored className="text-white bg-teal-500">
           <CardBody>
             <h6 className="mb-3 text-white font-semibold">On Progress Issues Count</h6>
             <h4 className="text-white">
@@ -158,7 +216,7 @@ function ServiceHeadDashboard() {
           </CardBody>
           
         </Card>
-        <Card colored className="text-white  bg-teal-500">
+        <Card colored className="text-white  bg-blue-600">
           <CardBody>
             <h6 className="mb-3 text-white font-semibold">Pending Issues Count</h6>
             <h4 className="text-white">
@@ -167,8 +225,16 @@ function ServiceHeadDashboard() {
           </CardBody>
           
         </Card>
+        <Card colored className="text-white  bg-blue-400">
+          <CardBody>
+            <h6 className="mb-3 text-white font-semibold">Total Issues Count</h6>
+            <h4 className="text-white">
+              33
+            </h4>
+          </CardBody>
+          
+        </Card>
       </div>
-
 
       <PageTitle>Progress Charts</PageTitle>
       <div className="grid gap-6 border border-info mb-8 md:grid-cols-2">
@@ -177,10 +243,10 @@ function ServiceHeadDashboard() {
           <ChartLegend legends={doughnutLegends} />
         </ChartCard>
 
-        {/* <ChartCard title="Traffic">
+        <ChartCard title="Organization Progress">
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
-        </ChartCard> */}
+        </ChartCard>
 
         <ChartCard className="text-center" title="Progress Timeline">
           <Bar {...barOptions} />

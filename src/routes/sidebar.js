@@ -6,22 +6,54 @@
  * `routes/index.js`
  */
 const routes = [
+
+  //central adminstration section
   {
-    path: '/app/region', // the url
-    icon: 'HomeIcon', // the component being exported from icons/index.js
-    name: 'Region', // name that appear in Sidebar
+    icon: 'PagesIcon',
+    name: 'Central Administration',
+    routes: [
+      // submenu
+      {
+        path: '/app/region', // the url
+        name: 'Region', // name that appear in Sidebar
+      },
+      {
+        path: '/app/hospital', // the url
+        name: 'HospitalSetup', // name that appear in Sidebar
+      },
+      {
+        path: '/app/department', // the url
+        name: 'Department', // name that appear in Sidebar
+      },
+      {
+        path: '/app/hospitalandmachine', // the url
+        name: 'HospitalAndMachine', // name that appear in Sidebar
+      },
+    
+      //machine
+      
+        {
+        icon: 'PagesIcon',
+        name: 'Machine',
+        routes: [
+          // submenu
+          {
+            path: '/app/machine/category',
+            name: 'Category',
+          },
+          {
+            path: '/app/machine/sub-category',
+            name: 'SubCategory',
+          },
+          {
+            path: '/app/machine/machinesetup',
+            name: 'MachineSetup',
+          },
+        ],
+      },
+      
+     ],
   },
-  {
-    path: '/app/hospital', // the url
-    icon: 'HomeIcon', // the component being exported from icons/index.js
-    name: 'HospitalSetup', // name that appear in Sidebar
-  },
-  {
-    path: '/app/department', // the url
-    icon: 'HomeIcon', // the component being exported from icons/index.js
-    name: 'Department', // name that appear in Sidebar
-  },
-  
 
   //for staff dropdown
   {
@@ -107,11 +139,7 @@ const routes = [
       
     ],
   },
-  {
-    path: '/app/hospitalandmachine', // the url
-    icon: 'HomeIcon', // the component being exported from icons/index.js
-    name: 'HospitalAndMachine', // name that appear in Sidebar
-  },
+  
   // Hospital Representative Portal
   {
     icon: 'PagesIcon',

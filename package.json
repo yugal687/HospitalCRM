@@ -41,6 +41,7 @@
     "react-spinners": "^0.10.4",
     "react-transition-group": "4.4.1",
     "tailwind-react-ui": "^0.8.1",
+    "tailwindcss-gradients": "^3.0.0",
     "uifx": "^2.0.7"
   },
   "devDependencies": {
