@@ -96,26 +96,27 @@ class AssignedIssues extends React.Component {
                     uid: '-1',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMkwZN7BoThw_-a5q4qyQoQXVqxYUlJJWaw&usqp=CAU',
                 },
                 {
                     uid: '-2',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://lh3.googleusercontent.com/proxy/aThHQdc6FqGg8Xlo2IIlk8bRTThOb9mf1zfztd0jyK5joDqu9a5ymeqh6h8HEc121_-zGwxU-M29iCKuSk-HK-bYpfxiGvoD9IOqFIKxt9q-VHmk-dJC3Z2xzyAGGQPCxjjOm5m_9Q',
                 },
                 {
                     uid: '-3',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://www.nde-ed.org/EducationResources/CommunityCollege/Radiography/Graphics/xraytube1.jpg',
                 },
                 {
                     uid: '-4',
                     name: 'image.png',
                     status: 'done',
-                    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                    url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Z0R0urYYQ2mWhXE16upDMRNBgEbv919fvw&usqp=CAU',
                 },
+                
             ],
         };
     }
@@ -251,10 +252,6 @@ class AssignedIssues extends React.Component {
                     )}
                 />
 
-
-
-
-
                 <Drawer
                     title="Problem Report"
                     height={600}
@@ -366,11 +363,17 @@ class AssignedIssues extends React.Component {
                             </Row>
                         </Col>
                         <Col xs={24} md={14}>
-                            <span>
-                            <span><p className="site-description-item-profile-p font-semibold">Review On Work Done</p></span>
-                            <span><Button type="primary" danger>Haulted</Button></span>
-                            <span><Button type="success">Completed</Button></span>
-                            </span>
+                            <Row>
+                                <Col span={24}>
+                                    <div className="font-semibold flex items-center justify-between">
+                                        <div>Review On Work Done</div>
+                                        <div>
+                                            <span><Button type="primary" danger>Haulted</Button></span>
+                                            <span><Button type="success">Completed</Button></span>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col span={24}>
                                     <Card

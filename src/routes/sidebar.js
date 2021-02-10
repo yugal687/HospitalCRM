@@ -29,10 +29,7 @@ const routes = [
         path: '/app/hospital', // the url
         name: 'HospitalSetup', // name that appear in Sidebar
       },
-      {
-        path: '/app/department', // the url
-        name: 'Department', // name that appear in Sidebar
-      },
+      
       {
         path: '/app/hospitalandmachine', // the url
         name: 'HospitalAndMachine', // name that appear in Sidebar
@@ -131,6 +128,10 @@ const routes = [
     name: 'Machine',
     routes: [
       // submenu
+      {
+        path: '/app/department', // the url
+        name: 'Department', // name that appear in Sidebar
+      },
       {
         path: '/app/machine/category',
         name: 'Category',
