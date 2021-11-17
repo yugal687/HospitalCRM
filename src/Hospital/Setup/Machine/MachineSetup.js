@@ -15,6 +15,7 @@ import {
     Label, HelperText,
 } from '@windmill/react-ui'
 import { EditIcon, TrashIcon } from '../../../icons'
+import axios from "axios"
 
 
 
@@ -27,13 +28,13 @@ const { Option } = Select;
 const validateMessages = {
     required: '${label} is required!',
     types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
+        email: '${label} is not a valid email!',
+        number: '${label} is not a valid number!',
     },
     number: {
-      range: '${label} must be between ${min} and ${max}',
+        range: '${label} must be between ${min} and ${max}',
     },
-  };
+};
 
 class MachineSetup extends React.Component {
 
@@ -43,22 +44,52 @@ class MachineSetup extends React.Component {
             category: '',
             subCategory: '',
             machineName: '',
-            modelNumber: '',
+            modelName: '',
             machineType: '',
-         };
+            categories: [],
+            machines: [],
+
+        };
 
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
+    componentDidMount() {
+        this.getAllMachines();
+        this.getOnlyMachine();
+    }
+
+    getAllMachines() {
+        axios.get('http://127.0.0.1:8000/api/machine'
+        ).then(resp => {
+            this.setState({
+                machines: resp.data.machines
+            });
+        });
+    }
+    getOnlyMachine() {
+        axios.get('http://127.0.0.1:8000/api/category-only'
+        ).then(resp => {
+            this.setState({
+                categories: resp.data.machines
+            });
+        });
+    }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.category + this.state.subCategory + this.state.machineName + this.state.modelNumber +
-        this.state.machineType
-        );
+        axios.post('http://127.0.0.1:8000/api/machine', {
+            parent_id: this.state.category,
+            machine_name: this.state.machineName,
+            model_name: this.state.modelName,
+        }).then((resp) => {
+            alert(resp.data.message);
+            this.setState({ machineName: '' });
+            this.setState({ category: '' });
+            this.getAllMachines();
+        });
 
-        event.preventDefault();
     }
 
 
@@ -67,9 +98,9 @@ class MachineSetup extends React.Component {
         return (
             <div>
 
-                <div className="grid grid-cols-1 gap-6 mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
                     {/* Form Section */}
-                    <div className="">
+                    <div className="md:col-span-1">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
                             <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
@@ -78,42 +109,56 @@ class MachineSetup extends React.Component {
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
-                                validateMessages={validateMessages}
+                                    validateMessages={validateMessages}
                                 >
 
-                                   <Label>
-                                    <Form.Item>
-                                        <span>Machine Category:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.category}
-                                    onChange = {(e)=> this.setState({category : e.target.value})}>
+                                    <Label>
+                                        <span> Department:</span>
+                                        <Form.Item >
+                                            <Select
+                                            value={this.state.department}  
+                                            onChange = {(e)=> this.setState({department : e.target.value})}>
 
-                                            <Option value={this.state.category}>Jack</Option>
+                                                <Option key="" value="">Department 1</Option>
+                                                                                                
 
-
-                                    </Select>
-                                    </Form.Item>
+                                            </Select>
+                                        </Form.Item>
                                     </Label>
 
-
                                     <Label>
-                                    <Form.Item>
-                                        <span> Sub-Category:</span>
-                                    <Select defaultValue="lucy" style={{ width: 230 }}
-                                    value={this.state.subCategory}
-                                    onChange = {(e)=> this.setState({subCategory : e.target.value})}>
+                                        <span>Machine Category: </span>
+                                        <Form.Item>
+                                            <Select defaultValue="lucy"
+                                                value={this.state.category}
+                                                onChange={(e) => this.setState({ category: e })}>
 
-                                            <Option value={this.state.subCategory}>Jack</Option>
+                                                {this.state.categories.map((machine) => {
 
+                                                    return <Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
 
-                                    </Select>
-                                    </Form.Item>
+                                                })}
+
+                                            </Select>
+                                        </Form.Item>
                                     </Label>
                                     <Label>
-                                        <span>Machine Name</span>
+                                        <span>Machine Subcategory: </span>
+                                        <Form.Item>
+                                            <Select defaultValue="" 
+                                                value={this.state.subCategory}
+                                                onChange={(e) => this.setState({ subCategory: e })}>
+
+                                                <Option key="subcategory1" value="subcategory1">Subcategory 1</Option>
+
+                                            </Select>
+                                        </Form.Item>
+                                    </Label>
+                                    <Label>
+                                        <span>Machine Name: </span>
                                         <Form.Item
                                             value={this.state.machineName}
-                                            onChange = {(e)=> this.setState({machineName : e.target.value})}
+                                            onChange={(e) => this.setState({ machineName: e.target.value })}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
@@ -121,24 +166,13 @@ class MachineSetup extends React.Component {
                                         </Form.Item>
                                     </Label>
                                     <Label>
-                                        <span> Machine's Model Number</span>
+                                        <span>Serial Number: </span>
                                         <Form.Item
-                                            value={this.state.modelNumber}
-                                            onChange = {(e)=> this.setState({modelNumber : e.target.value})}
+                                            value={this.state.modelName}
+                                            onChange={(e) => this.setState({ modelName: e.target.value })}
                                             rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
-                                        </Form.Item>
-                                    </Label>
-                                    <Label>
-                                        <span>Machine Type</span>
-                                        <Form.Item
-
-                                            value={this.state.machineType}
-                                            onChange = {(e)=> this.setState({machineType : e.target.value})}
-                                            rules={[{ required: true, message: 'Please input your username!' }]}
-                                        >
-                                            <Input  />
                                         </Form.Item>
                                     </Label>
                                     <Form.Item >
@@ -151,77 +185,88 @@ class MachineSetup extends React.Component {
                         </div>
                     </div>
                     {/* Table Section */}
-                    <div className="">
+                    <div className="md:col-span-2">
                         {/* Tables */}
                         <TableContainer className="mb-8">
-                        <Table>
-                            <TableHeader>
-                                <tr>
-                                    <TableCell>Category</TableCell>
-                                    <TableCell>Sub-category</TableCell>
-                                    <TableCell>Machine Name</TableCell>
-                                    <TableCell>Model Number</TableCell>
-                                    <TableCell>Machine Type</TableCell>
-                                    <TableCell>Actions</TableCell>
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableCell>Department</TableCell>
+                                        <TableCell>Category</TableCell>
+                                        <TableCell>Subcategory</TableCell>
+                                        <TableCell>Machine Name</TableCell>
+                                        <TableCell>Serial Number</TableCell>
+                                        {/* Machine type is removed from here and machine subcategory is added */}
+                                        <TableCell>Actions</TableCell>
 
-                                </tr>
-                            </TableHeader>
-                            <TableBody>
+                                    </tr>
+                                </TableHeader>
+                                <TableBody>
 
-                                    <TableRow>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.category}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.subCategory}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.machineName}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.modelNumber}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center text-sm">
-                                                <div>
-                                                    <p className="font-semibold">{this.state.machineType}</p>
-                                                </div>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center space-x-4">
-                                                <Button layout="link" size="icon" aria-label="Edit">
-                                                    <EditIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                                <Button layout="link" size="icon" aria-label="Delete">
-                                                    <TrashIcon className="w-5 h-5" aria-hidden="true" />
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
+                                    {
+                                        this.state.machines.map((machine) => {
+                                            return <TableRow key={machine.id}>
+                                                <TableCell>
+                                                    <div className="flex items-center text-sm">
+                                                        <div>
+                                                            <p className="font-semibold">
+                                                                {/* Department Name */}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <div className="flex items-center text-sm">
+                                                        <div>
+                                                            <p className="font-semibold">
+                                                                {/* Machine Category comes here */}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <div className="flex items-center text-sm">
+                                                        <div>
+                                                            <p className="font-semibold">
+                                                                {/* Machine Subcategory comes here */}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <div className="flex items-center text-sm">
+                                                        <div>
+                                                            <p className="font-semibold">{machine.machine_name}</p>
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <div className="flex items-center text-sm">
+                                                        <div>
+                                                            <p className="font-semibold">{machine.model_name}</p>
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
+                                                {/* Machine type is removed from here and machine subcategory is added */}
+                                                <TableCell>
+                                                    <div className="flex items-center space-x-4">
+                                                        <Button layout="link" size="icon" aria-label="Edit">
+                                                            <EditIcon className="w-5 h-5" aria-hidden="true" />
+                                                        </Button>
+                                                        <Button layout="link" size="icon" aria-label="Delete">
+                                                            <TrashIcon className="w-5 h-5" aria-hidden="true" />
+                                                        </Button>
+                                                    </div>
+                                                </TableCell>
+                                            </TableRow>
+                                        })}
 
-                            </TableBody>
-                        </Table>
-                        <TableFooter>
+                                </TableBody>
+                            </Table>
+                            <TableFooter>
 
-                        </TableFooter>
-                    </TableContainer>
+                            </TableFooter>
+                        </TableContainer>
                     </div>
                 </div>
 

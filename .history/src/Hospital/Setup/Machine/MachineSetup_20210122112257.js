@@ -36,49 +36,58 @@ const validateMessages = {
     },
   };
 
-class SubCategory extends React.Component {
+class MachineSetup extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
-            department: '',
+        this.state = {
             category: '',
-            subCategoryName: '',
+            subCategory: '',
+            machineName: '',
+            modelName: '',
+            machineType: '',
             machines: [],
             
          };
 
-       
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    
     componentDidMount() {
         this.getAllMachines();
+        this.getOnlyMachine();
      }
 
     getAllMachines() {
-        axios.get('http://127.0.0.1:8000/api/category-only'
+        axios.get('http://127.0.0.1:8000/api/machine'
         ).then(resp => {
-            this.setState({machines : resp.data.machines});
-           
+            this.setState({ 
+                machines : resp.data.machines
+            });
         });
     }
-    
+    getOnlyMachine() {
+        axios.get('http://127.0.0.1:8000/api/category-only'
+        ).then(resp => {
+            this.setState({
+                machines : resp.data.machines
+            });
+        });
+    }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.category + this.state.subCategoryName 
-        );
         axios.post('http://127.0.0.1:8000/api/machine', {
-          category_name: this.state.subCategoryName,
-          category_id: 1,
-          parent_id: this.state.id
-            
+          parent_id: this.state.id,
+          machine_name: this.state.machineName,
+          model_name: this.state.modelName,
         }).then((resp) => {
             alert(resp.data.message);
             this.getAllMachines();
+           
         });
 
-        event.preventDefault();
     }
 
 
@@ -87,114 +96,116 @@ class SubCategory extends React.Component {
         return (
             <div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
+                <div className="grid grid-cols-1 gap-6 mt-2">
                     {/* Form Section */}
-                    <div className="md:col-span-1">
+                    <div className="">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
                             <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
-                                <p>Machine Category Setup</p>
+                                <p>Machine Setup</p>
                             </div>
                             {/* Form */}
                             <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
                                 <Form
                                 validateMessages={validateMessages}
-                                >     
+                                >
 
-                                    <Label>
-                                        <span> Department:</span>
-                                        <Form.Item >
-                                            <Select
-                                            value={this.state.department}  
-                                            onChange = {(e)=> this.setState({department : e.target.value})}
-                                            >
+                                   <Label>
+                                    <Form.Item>
+                                        <span>Machine Category:</span>
+                                    <Select defaultValue="lucy" style={{ width: 230 }}
+                                    value={this.state.category}  
+                                    onChange = {(e)=> this.setState({category : e})}>
 
-                                                <Option key="" value="">Department 1</Option>                                          
+                                        { this.state.machines.map((machine) => {
 
-                                            </Select>
-                                        </Form.Item>
+                                        return<Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
+
+                                        })}
+                                            
+                                    </Select>
+                                    </Form.Item>
                                     </Label>
-
                                     <Label>
-                                        <span> Category:</span>
-                                        <Form.Item >
-                                            <Select 
-                                                value={this.state.category}  
-                                                onChange = {(e)=> this.setState({category : e})}
-                                            >
-
-                                                { this.state.machines.map((machine) => {
-
-                                                    return  <Option key={machine.id} value={machine.id}>{machine.category_name}</Option>
-                                                })}
-                                                    
-
-                                            </Select>
-                                        </Form.Item>
-                                    </Label>
-
-                                    <Label>
-                                        <span>Sub-Category Name:</span>
+                                        <span>Machine Name</span>
                                         <Form.Item
-                                            value={this.state.subCategoryName} 
-                                            onChange = {(e)=> this.setState({subCategoryName : e.target.value})}
-                                            rules={[{ required: true,  }]}
+                                            value={this.state.machineName}
+                                            onChange = {(e)=> this.setState({machineName : e.target.value})}
+                                            rules={[{ required: true, message: 'Please input your username!' }]}
                                         >
                                             <Input />
-                                            
+
                                         </Form.Item>
                                     </Label>
+                                    <Label>
+                                        <span> Machine's Model Number</span>
+                                        <Form.Item
+                                            value={this.state.modelName} 
+                                            onChange = {(e)=> this.setState({modelName : e.target.value})}
+                                            rules={[{ required: true, message: 'Please input your username!' }]}
+                                        >
+                                            <Input />
+                                        </Form.Item>
+                                    </Label>
+                                    <Label>
+                                        <span>Machine Type</span>
+                                        <Form.Item
 
+                                            value={this.state.machineType}
+                                            onChange = {(e)=> this.setState({machineType : e.target.value})}
+                                            rules={[{ required: true, message: 'Please input your username!' }]}
+                                        >
+                                            <Input  />
+                                        </Form.Item>
+                                    </Label>
                                     <Form.Item >
                                         <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
                                             Submit
-                                        </Button>
+                                            </Button>
                                     </Form.Item>
                                 </Form>
                             </div>
                         </div>
                     </div>
                     {/* Table Section */}
-                    <div className="md:col-span-2">
+                    <div className="">
                         {/* Tables */}
                         <TableContainer className="mb-8">
                         <Table>
                             <TableHeader>
                                 <tr>
-                                    <TableCell>Department</TableCell>
-                                    <TableCell>Category</TableCell>
-                                    <TableCell>Sub-Category</TableCell>
+                                    
+                                    <TableCell>Machine Name</TableCell>
+                                    <TableCell>Model Name</TableCell>
+                                    <TableCell>Machine Type</TableCell>
                                     <TableCell>Actions</TableCell>
+
                                 </tr>
                             </TableHeader>
-                            <TableBody>     
-
-                                   {
+                            <TableBody>
+                                
+                            {
                                     this.state.machines.map( (machine) => {
-                                        return  <TableRow key={machine.id}>
-                                            <TableCell>
+                                        return <TableRow key={machine.id}>
+                                        
+                                        <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">
-                                                        {/* Department Name */}
-                                                    </p>
+                                                    <p className="font-semibold">{machine.machine_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                    <p className="font-semibold">{machine.category_name}</p>
+                                                    <p className="font-semibold">{machine.model_name}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center text-sm">
                                                 <div>
-                                                {
-                                    this.state.machines.map( (machine) => {
-                                        return <p key={machine.children.id} className="font-semibold">{machine.children.category_name}</p>
-                                    })}
+                                                    <p className="font-semibold">{this.state.machineType}</p>
                                                 </div>
                                             </div>
                                         </TableCell>
@@ -210,10 +221,11 @@ class SubCategory extends React.Component {
                                         </TableCell>
                                     </TableRow>
                                     })}
+                                
                             </TableBody>
                         </Table>
                         <TableFooter>
-                            
+
                         </TableFooter>
                     </TableContainer>
                     </div>
@@ -283,4 +295,4 @@ class SubCategory extends React.Component {
     }
 }
 
-export default SubCategory
+export default MachineSetup

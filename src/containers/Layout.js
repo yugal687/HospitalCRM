@@ -29,7 +29,7 @@ function Layout() {
         <Header />
 
         
-          <CTA />
+          <CTA  />
           <Main>
             <Suspense fallback={<ThemedSuspense />}>
               <Switch>

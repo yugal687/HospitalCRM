@@ -16,6 +16,11 @@ const routes = [
     icon: 'HomeIcon', // the component being exported from icons/index.js
     name: 'HospitalSetup', // name that appear in Sidebar
   },
+  {
+    path: '/app/department', // the url
+    icon: 'HomeIcon', // the component being exported from icons/index.js
+    name: 'Department', // name that appear in Sidebar
+  },
   
 
   //for staff dropdown
@@ -32,6 +37,43 @@ const routes = [
         path: '/app/staff/staffs',
         name: 'Staffs',
       },
+      
+      
+    ],
+  },
+
+//service Head
+  {
+    icon: 'PagesIcon',
+    name: 'serviceHead',
+    routes: [
+      // submenu
+      {
+        path: '/app/serviceHead/service-head-portal',
+        name: 'ServiceHeadPortal',
+      },
+      {
+        path: '/app/serviceHead/assigned-issues',
+        name: 'AssignedIssues',
+      },
+      {
+        path: '/app/serviceHead/error-code-view',
+        name: 'ErrorCodesView',
+      },
+    ],
+  },
+
+  //Branch manager Portal
+  {
+    icon: 'PagesIcon',
+    name: 'BranchManager',
+    routes: [
+      // submenu
+      {
+        path: '/app/branchManager/branch-manager-portal',
+        name: 'BranchManagerPortal',
+      },
+      
       
       
     ],
@@ -64,68 +106,112 @@ const routes = [
     icon: 'HomeIcon', // the component being exported from icons/index.js
     name: 'HospitalAndMachine', // name that appear in Sidebar
   },
-  {
-    path: '/app/dashboard', // the url
-    icon: 'HomeIcon', // the component being exported from icons/index.js
-    name: 'Dashboard', // name that appear in Sidebar
-  },
-  {
-    path: '/app/forms',
-    icon: 'FormsIcon',
-    name: 'Forms',
-  },
-  {
-    path: '/app/cards',
-    icon: 'CardsIcon',
-    name: 'Cards',
-  },
-  {
-    path: '/app/charts',
-    icon: 'ChartsIcon',
-    name: 'Charts',
-  },
-  {
-    path: '/app/buttons',
-    icon: 'ButtonsIcon',
-    name: 'Buttons',
-  },
-  {
-    path: '/app/modals',
-    icon: 'ModalsIcon',
-    name: 'Modals',
-  },
-  {
-    path: '/app/tables',
-    icon: 'TablesIcon',
-    name: 'Tables',
-  },
+  // Hospital Representative Portal
   {
     icon: 'PagesIcon',
-    name: 'Pages',
+    name: 'HospitalRepresentativePortal',
     routes: [
       // submenu
       {
-        path: '/login',
-        name: 'Login',
+        path: '/app/hospitalRepresentativePortal/problem-reporting',
+        name: 'ProblemReporting',
       },
       {
-        path: '/create-account',
-        name: 'Create account',
+        path: '/app/hospitalRepresentativePortal/new-problem-reporting',
+        name: 'NewProblemReporting',
       },
       {
-        path: '/forgot-password',
-        name: 'Forgot password',
+        path: '/app/hospitalRepresentativePortal/reported-problem',
+        name: 'ReportedProblem',
       },
       {
-        path: '/app/404',
-        name: '404',
-      },
-      {
-        path: '/app/blank',
-        name: 'Blank',
+        path: '/app/hospitalRepresentativePortal/solved-problem',
+        name: 'SolvedProblem',
       },
     ],
   },
+  // On Field Staff Portal
+  {
+    icon: 'PagesIcon',
+    name: 'OnFieldStaffPortal',
+    routes: [
+      // submenu
+      {
+        path: '/app/onFieldStaff/issues-reported',
+        name: 'IssuesReported',
+      },
+      {
+        path: '/app/onFieldStaff/review-problem',
+        name: 'ReviewProblem',
+      },
+      {
+        path: '/app/onFieldStaff/completed-issues',
+        name: 'CompletedIssues',
+      },
+    ],
+  },
+  // {
+  //   path: '/app/dashboard', // the url
+  //   icon: 'HomeIcon', // the component being exported from icons/index.js
+  //   name: 'Dashboard', // name that appear in Sidebar
+  // },
+  // {
+  //   path: '/app/forms',
+  //   icon: 'FormsIcon',
+  //   name: 'Forms',
+  // },
+  // {
+  //   path: '/app/cards',
+  //   icon: 'CardsIcon',
+  //   name: 'Cards',
+  // },
+  // {
+  //   path: '/app/charts',
+  //   icon: 'ChartsIcon',
+  //   name: 'Charts',
+  // },
+  // {
+  //   path: '/app/buttons',
+  //   icon: 'ButtonsIcon',
+  //   name: 'Buttons',
+  // },
+  // {
+  //   path: '/app/modals',
+  //   icon: 'ModalsIcon',
+  //   name: 'Modals',
+  // },
+  // {
+  //   path: '/app/tables',
+  //   icon: 'TablesIcon',
+  //   name: 'Tables',
+  // },
+  // {
+  //   icon: 'PagesIcon',
+  //   name: 'Pages',
+  //   routes: [
+  //     // submenu
+  //     {
+  //       path: '/login',
+  //       name: 'Login',
+  //     },
+  //     {
+  //       path: '/create-account',
+  //       name: 'Create account',
+  //     },
+  //     {
+  //       path: '/forgot-password',
+  //       name: 'Forgot password',
+  //     },
+  //     {
+  //       path: '/app/404',
+  //       name: '404',
+  //     },
+  //     {
+  //       path: '/app/blank',
+  //       name: 'Blank',
+  //     },
+  //   ],
+  // },
 ]
 
 export default routes

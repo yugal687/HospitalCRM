@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import {
     Table,
@@ -15,16 +15,44 @@ import {
     ModalFooter,
     Label, HelperText,
 } from '@windmill/react-ui'
-import {EditIcon, TrashIcon} from '../../icons'
+import { EditIcon, TrashIcon } from '../../icons'
+
 
 import response from '../../utils/demo/tableData'
 import SectionTitle from '../../components/Typography/SectionTitle'
 
-import {Form, Button, Input} from "antd"
+import { Form, Button, Input, notification } from "antd"
+
+const openNotificationWithIcon = (type, message, description) => {
+    notification[type]({
+        message: message,
+        description: description
+    });
+};
+
+
+
+
+
 
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
+
+const validateMessages = {
+    required: '${label} is required',
+    types: {
+      email: '${label} is not a valid email!',
+      number: '${label} is not a valid number!',
+    },
+    number: {
+      range: '${label} must be between ${min} and ${max}',
+    },
+  };
+
+  const onFinish = (values) => {
+    console.log(values);
+  };
 
 class Region extends React.Component {
     constructor(props) {
@@ -37,29 +65,39 @@ class Region extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
     componentDidMount() {
-        this.getAllRegions();
+       this.getAllRegions();
     }
 
-    getAllRegions() {
+    getAllRegions(){
         axios.get('http://127.0.0.1:8000/api/region'
         ).then(resp => {
-            this.setState({regions: resp.data.regions});
+            this.setState({regions : resp.data.regions});
         });
     }
 
     handleChange(event) {
-        this.setState({name: event.target.value});
+        this.setState({ name: event.target.value });
     }
 
+   
+
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.name);
+        
         axios.post('http://127.0.0.1:8000/api/region', {
-            region_name: this.state.name
-        }).then((resp) => {
-            alert(resp.data.message);
-            this.getAllRegions();
+            region_name: this.state.name,
+        }).then(resp => {
+            if(resp.data.error){
+                openNotificationWithIcon('error', 'Error', resp.data.error.region_name);
+               
+               console.log(resp.data.error); 
+            }else {
+                openNotificationWithIcon('success', 'Success', resp.data.message);  
+                
+                this.getAllRegions();
+                
+                
+        }
         });
         event.preventDefault();
     }
@@ -74,29 +112,34 @@ class Region extends React.Component {
                     <div className="sm:col-span-1">
                         <div className="w-full border-1 shadow-md">
                             {/* Title */}
-                            <div
-                                className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
+                            <div className="flex flex-row justify-start px-6 py-3 text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800 rounded-t-md">
                                 <p>Add region</p>
                             </div>
                             {/* Form */}
-                            <div
-                                className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
-                                <Form>
+                            <div className="flex flex-col p-6 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-400  rounded-b-md">
+                                <Form 
+                                onFinish={onFinish}
+                                validateMessages={validateMessages}>
 
                                     <Label>
                                         <span>Region Name</span>
                                         <Form.Item
+                                            
                                             value={this.state.name} onChange={this.handleChange}
-                                            rules={[{required: true, message: 'Please input your username!'}]}
+                                            rules={[
+                                                {
+                                                  required: true,
+                                                },
+                                              ]}
                                         >
-                                            <Input/>
+                                            <Input />
                                         </Form.Item>
                                     </Label>
 
-                                    <Form.Item>
-                                        <Button onClick={this.handleSubmit} type="primary" htmlType="submit">
+                                    <Form.Item  >
+                                        <Button onClick={this.handleSubmit}  type="primary" htmlType="submit">
                                             Submit
-                                        </Button>
+                                            </Button>
                                     </Form.Item>
                                 </Form>
                             </div>
@@ -127,10 +170,10 @@ class Region extends React.Component {
                                                 <TableCell>
                                                     <div className="flex items-center space-x-4">
                                                         <Button layout="link" size="icon" aria-label="Edit">
-                                                            <EditIcon className="w-5 h-5" aria-hidden="true"/>
+                                                            <EditIcon className="w-5 h-5" aria-hidden="true" />
                                                         </Button>
                                                         <Button layout="link" size="icon" aria-label="Delete">
-                                                            <TrashIcon className="w-5 h-5" aria-hidden="true"/>
+                                                            <TrashIcon className="w-5 h-5" aria-hidden="true" />
                                                         </Button>
                                                     </div>
                                                 </TableCell>
@@ -187,6 +230,7 @@ class Region extends React.Component {
                         </TableContainer>
 
                         <div>
+
 
 
                         </div>
